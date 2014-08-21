@@ -1,4 +1,4 @@
- .fieldSwitch input, .fieldSwitch select
+ /*.fieldSwitch input, .fieldSwitch select
  {
      text-align: right;
  }
@@ -18,19 +18,19 @@
      width: 55%;
 
  }
-
+*/
  #closeIcon
  {
      padding: 10px 10px 10px 20px;
 
  }
-
+/*
  #favouritesIcon
  {
      padding: 10px 20px 10px 10px;
 
  }
-
+*/
  #autoCompleteContent, #favouritesAutoCompleteContent
  {
      top: 0;
@@ -117,7 +117,8 @@ select {
      white-space: pre-wrap;
  }
 
-.bar.bar-stable{
+.bar.bar-stable, .bar.bar-footer
+{
     background-color: #d9edff;
 }
 

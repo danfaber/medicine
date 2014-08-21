@@ -2,20 +2,7 @@
 
     var app = angular.module("medicine");
 
-/*    var dataType = {
-        "freeText": 1,
-        "date": 2,
-        "dropdown": 3,
-        "autoComplete": 4
-    };*/
-
-    /*Object.freeze(dataType);*/
-
-
-
-
     app.factory("typeDataService", ['optionGroupDataService','dataType' , function(optionGroupDataService, dataType) {
-
 
         var types =
             [
@@ -103,26 +90,6 @@
                 .filter(function(tp) {return tp.typeId == typeId;})
                 [0];
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         var getTypeWithOptionGroups = function(typeId){
             var type = getType(typeId)

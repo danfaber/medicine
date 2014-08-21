@@ -28,6 +28,11 @@
             }
         }
 
+        $scope.saveRecord = function()
+        {
+            currentRecordDataService.save($stateParams.typeId);
+        }
+
     });
 
     function recursiveOptionDropdowns(optionGroup)
