@@ -1,0 +1,128 @@
+ .fieldSwitch input, .fieldSwitch select
+ {
+     text-align: right;
+ }
+
+ .fieldSwitch .input-label{
+     width: 45%;
+     max-width: none;
+     flex-basis: 45%;
+     display: block;
+ }
+
+ .fieldSwitch .inputRegion
+ {
+     max-width: none;
+     display: block;
+     flex-basis: 55%;
+     width: 55%;
+
+ }
+
+ #closeIcon
+ {
+     padding: 10px 10px 10px 20px;
+
+ }
+
+ #favouritesIcon
+ {
+     padding: 10px 20px 10px 10px;
+
+ }
+
+ #autoCompleteContent, #favouritesAutoCompleteContent
+ {
+     top: 0;
+ }
+
+select {
+/*    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: absolute;
+    right: 0;
+    max-width: 65%;
+    border: none;
+    background: #fff;
+    color: #333;
+    text-indent: 0.01px;
+    text-overflow: '';
+    white-space: nowrap;
+    font-size: 14px;
+    cursor: pointer;*/
+    width: 100%;
+    border: none;
+    background: #fff;
+    color: #333;
+    /*padding: 20px 0;*/
+    background: #fff;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+
+   /* float: right;
+    clear: both;*/
+}
+
+/* NEW */
+
+/*
+.input-label{
+     width: 45%;
+     max-width: none;
+     display: block;
+ }
+
+.inputRegion
+ {
+     max-width: none;
+     display: block;
+     width: 55%;
+
+ }*/
+
+ .input-label {
+/*     max-width: 0;
+    min-width: 0;
+    flex-basis: 35%;*/
+     width: 40%;
+     display: block;
+     max-width: none;
+
+ }
+
+ .inputRegion {
+     width: 60%;
+     display: block;
+
+ }
+
+ #addForm li {
+     margin: 0;
+     padding-left: 0;
+ }
+
+ .autoCompleteField
+ {
+     text-decoration: none;
+     font-size: 14px;
+     color:#111;
+ }
+
+ .autoCompleteField div
+ {
+     min-height: 34px;
+     width: 100%;
+     white-space: pre-wrap;
+ }
+
+.bar.bar-stable{
+    background-color: #d9edff;
+}
+
+ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header
+
+{
+    background-color: #f0f8ff;
+}

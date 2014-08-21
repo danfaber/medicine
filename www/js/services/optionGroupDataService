@@ -1,0 +1,92 @@
+(function(){
+    var app = angular.module("medicine");
+
+    var optionGroups =
+        [
+            {
+                id: 1,
+                name: "Disease Type",
+                optionValues: [
+                    {
+                        id: 1,
+                        description: "Heart Problems",
+                        optionValues: [
+                            {
+                                id: 101,
+                                description: "Lower Heart",
+                                optionValues:[]
+                            },
+                            {
+                                id: 102,
+                                description: "Mid Heart",
+                                optionValues:[]
+                            },
+                            {
+                                id: 103,
+                                description: "Upper Heart",
+                                optionValues: [
+                                    {
+                                        id: 104,
+                                        description: "Upper A",
+                                        optionValues: []
+                                    },
+                                    {
+                                        id: 105,
+                                        description: "Upper B",
+                                        optionValues: []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        description: "Lung Problems",
+                        optionValues: []
+                    },
+                    {
+                        id: 3,
+                        description: "Brain Problems",
+                        optionValues: []
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: "Severity",
+                optionValues: [
+                    {
+                        id: 4,
+                        description: "Low",
+                        optionValues: []
+                    },
+                    {
+                        id: 5,
+                        description: "Medium",
+                        optionValues: []
+                    },
+                    {
+                        id: 6,
+                        description: "High",
+                        optionValues: []
+                    }
+                ]
+            }
+
+        ];
+
+
+    var getOptionGroup = function (optionGroupId) {
+        var optionGroup = _(optionGroups)
+            .filter(function (opt) { return opt.id == optionGroupId; })
+            [0];
+        return optionGroup;
+    };
+
+    app.factory("optionGroupDataService", function(){
+        return {
+            getOptionGroup: getOptionGroup
+        };
+    });
+
+})();
