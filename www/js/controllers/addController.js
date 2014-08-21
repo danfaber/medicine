@@ -2,7 +2,7 @@
 
     var app = angular.module("medicine");
 
-    app.controller("addController", function($scope, $stateParams, typeDataService, $ionicModal, icd10DataService, $timeout, $ionicScrollDelegate, currentRecordDataService, dataType) {
+    app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType) {
 
         $scope.data = {};
 
