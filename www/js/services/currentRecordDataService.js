@@ -26,6 +26,12 @@
         var save = function(typeId){
             var record = currentRecordByType[typeId];
             var toSave = generateRecordToSave(record);
+
+            var jsonSave = JSON.stringify(toSave);
+            window.localStorage.setItem(toSave.id.toString(), jsonSave);
+
+            var read = window.localStorage.getItem(toSave.id.toString());
+            alert(read);
         }
 
         function getId()
@@ -46,25 +52,34 @@
                 modifiedDateTime: new Date(),
                 fields: _(record.fields).map(function(field) {return generateFieldToSave(field);})
             };
+
+            return toSave;
         }
 
         function generateFieldToSave(field)
         {
+            var saveField = {id: field.id};
+
             switch (field.dataType)
             {
                 case dataType.freeText:
+                    saveField.value = field.value;
                     break;
 
                 case dataType.date:
+                    saveField.value = field.value;
                     break;
 
                 case dataType.dropdown:
+                    saveField.value = _(field.dropdowns).last().selectedValue.id;
                     break;
 
                 case dataType.autoComplete:
+                    saveField.value = field.value.key;
                     break;
             }
 
+            return saveField;
         }
 
         return {

@@ -8,13 +8,6 @@
 
         $scope.data.currentRecord = currentRecordDataService.getCurrentRecord($stateParams.typeId);
 
-        var optionGroupFields = $scope.data.currentRecord.fields
-            .filter(function(field) {return field.dataType == dataType.dropdown;})
-
-        _(optionGroupFields).each(function(field) {
-            field.dropdowns = recursiveOptionDropdowns(field.optionGroup);
-        });
-
         $scope.selectedOptionValue = function(field, dropdown)
         {
             var index = field.dropdowns.indexOf(dropdown);
@@ -35,13 +28,6 @@
 
     });
 
-    function recursiveOptionDropdowns(optionGroup)
-    {
-        if (!optionGroup.selectedValue || !isParentOptionValue(optionGroup)) {
-            return [optionGroup];
-        }
-        return recursiveOptionDropdowns(optionGroup.selectedValue).push(optionGroup);
-    };
 
     function isParentOptionValue(optionValue)
     {

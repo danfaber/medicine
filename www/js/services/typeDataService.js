@@ -101,11 +101,24 @@
 
             _(optionGroupFields).each(function(field) {
                 field.optionGroup = optionGroupDataService.getOptionGroup(field.id);
-              /*  field.selectedOptionValues = [];*/
+                field.dropdowns = recursiveOptionDropdowns(field.optionGroup);
             });
 
             return typeWithOptionGroups;
         };
+
+        function recursiveOptionDropdowns(optionGroup)
+        {
+            if (!optionGroup.selectedValue || !isParentOptionValue(optionGroup)) {
+                return [optionGroup];
+            }
+            return recursiveOptionDropdowns(optionGroup.selectedValue).push(optionGroup);
+        };
+
+        function isParentOptionValue(optionValue)
+        {
+            return optionValue.optionValues && optionValue.optionValues.length > 0;
+        }
 
 
         return {
