@@ -3,7 +3,7 @@
 
     var currentRecordByType = {};
 
-    app.factory("currentRecordDataService", ['typeDataService','dataType',  function(typeDataService,dataType){
+    app.factory("currentRecordDataService", ['typeDataService','dataType','$window',  function(typeDataService,dataType,$window){
 
         var getCurrentRecord = function(typeId)
         {
@@ -28,17 +28,17 @@
             var toSave = generateRecordToSave(record);
 
             var jsonSave = JSON.stringify(toSave);
-            window.localStorage.setItem(toSave.id.toString(), jsonSave);
+            $window.localStorage.setItem(toSave.id.toString(), jsonSave);
 
-            var read = window.localStorage.getItem(toSave.id.toString());
+            var read = $window.localStorage.getItem(toSave.id.toString());
             alert(read);
         }
 
         function getId()
         {
-            var nextRecordId = window.localStorage.getItem("nextRecordId");
+            var nextRecordId = $window.localStorage.getItem("nextRecordId");
             var id = (!nextRecordId) ? 1 : parseInt(nextRecordId);
-            window.localStorage.setItem("nextRecordId",(id+1).toString());
+            $window.localStorage.setItem("nextRecordId",(id+1).toString());
             return id;
         }
 

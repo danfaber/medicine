@@ -77,6 +77,11 @@
         var getField = function(typeId, fieldId)
         {
             var type = getType(typeId);
+            return getFieldFromType(type, fieldId);
+        }
+
+        var getFieldFromType = function(type, fieldId)
+        {
             var field = type.fields
                 .filter(function(field) {return field.id == fieldId;})
                 [0];
@@ -84,7 +89,7 @@
             return field;
         }
 
-        function getType(typeId)
+        var getType = function(typeId)
         {
             return _(types)
                 .filter(function(tp) {return tp.typeId == typeId;})
@@ -124,7 +129,9 @@
         return {
             getTypeWithOptionGroups: getTypeWithOptionGroups,
             getAllSorted: getAllSorted,
-            getField: getField
+            getField: getField,
+            getType: getType,
+            getFieldFromType: getFieldFromType
         };
     }])
 
