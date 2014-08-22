@@ -1,6 +1,6 @@
 (function(){
     var app = angular.module("medicine");
-    var optionValueMap = [];
+    var optionValueMap = {};
     var optionGroups =
         [
             {
@@ -87,27 +87,30 @@
     {
         _(optionGroups).each(function(optionGroup){
 
+            optionValueMap[optionGroup.id] = [];
+
             _(optionGroup.optionValues).each(function(optionValue)
             {
-                recursiveBuildOptionValueMap(optionValue,[]);
+                recursiveBuildOptionValueMap(optionValue,[], optionGroup.id);
             })
         });
     };
 
-    function recursiveBuildOptionValueMap(optionValue, parentChain)
-    {
-        var parentChainCopy = angular.copy(parentChain);
 
-        parentChainCopy.push( {id: optionValue.id, description: optionValue.description});
+    function recursiveBuildOptionValueMap(optionValue, parentChain, optionGroupId)
+    {
+        var chainCopy = angular.copy(parentChain);
+
+        chainCopy.push( {id: optionValue.id, description: optionValue.description});
 
         if (isParent(optionValue)) {
 
             _(optionValue.optionValues).each(function(value){
-                recursiveBuildOptionValueMap(value, parentChainCopy);
+                recursiveBuildOptionValueMap(value, chainCopy, optionGroupId);
             });
 
         } else {
-            optionValueMap.push(parentChainCopy);
+            optionValueMap[optionGroupId].push(chainCopy);
         }
     }
 
