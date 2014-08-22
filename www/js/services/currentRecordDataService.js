@@ -3,7 +3,8 @@
 
     var currentRecordByType = {};
 
-    app.factory("currentRecordDataService", ['typeDataService','dataType','$window',  function(typeDataService,dataType,$window){
+    app.factory("currentRecordDataService", ['typeDataService','dataType','$window', 'autoCompleteTypesDataService',
+        function(typeDataService,dataType,$window, autoCompleteTypesDataService){
 
         var getCurrentRecord = function(typeId)
         {
@@ -73,13 +74,19 @@
 
                 case dataType.date:
                     currentField.value = historyField.value;
-
                     break;
 
                 case dataType.dropdown:
+
+                    /*
+                    * first i need to get the option group chain that ends with this value
+                    * then i need to build a dropdown for each
+                    * */
+
                     break;
 
                 case dataType.autoComplete:
+                    currentField.value = autoCompleteTypesDataService.getByKey(currentField.autoCompleteTypeId, historyField.value);
                     break;
             }
         }
@@ -126,7 +133,7 @@
                         .filter(function(dropdown) {return dropdown.selectedValue;});
 
                     saveField.value = (selectedDropdowns.length > 0)
-                        ? _(field.dropdowns).last().selectedValue.id
+                        ? _(selectedDropdowns).last().selectedValue.id
                         : null;
                     break;
 

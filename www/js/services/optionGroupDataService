@@ -125,15 +125,48 @@
     };
 
 
-    var leafOptionValueChain = function(optionGroupId, leafOptionValueId)
+/*    var leafOptionValueChain = function(optionGroupId, leafOptionValueId)
     {
         var optionValues = optionValueMap[optionGroupId];
 
         var matchingLeafValue = optionValues.filter(function(chain){
             return _(chain).last().id == leafOptionValueId;
-        })
+        });
 
         return matchingLeafValue[0];
+    };*/
+
+    var getParentChain = function(optionGroupId, optionValueId)
+    {
+        var optionValues = optionValueMap[optionGroupId];
+
+        var sorted = _(optionValues).sortBy(function(chain) {
+            var ids = _(chain).map(function(value) {return value.id;})
+            return ids.indexOf(optionGroupId);
+        })
+
+        return _(sorted).last();
+    }
+
+    var getOptionValue = function(optionGroupId, optionValueId) {
+        var match;
+        var nextLevelOptionValues = getOptionGroup(optionGroupId);
+
+        do {
+            nextLevelOptionValues = _.chain(nextLevelOptionValues)
+                .map(function (value) {return value.optionValues;})
+                .filter(function (value) {return value;})
+                .flatten(true)
+                .value();
+
+            if (nextLevelOptionValues.length === 0) { throw "option value not found!";}
+
+            match = _(nextLevelOptionValues)
+                .filter(function (value) {return value.id == optionValueId;})
+
+        } while (match.length == 0);
+
+        return match[0];
     }
 
 
@@ -142,7 +175,9 @@
         return {
             getOptionGroup: getOptionGroup,
             isParent: isParent,
-            leafOptionValueChain: leafOptionValueChain
+          //  leafOptionValueChain: leafOptionValueChain,
+            getOptionValue: getOptionValue,
+            getParentChain: getParentChain
         };
     });
 

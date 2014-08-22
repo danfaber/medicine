@@ -69,7 +69,7 @@
                     break;
 
                 case dataType.dropdown:
-                    var optionValueChain = optionGroupDataService.leafOptionValueChain(fieldInfo.optionGroupId, field.value);
+                    var optionValueChain = optionGroupDataService.getParentChain(fieldInfo.optionGroupId, field.value);
                     var optionValueDescriptions = _(optionValueChain).map(function(value) {return value.description;});
 
                     field.displayText = optionValueDescriptions.join(" - ");
