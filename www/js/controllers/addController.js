@@ -2,7 +2,7 @@
 
     var app = angular.module("medicine");
 
-    app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType) {
+    app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService) {
 
         $scope.data = {};
 
@@ -15,7 +15,7 @@
             // remove all lower down dropddowns coz they are no longer correct
             field.dropdowns.splice(index + 1, Number.MAX_VALUE);
 
-            if (dropdown.selectedValue && isParentOptionValue(dropdown.selectedValue))
+            if (dropdown.selectedValue && optionGroupDataService.isParent(dropdown.selectedValue))
             {
                 field.dropdowns.push(dropdown.selectedValue);
             }
@@ -27,12 +27,6 @@
         }
 
     });
-
-
-    function isParentOptionValue(optionValue)
-    {
-        return optionValue.optionValues && optionValue.optionValues.length > 0;
-    }
 
 })();
 

@@ -114,17 +114,11 @@
 
         function recursiveOptionDropdowns(optionGroup)
         {
-            if (!optionGroup.selectedValue || !isParentOptionValue(optionGroup)) {
+            if (!optionGroup.selectedValue || !optionGroupDataService.isParent(optionGroup)) {
                 return [optionGroup];
             }
             return recursiveOptionDropdowns(optionGroup.selectedValue).push(optionGroup);
         };
-
-        function isParentOptionValue(optionValue)
-        {
-            return optionValue.optionValues && optionValue.optionValues.length > 0;
-        }
-
 
         return {
             getTypeWithOptionGroups: getTypeWithOptionGroups,

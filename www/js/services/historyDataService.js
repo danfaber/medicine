@@ -2,8 +2,8 @@
 
     var app = angular.module("medicine");
 
-    app.factory("historyDataService", ['$window','typeDataService','autoCompleteTypesDataService','dataType',
-        function($window, typeDataService, autoCompleteTypesDataService,dataType){
+    app.factory("historyDataService", ['$window','typeDataService','autoCompleteTypesDataService','dataType','optionGroupDataService',
+        function($window, typeDataService, autoCompleteTypesDataService, dataType, optionGroupDataService){
 
         function getNextRecordId()
         {
@@ -66,6 +66,8 @@
                     break;
 
                 case dataType.dropdown:
+                    var optionGroup = optionGroupDataService.getOptionGroup(field.optionGroupId);
+
                     field.displayText = field.value;
                     break;
 

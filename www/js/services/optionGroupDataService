@@ -1,6 +1,6 @@
 (function(){
     var app = angular.module("medicine");
-
+    var optionValueMap = [];
     var optionGroups =
         [
             {
@@ -76,6 +76,44 @@
         ];
 
 
+    var isParent = function(optionValue)
+    {
+        return optionValue.optionValues && optionValue.optionValues.length > 0;
+    };
+
+
+
+    function buildOptionValueMap()
+    {
+        _(optionGroups).each(function(optionGroup){
+
+            _(optionGroup.optionValues).each(function(optionValue)
+            {
+                recursiveBuildOptionValueMap(optionValue,[]);
+            })
+        });
+    };
+
+    function recursiveBuildOptionValueMap(optionValue, parentChain)
+    {
+        var parentChainCopy = angular.copy(parentChain);
+
+        parentChainCopy.push( {id: optionValue.id, description: optionValue.description});
+
+        if (isParent(optionValue)) {
+
+            _(optionValue.optionValues).each(function(value){
+                recursiveBuildOptionValueMap(value, parentChainCopy);
+            });
+
+        } else {
+            optionValueMap.push(parentChainCopy);
+        }
+    }
+
+    buildOptionValueMap();  // run this once on startup
+
+
     var getOptionGroup = function (optionGroupId) {
         var optionGroup = _(optionGroups)
             .filter(function (opt) { return opt.id == optionGroupId; })
@@ -83,9 +121,12 @@
         return optionGroup;
     };
 
+
+
     app.factory("optionGroupDataService", function(){
         return {
-            getOptionGroup: getOptionGroup
+            getOptionGroup: getOptionGroup,
+            isParent: isParent
         };
     });
 
