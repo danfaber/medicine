@@ -4,7 +4,7 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
     <ion-list>
-      <ion-item ng-repeat="type in types" href="#/app/add/{{type.typeId}}">
+      <ion-item ng-repeat="type in types" href="#/app/add?typeId={{type.typeId}}">
         {{type.name}}
       </ion-item>
     </ion-list>

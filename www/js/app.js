@@ -76,7 +76,7 @@ angular.module('medicine', ['ionic'])
     })
 
     .state('app.add', {
-      url: "/add/:typeId",
+      url: "/add?typeId&recordId",
       views: {
         'menuContent' :{
           templateUrl: "templates/add.html",

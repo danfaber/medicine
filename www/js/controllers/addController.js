@@ -6,7 +6,14 @@
 
         $scope.data = {};
 
-        $scope.data.currentRecord = currentRecordDataService.getCurrentRecord($stateParams.typeId);
+        var recordId = $stateParams.recordId;
+
+        if (recordId)
+        {
+            currentRecordDataService.loadHistoryRecord(recordId);
+        }
+
+        $scope.data.currentRecord =  currentRecordDataService.getCurrentRecord($stateParams.typeId);
 
         $scope.selectedOptionValue = function(field, dropdown)
         {

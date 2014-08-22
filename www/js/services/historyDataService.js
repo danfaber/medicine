@@ -2,8 +2,8 @@
 
     var app = angular.module("medicine");
 
-    app.factory("historyDataService", ['$window','typeDataService','autoCompleteTypesDataService','dataType','optionGroupDataService',
-        function($window, typeDataService, autoCompleteTypesDataService, dataType, optionGroupDataService){
+    app.factory("historyDataService", ['$window','typeDataService','autoCompleteTypesDataService','dataType','optionGroupDataService','utilitiesService',
+        function($window, typeDataService, autoCompleteTypesDataService, dataType, optionGroupDataService, utilitiesService){
 
         function getNextRecordId()
         {
@@ -41,12 +41,15 @@
 
             displayRecord.typeName = type.name;
 
+            utilitiesService.removeFromArray(displayRecord.fields, function(field) {return !field.value;})
+
             _(displayRecord.fields).each(function(field) {
                addFieldDisplayProperties(field, type);
             });
 
             return displayRecord;
         };
+
 
         function addFieldDisplayProperties(field, type)
         {
