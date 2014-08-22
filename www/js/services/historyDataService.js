@@ -20,7 +20,7 @@
 
             var nextRecordId = getNextRecordId();
 
-            for(var i = 1; i < nextRecordId; i++)
+            for(var i = nextRecordId - 1; i > 0; i--)
             {
                 currentHistoryJson = $window.localStorage.getItem(i.toString());
 
@@ -66,9 +66,10 @@
                     break;
 
                 case dataType.dropdown:
-                    var optionGroup = optionGroupDataService.getOptionGroup(field.optionGroupId);
+                    var optionValueChain = optionGroupDataService.leafOptionValueChain(fieldInfo.optionGroupId, field.value);
+                    var optionValueDescriptions = _(optionValueChain).map(function(value) {return value.description;});
 
-                    field.displayText = field.value;
+                    field.displayText = optionValueDescriptions.join(" - ");
                     break;
 
                 case dataType.autoComplete:

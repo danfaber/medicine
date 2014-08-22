@@ -34,6 +34,16 @@
             alert(read);
         }
 
+        var loadHistoryRecord = function(recordId)
+        {
+            var historyJson = $window.localStorage.getItem(recordId.toString());
+            var historyRecord = JSON.parse(historyJson);
+
+            var type = typeDataService.getTypeWithOptionGroups(historyRecord.typeId);
+
+            currentRecordByType[historyRecord.typeId] = type;
+        }
+
         function getId()
         {
             var nextRecordId = $window.localStorage.getItem("nextRecordId");
@@ -71,7 +81,13 @@
                     break;
 
                 case dataType.dropdown:
-                    saveField.value = _(field.dropdowns).last().selectedValue.id;
+
+                    var selectedDropdowns = _(field.dropdowns)
+                        .filter(function(dropdown) {return dropdown.selectedValue;});
+
+                    saveField.value = (selectedDropdowns.length > 0)
+                        ? _(field.dropdowns).last().selectedValue.id
+                        : null;
                     break;
 
                 case dataType.autoComplete:
@@ -85,7 +101,8 @@
         return {
             getCurrentRecord: getCurrentRecord,
             updateAutocompleteField: updateAutocompleteField,
-            save: save
+            save: save,
+            loadHistoryRecord: loadHistoryRecord
         };
     }]);
 

@@ -145,3 +145,8 @@ ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header
 {
     background-color: #E1F5FF;
 }
+
+#historyPage .typeIcon
+{
+    margin-right: 10px;
+}

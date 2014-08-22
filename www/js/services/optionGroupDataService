@@ -125,11 +125,24 @@
     };
 
 
+    var leafOptionValueChain = function(optionGroupId, leafOptionValueId)
+    {
+        var optionValues = optionValueMap[optionGroupId];
+
+        var matchingLeafValue = optionValues.filter(function(chain){
+            return _(chain).last().id == leafOptionValueId;
+        })
+
+        return matchingLeafValue[0];
+    }
+
+
 
     app.factory("optionGroupDataService", function(){
         return {
             getOptionGroup: getOptionGroup,
-            isParent: isParent
+            isParent: isParent,
+            leafOptionValueChain: leafOptionValueChain
         };
     });
 
