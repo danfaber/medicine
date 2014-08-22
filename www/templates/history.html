@@ -2,13 +2,19 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  <ion-content class="has-header">
-    <h1>History Here</h1>
-dan
-    <div class="list list-inset">
-        <div ng-repeat="record in data.historyRecords" class="item">
-            {{record}}
+  <ion-content id="historyPage" class="has-header">
+
+    <div class="card"  ng-repeat="record in data.historyRecords" >
+        <div class="item item-divider historyHeading">
+            <i class="icon ion-medkit"></i>
+            {{record.createdDateTime | date : 'EEEE d MMM HH:mm'}}
         </div>
+        <div class="item">
+            <div ng-repeat="field in record.fields" class="displayField">
+                {{field.displayText}}
+            </div>
+        </div>
+
     </div>
 
 

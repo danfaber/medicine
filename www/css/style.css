@@ -127,3 +127,21 @@ ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header
 {
     background-color: #f0f8ff;
 }
+
+#historyPage .displayField
+{
+    white-space: pre-wrap;
+    white-space: normal;
+    padding: 7px;
+    background-color: #ffffff;
+    margin: 5px;
+    border-radius: 5px;
+    float: left;
+    border: 1px solid #e7e7e7 ;
+
+}
+
+#historyPage .historyHeading
+{
+    background-color: #E1F5FF;
+}
