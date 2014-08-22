@@ -39,9 +39,49 @@
             var historyJson = $window.localStorage.getItem(recordId.toString());
             var historyRecord = JSON.parse(historyJson);
 
-            var type = typeDataService.getTypeWithOptionGroups(historyRecord.typeId);
+            var currentRecord = typeDataService.getTypeWithOptionGroups(historyRecord.typeId);
 
-            currentRecordByType[historyRecord.typeId] = type;
+            loadDataIntoCurrentRecord(currentRecord, historyRecord);
+
+            currentRecordByType[historyRecord.typeId] = currentRecord;
+        }
+
+
+        function loadDataIntoCurrentRecord(currentRecord, historyRecord)
+        {
+            var historyField;
+
+            currentRecord.createdDateTime = historyRecord.createdDateTime;
+            currentRecord.modifiedDateTime = historyRecord.modifiedDateTime;
+
+            _(currentRecord.fields).each(function(currentField) {
+                historyField = _(historyRecord.fields)
+                    .filter(function(field) {return field.id == currentField.id;})
+                [0];
+
+                loadFieldValue(currentField, historyField);
+            })
+        }
+
+        function loadFieldValue(currentField, historyField)
+        {
+            switch (currentField.dataType)
+            {
+                case dataType.freeText:
+                    currentField.value = historyField.value;
+                    break;
+
+                case dataType.date:
+                    currentField.value = historyField.value;
+
+                    break;
+
+                case dataType.dropdown:
+                    break;
+
+                case dataType.autoComplete:
+                    break;
+            }
         }
 
         function getId()
