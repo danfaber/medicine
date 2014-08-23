@@ -4,8 +4,8 @@
     var optionGroups =
         [
             {
-                id: 1,
-                name: "Disease Type",
+                id: 91,
+                description: "Disease Type",
                 optionValues: [
                     {
                         id: 1,
@@ -52,8 +52,8 @@
                 ]
             },
             {
-                id: 2,
-                name: "Severity",
+                id: 92,
+                description: "Severity",
                 optionValues: [
                     {
                         id: 4,
@@ -91,7 +91,7 @@
 
             _(optionGroup.optionValues).each(function(optionValue)
             {
-                recursiveBuildOptionValueMap(optionValue,[{id:optionGroup.id, description:optionGroup.name}], optionGroup.id);
+                recursiveBuildOptionValueMap(optionValue,[{id:optionGroup.id, description:optionGroup.description}], optionGroup.id);
             })
         });
     };
@@ -139,7 +139,10 @@
 
     var getOptionValue = function(optionGroupId, optionValueId) {
         var match;
-        var nextLevelOptionValues = [getOptionGroup(optionGroupId)];
+        var optionGroup = getOptionGroup(optionGroupId);
+        if (optionGroupId == optionValueId) {return optionGroup;}
+
+        var nextLevelOptionValues = [optionGroup];
 
         do {
             nextLevelOptionValues = _.chain(nextLevelOptionValues)
@@ -172,7 +175,7 @@
             i++;
         } while (index === -1);
 
-        return optionValues[i-1][index-1];
+        return optionValues[i-1][index-1].id;
     }
 
 

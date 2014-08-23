@@ -84,10 +84,11 @@
                     * */
 
                     var parentChain =  optionGroupDataService.getParentChain(currentField.optionGroupId, historyField.value);
+                    var dropdowns = _(parentChain).rest();
                     var dropdown;
                     var parentId;
 
-                    currentField.dropdowns = _(parentChain).map(function(value) {
+                    currentField.dropdowns = _(dropdowns).map(function(value) {
                         parentId = optionGroupDataService.getParentId(currentField.optionGroupId, value.id);
                         dropdown = angular.copy(optionGroupDataService.getOptionValue(currentField.optionGroupId, parentId));
                         dropdown.selectedValue = dropdown.optionValues

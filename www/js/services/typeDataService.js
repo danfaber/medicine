@@ -16,14 +16,14 @@
                             sortOrder: 1,
                             name: "Issue Type",
                             dataType: dataType.dropdown,
-                            optionGroupId: 1
+                            optionGroupId: 91
                         },
                         {
                             id: 2,
                             sortOrder: 2,
                             name: "Seriousness",
                             dataType: dataType.dropdown,
-                            optionGroupId: 2
+                            optionGroupId: 92
                         },
                         {
                             id: 3,
@@ -105,7 +105,7 @@
                 .filter(function(field) {return field.optionGroupId;})
 
             _(optionGroupFields).each(function(field) {
-                field.optionGroup = optionGroupDataService.getOptionGroup(field.id);
+                field.optionGroup = optionGroupDataService.getOptionGroup(field.optionGroupId);
                 field.dropdowns = recursiveOptionDropdowns(field.optionGroup);
             });
 
