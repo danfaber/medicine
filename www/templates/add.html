@@ -16,10 +16,12 @@
 
                   <ul ng-switch-when="3" class="list">
                       <li class="item" ng-repeat="dropdown in field.dropdowns" style="border: none;">
+
                           <select style="display: block;"   ng-change="selectedOptionValue(field,dropdown)"
                                   ng-options="x.description for x in dropdown.optionValues" ng-model="dropdown.selectedValue">
                               <option value="">Please Select</option>
                           </select>
+                          <textarea rows="5">{{dropdown}}</textarea>
                       </li>
 
                   </ul>

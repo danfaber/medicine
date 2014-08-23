@@ -3,8 +3,8 @@
 
     var currentRecordByType = {};
 
-    app.factory("currentRecordDataService", ['typeDataService','dataType','$window', 'autoCompleteTypesDataService',
-        function(typeDataService,dataType,$window, autoCompleteTypesDataService){
+    app.factory("currentRecordDataService", ['typeDataService','dataType','$window', 'autoCompleteTypesDataService','optionGroupDataService',
+        function(typeDataService, dataType, $window, autoCompleteTypesDataService, optionGroupDataService){
 
         var getCurrentRecord = function(typeId)
         {
@@ -83,10 +83,26 @@
                     * then i need to build a dropdown for each
                     * */
 
+                    var parentChain =  optionGroupDataService.getParentChain(currentField.optionGroupId, historyField.value);
+                    var dropdown;
+                    var parentId;
+
+                    currentField.dropdowns = _(parentChain).map(function(value) {
+                        parentId = optionGroupDataService.getParentId(currentField.optionGroupId, value.id);
+                        dropdown = angular.copy(optionGroupDataService.getOptionValue(currentField.optionGroupId, parentId));
+                        dropdown.selectedValue = dropdown.optionValues
+                            .filter(function(val) {return val.id == value.id;})
+                            [0];
+
+                        return dropdown;
+                      //  dropdown.selectedValue = dropdown.optionValues.filter(function(value) {return value == historyField.va})
+                    });
                     break;
 
                 case dataType.autoComplete:
-                    currentField.value = autoCompleteTypesDataService.getByKey(currentField.autoCompleteTypeId, historyField.value);
+                    currentField.value = (historyField.value)
+                        ? autoCompleteTypesDataService.getByKey(currentField.autoCompleteTypeId, historyField.value)
+                        : null;
                     break;
             }
         }
@@ -120,11 +136,11 @@
             switch (field.dataType)
             {
                 case dataType.freeText:
-                    saveField.value = field.value;
+                    saveField.value = (field.value) ? field.value : null;
                     break;
 
                 case dataType.date:
-                    saveField.value = field.value;
+                    saveField.value = (field.value) ? field.value : null;
                     break;
 
                 case dataType.dropdown:
@@ -138,7 +154,7 @@
                     break;
 
                 case dataType.autoComplete:
-                    saveField.value = field.value.key;
+                    saveField.value = (field.value) ?  field.value.key : null;
                     break;
             }
 

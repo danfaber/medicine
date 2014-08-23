@@ -91,7 +91,7 @@
 
             _(optionGroup.optionValues).each(function(optionValue)
             {
-                recursiveBuildOptionValueMap(optionValue,[], optionGroup.id);
+                recursiveBuildOptionValueMap(optionValue,[{id:optionGroup.id, description:optionGroup.name}], optionGroup.id);
             })
         });
     };
@@ -125,32 +125,21 @@
     };
 
 
-/*    var leafOptionValueChain = function(optionGroupId, leafOptionValueId)
-    {
-        var optionValues = optionValueMap[optionGroupId];
-
-        var matchingLeafValue = optionValues.filter(function(chain){
-            return _(chain).last().id == leafOptionValueId;
-        });
-
-        return matchingLeafValue[0];
-    };*/
-
     var getParentChain = function(optionGroupId, optionValueId)
     {
         var optionValues = optionValueMap[optionGroupId];
 
-        var sorted = _(optionValues).sortBy(function(chain) {
+        var sortedByDepthInChain = _(optionValues).sortBy(function(chain) {
             var ids = _(chain).map(function(value) {return value.id;})
-            return ids.indexOf(optionGroupId);
+            return ids.indexOf(optionValueId);
         })
 
-        return _(sorted).last();
+        return _(sortedByDepthInChain).last();
     }
 
     var getOptionValue = function(optionGroupId, optionValueId) {
         var match;
-        var nextLevelOptionValues = getOptionGroup(optionGroupId);
+        var nextLevelOptionValues = [getOptionGroup(optionGroupId)];
 
         do {
             nextLevelOptionValues = _.chain(nextLevelOptionValues)
@@ -170,14 +159,31 @@
     }
 
 
+    var getParentId = function(optionGroupId, optionValueId)
+    {
+        var optionValues = optionValueMap[optionGroupId];
+        var index;
+        var i = 0;
+        var ids;
+
+        do {
+            ids = _(optionValues[i]).map(function(val) {return val.id;});
+            index = ids.indexOf(optionValueId);
+            i++;
+        } while (index === -1);
+
+        return optionValues[i-1][index-1];
+    }
+
+
 
     app.factory("optionGroupDataService", function(){
         return {
             getOptionGroup: getOptionGroup,
             isParent: isParent,
-          //  leafOptionValueChain: leafOptionValueChain,
             getOptionValue: getOptionValue,
-            getParentChain: getParentChain
+            getParentChain: getParentChain,
+            getParentId: getParentId
         };
     });
 
