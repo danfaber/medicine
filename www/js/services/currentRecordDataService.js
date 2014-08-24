@@ -50,6 +50,14 @@
         };
 
 
+/*        var isAnyFieldSet = function(typeId)
+        {
+            var record = currentRecordByType[typeId];
+            return _(record.fields)
+                .some(function(field) {return field})
+        }*/
+
+
         function loadDataIntoCurrentRecord(currentRecord, historyRecord)
         {
             var historyField;
@@ -80,6 +88,11 @@
 
                 case dataType.dropdown:
 
+                    if(!historyField.value) {
+                        currentField.dropdowns = [optionGroupDataService.getOptionGroup(currentField.optionGroupId)];
+                        break;
+                    }
+
                     var parentChain =  optionGroupDataService.getParentChainWithNumberOfChildren(currentField.optionGroupId, historyField.value, 0);
                     var dropdowns = _(parentChain).rest();
 
@@ -99,8 +112,7 @@
                     var lowestSelectedOptionValue = optionGroupDataService.getOptionValue(currentField.optionGroupId,historyField.value);
                     if (optionGroupDataService.isParent(lowestSelectedOptionValue))
                     {
-                        var emptyChildDropdown = angular.copy(lowestSelectedOptionValue);
-                        currentField.dropdowns.push(emptyChildDropdown);
+                        currentField.dropdowns.push(lowestSelectedOptionValue);
                     }
 
                     break;

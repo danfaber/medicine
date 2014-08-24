@@ -2,15 +2,21 @@
 
     var app = angular.module("medicine");
 
-    app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService, $state, $ionicLoading) {
+    app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService, $state, $ionicLoading, $ionicNavBarDelegate) {
 
         $scope.data = {};
 
         var recordId = $stateParams.recordId;
 
-        if (recordId)
+        $scope.isEdit = !!recordId;
+
+        if ($scope.isEdit)
         {
             currentRecordDataService.loadHistoryRecord(recordId);
+            $ionicNavBarDelegate.showBackButton(true);
+
+        } else {
+            $ionicNavBarDelegate.showBackButton(false);
         }
 
         $scope.data.currentRecord =  currentRecordDataService.getCurrentRecord($stateParams.typeId);
@@ -27,6 +33,8 @@
                 field.dropdowns.push(dropdown.selectedValue);
             }
         }
+
+        $scope.isAnyFieldSet
 
         $scope.saveRecord = function()
         {

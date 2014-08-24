@@ -121,7 +121,7 @@
         var optionGroup = _(optionGroups)
             .filter(function (opt) { return opt.id == optionGroupId; })
             [0];
-        return optionGroup;
+        return angular.copy(optionGroup);
     };
 
 

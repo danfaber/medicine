@@ -1,44 +1,53 @@
-<ion-view title="New {{data.currentRecord.name}}">
+<ion-view title="{{isEdit ? 'Edit' : 'New'}} {{data.currentRecord.name}}">
   <ion-content class="has-header">
 
-      <div class="list" id="addForm">
-
-          <div class="item item-input" ng-repeat="field in data.currentRecord.fields">
-
-              <label class="input-label">{{field.name}}</label>
-              <ng-switch on="field.dataType" class="inputRegion">
-
-                  <a href="#/app/autocomplete?typeId={{data.currentRecord.typeId}}&fieldId={{field.id}}" ng-switch-when="4" class="autoCompleteField" >
-                      <div>{{field.value.phrase}}</div>
-                  </a>
-
-                  <input ng-switch-when="2" type="date" ng-model="field.value"/>
-
-                  <ul ng-switch-when="3" class="list">
-                      <li class="item" ng-repeat="dropdown in field.dropdowns" style="border: none;">
-                          <select style="display: block;"   ng-change="selectedOptionValue(field,dropdown)"
-                                  ng-options="x.description for x in dropdown.optionValues" ng-model="dropdown.selectedValue">
-                              <option value="">Please Select</option>
-                          </select>
-                      </li>
-
-                  </ul>
-
-                  <input ng-switch-when="1" type="text" ng-model="field.value"/>
+      <form novalidate name="recordForm">
 
 
-              </ng-switch>
+          <div class="list" id="addForm">
 
+              <div class="item item-input" ng-repeat="field in data.currentRecord.fields">
+
+                  <label class="input-label">{{field.name}}</label>
+                  <ng-switch on="field.dataType" class="inputRegion">
+
+                      <a href="#/app/autocomplete?typeId={{data.currentRecord.typeId}}&fieldId={{field.id}}" ng-switch-when="4" class="autoCompleteField" >
+                          <div>{{field.value.phrase}}</div>
+                      </a>
+
+                      <input ng-switch-when="2" type="date" ng-model="field.value"/>
+
+                      <ul ng-switch-when="3" class="list">
+                          <li class="item" ng-repeat="dropdown in field.dropdowns" style="border: none;">
+                              <select style="display: block;"   ng-change="selectedOptionValue(field,dropdown)"
+                                      ng-options="x.description for x in dropdown.optionValues" ng-model="dropdown.selectedValue">
+                                  <option value="">Please Select</option>
+                              </select>
+                          </li>
+
+                      </ul>
+
+                      <input ng-switch-when="1" type="text" ng-model="field.value"/>
+
+
+                  </ng-switch>
+
+
+              </div>
 
           </div>
-
-      </div>
+{{recordForm.$valid}}
+          {{recordForm.$pristine}}
+          <button ng-click="go(recordForm)">click me</button>
+      </form>
 
 
 
   </ion-content>
 
     <div class="bar bar-footer">
-        <button ng-click="saveRecord()" class="button button-block">Save</button>
+        <button ng-click="go(recordForm)">click me</button>
+        <button ng-click="saveRecord()" ng-disabled="recordForm.$pristine" class="button button-block">Save</button>
+       he {{recordForm.$pristine}} w
     </div>
 </ion-view>

@@ -107,19 +107,11 @@
             _(optionGroupFields).each(function(field) {
                 field.optionGroup = optionGroupDataService.getOptionGroup(field.optionGroupId);
                 field.dropdowns = [field.optionGroup];
-              //  field.dropdowns = recursiveOptionDropdowns(field.optionGroup);
             });
 
             return typeWithOptionGroups;
         };
 
-/*        function recursiveOptionDropdowns(optionGroup)
-        {
-            if (!optionGroup.selectedValue || !optionGroupDataService.isParent(optionGroup)) {
-                return [optionGroup];
-            }
-            return recursiveOptionDropdowns(optionGroup.selectedValue).push(optionGroup);
-        };*/
 
         return {
             getTypeWithOptionGroups: getTypeWithOptionGroups,
