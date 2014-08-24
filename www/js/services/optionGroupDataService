@@ -146,29 +146,6 @@
     }
 
 
-/*    var getParentChain = function(optionGroupId, optionValueId)
-    {
-        var match = getChainMatch(optionGroupId, optionValueId);
-
-        var parentChain = [];
-        var i = -1;
-
-        do {
-            i++;
-            parentChain.push(match[i]);
-        } while (match[i].id != optionValueId)
-
-        return parentChain;
-    };*/
-
-
-/*    var getParentAndFirstChildChain = function(optionGroupId, optionValueId)
-    {
-        var match = getChainMatch(optionGroupId, optionValueId);
-
-        var parentChain = [];
-    }*/
-
     var getOptionValue = function(optionGroupId, optionValueId) {
         var match;
         var optionGroup = getOptionGroup(optionGroupId);
@@ -217,7 +194,6 @@
             getOptionGroup: getOptionGroup,
             isParent: isParent,
             getOptionValue: getOptionValue,
-          //  getParentChain: getParentChain,
             getParentId: getParentId,
             getParentChainWithNumberOfChildren: getParentChainWithNumberOfChildren
         };

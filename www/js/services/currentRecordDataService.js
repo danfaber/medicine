@@ -78,13 +78,9 @@
 
                 case dataType.dropdown:
 
-                    /*
-                    * first i need to get the option group chain that ends with this value
-                    * then i need to build a dropdown for each
-                    * */
-
-                    var parentChain =  optionGroupDataService.getParentChainWithNumberOfChildren(currentField.optionGroupId, historyField.value, 1);
+                    var parentChain =  optionGroupDataService.getParentChainWithNumberOfChildren(currentField.optionGroupId, historyField.value, 0);
                     var dropdowns = _(parentChain).rest();
+
                     var dropdown;
                     var parentId;
 
@@ -96,8 +92,15 @@
                             [0];
 
                         return dropdown;
-                      //  dropdown.selectedValue = dropdown.optionValues.filter(function(value) {return value == historyField.va})
                     });
+
+                    var lowestSelectedOptionValue = optionGroupDataService.getOptionValue(currentField.optionGroupId,historyField.value);
+                    if (optionGroupDataService.isParent(lowestSelectedOptionValue))
+                    {
+                        var emptyChildDropdown = angular.copy(lowestSelectedOptionValue);
+                        currentField.dropdowns.push(emptyChildDropdown);
+                    }
+
                     break;
 
                 case dataType.autoComplete:
