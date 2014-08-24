@@ -50,12 +50,21 @@
         };
 
 
-/*        var isAnyFieldSet = function(typeId)
+        var isAnyFieldSet = function(typeId)
         {
             var record = currentRecordByType[typeId];
-            return _(record.fields)
-                .some(function(field) {return field})
-        }*/
+
+            var dropdowns = _.chain(record.fields)
+                .filter(function(field) {return field.dataType == dataType.dropdown;})
+                .map(function(field) {return field.dropdowns[0];})
+                .value();
+
+            var nonDropdownFields = _(record.fields)
+                .filter(function(field) {return field.dataType != dataType.dropdown;});
+
+            return nonDropdownFields.some(function(field) {return field.value;})
+                || dropdowns.some(function(dropdown) {return dropdown.value;})
+        }
 
 
         function loadDataIntoCurrentRecord(currentRecord, historyRecord)
@@ -102,7 +111,7 @@
                     currentField.dropdowns = _(dropdowns).map(function(value) {
                         parentId = optionGroupDataService.getParentId(currentField.optionGroupId, value.id);
                         dropdown = angular.copy(optionGroupDataService.getOptionValue(currentField.optionGroupId, parentId));
-                        dropdown.selectedValue = dropdown.optionValues
+                        dropdown.value = dropdown.optionValues
                             .filter(function(val) {return val.id == value.id;})
                             [0];
 
@@ -164,10 +173,10 @@
                 case dataType.dropdown:
 
                     var selectedDropdowns = _(field.dropdowns)
-                        .filter(function(dropdown) {return dropdown.selectedValue;});
+                        .filter(function(dropdown) {return dropdown.value;});
 
                     saveField.value = (selectedDropdowns.length > 0)
-                        ? _(selectedDropdowns).last().selectedValue.id
+                        ? _(selectedDropdowns).last().value.id
                         : null;
                     break;
 
@@ -183,7 +192,8 @@
             getCurrentRecord: getCurrentRecord,
             updateAutocompleteField: updateAutocompleteField,
             save: save,
-            loadHistoryRecord: loadHistoryRecord
+            loadHistoryRecord: loadHistoryRecord,
+            isAnyFieldSet: isAnyFieldSet
         };
     }]);
 

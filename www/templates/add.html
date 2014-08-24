@@ -20,7 +20,7 @@
                       <ul ng-switch-when="3" class="list">
                           <li class="item" ng-repeat="dropdown in field.dropdowns" style="border: none;">
                               <select style="display: block;"   ng-change="selectedOptionValue(field,dropdown)"
-                                      ng-options="x.description for x in dropdown.optionValues" ng-model="dropdown.selectedValue">
+                                      ng-options="x.description for x in dropdown.optionValues" ng-model="dropdown.value">
                                   <option value="">Please Select</option>
                               </select>
                           </li>
@@ -36,9 +36,6 @@
               </div>
 
           </div>
-{{recordForm.$valid}}
-          {{recordForm.$pristine}}
-          <button ng-click="go(recordForm)">click me</button>
       </form>
 
 
@@ -46,8 +43,6 @@
   </ion-content>
 
     <div class="bar bar-footer">
-        <button ng-click="go(recordForm)">click me</button>
-        <button ng-click="saveRecord()" ng-disabled="recordForm.$pristine" class="button button-block">Save</button>
-       he {{recordForm.$pristine}} w
+        <button ng-click="saveRecord()" ng-disabled="!isAnyFieldSet()" class="button button-block">Save</button>
     </div>
 </ion-view>

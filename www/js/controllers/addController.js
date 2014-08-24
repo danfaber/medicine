@@ -28,13 +28,16 @@
             // remove all lower down dropdowns coz they are no longer correct
             field.dropdowns.splice(index + 1, Number.MAX_VALUE);
 
-            if (dropdown.selectedValue && optionGroupDataService.isParent(dropdown.selectedValue))
+            if (dropdown.value && optionGroupDataService.isParent(dropdown.value))
             {
-                field.dropdowns.push(dropdown.selectedValue);
+                field.dropdowns.push(dropdown.value);
             }
         }
 
-        $scope.isAnyFieldSet
+        $scope.isAnyFieldSet = function()
+        {
+            return currentRecordDataService.isAnyFieldSet($stateParams.typeId);
+        }
 
         $scope.saveRecord = function()
         {
