@@ -31,10 +31,11 @@
             var jsonSave = JSON.stringify(toSave);
             $window.localStorage.setItem(toSave.id.toString(), jsonSave);
 
-            currentRecordByType[typeId] = null;
+        };
 
-/*            var read = $window.localStorage.getItem(toSave.id.toString());
-            alert(read);*/
+        var wipeCurrentRecord = function(typeId)
+        {
+            currentRecordByType[typeId] = null;
         };
 
         var loadHistoryRecord = function(recordId)
@@ -193,7 +194,8 @@
             updateAutocompleteField: updateAutocompleteField,
             save: save,
             loadHistoryRecord: loadHistoryRecord,
-            isAnyFieldSet: isAnyFieldSet
+            isAnyFieldSet: isAnyFieldSet,
+            wipeCurrentRecord: wipeCurrentRecord
         };
     }]);
 

@@ -2,7 +2,7 @@
 
     var app = angular.module("medicine");
 
-    app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService, $state, $ionicLoading, $ionicNavBarDelegate) {
+    app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService, $state, $ionicLoading, $ionicPopup, $ionicNavBarDelegate) {
 
         $scope.data = {};
 
@@ -10,14 +10,36 @@
 
         $scope.isEdit = !!recordId;
 
-        if ($scope.isEdit)
+/*        if ($scope.isEdit)
         {
             currentRecordDataService.loadHistoryRecord(recordId);
             $ionicNavBarDelegate.showBackButton(true);
 
         } else {
             $ionicNavBarDelegate.showBackButton(false);
-        }
+        }*/
+
+        $scope.$on("backButtonClicked", function (event, args) {
+
+            if (!$scope.isAnyFieldSet()) {
+                $ionicNavBarDelegate.back();
+                return;
+            }
+
+            var confirmBackPopup = $ionicPopup.confirm({
+                title: 'Cancel Record',
+                template: 'Are you sure you want to cancel this record without saving?'
+            });
+
+            confirmBackPopup.then(function (result) {
+                if (result) {
+                    currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
+                    $ionicNavBarDelegate.back();
+                }
+            })
+        });
+
+
 
         $scope.data.currentRecord =  currentRecordDataService.getCurrentRecord($stateParams.typeId);
 
@@ -42,6 +64,7 @@
         $scope.saveRecord = function()
         {
             currentRecordDataService.save($stateParams.typeId);
+            currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
             $state.go('app.types');
             $ionicLoading.show({ template: 'Saved!', noBackdrop: true, duration: 1000 });
         }

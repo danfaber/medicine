@@ -7,7 +7,7 @@ angular.module('starter.controllers', [])*/
   app
 
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -38,6 +38,12 @@ angular.module('starter.controllers', [])*/
       $scope.closeLogin();
     }, 1000);
   };
+
+
+  $scope.backButtonClicked = function(){
+      $rootScope.$broadcast("backButtonClicked",{});
+  };
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {

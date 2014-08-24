@@ -150,3 +150,7 @@ ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header
 {
     margin-right: 10px;
 }
+
+#saveRecord {
+    margin-top: 0;
+}
