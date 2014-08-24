@@ -10,7 +10,7 @@
             var nextRecordId = $window.localStorage.getItem("nextRecordId");
 
             return (nextRecordId) ? parseInt(nextRecordId) : 1;
-        };
+        }
 
         var getAllDisplayHistory = function()
         {
@@ -26,7 +26,7 @@
 
                 if (currentHistoryJson)
                 {
-                    var currentHistoryRecord = JSON.parse(currentHistoryJson);
+                    currentHistoryRecord = JSON.parse(currentHistoryJson);
                     displayRecords.push(getRecordDisplayDetails(currentHistoryRecord));
                 }
             }
@@ -48,7 +48,7 @@
             });
 
             return displayRecord;
-        };
+        }
 
 
         function addFieldDisplayProperties(field, type)
@@ -84,7 +84,7 @@
                         .phrase;
                     break;
             }
-        };
+        }
 
         return {
             getAllDisplayHistory:getAllDisplayHistory

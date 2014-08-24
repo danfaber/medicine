@@ -94,7 +94,7 @@
                 recursiveBuildOptionValueMap(optionValue,[{id:optionGroup.id, description:optionGroup.description}], optionGroup.id);
             })
         });
-    };
+    }
 
 
     function recursiveBuildOptionValueMap(optionValue, parentChain, optionGroupId)
@@ -129,13 +129,23 @@
     {
         var optionValues = optionValueMap[optionGroupId];
 
-        var sortedByDepthInChain = _(optionValues).sortBy(function(chain) {
-            var ids = _(chain).map(function(value) {return value.id;})
-            return ids.indexOf(optionValueId);
-        })
+        var match = _(optionValues)
+            .filter(function(chain) {
+                var ids = _(chain).map(function(value) {return value.id;});
+                return ids.indexOf(optionValueId) > -1;
+            })
+            [0];
 
-        return _(sortedByDepthInChain).last();
-    }
+        var parentChain = [];
+        var i = -1;
+
+        do {
+            i++;
+            parentChain.push(match[i]);
+        } while (match[i].id != optionValueId)
+
+        return parentChain;
+    };
 
     var getOptionValue = function(optionGroupId, optionValueId) {
         var match;
@@ -159,7 +169,7 @@
         } while (match.length == 0);
 
         return match[0];
-    }
+    };
 
 
     var getParentId = function(optionGroupId, optionValueId)
@@ -176,7 +186,7 @@
         } while (index === -1);
 
         return optionValues[i-1][index-1].id;
-    }
+    };
 
 
 
