@@ -6,7 +6,7 @@
 
         $scope.data = {};
 
-        $scope.data.currentRecord = historyDataService.getDisplayHistory($stateParams.recordId)
+        $scope.data.currentRecord = historyDataService.getDisplayHistory($stateParams.recordId, false)
 
 
     });

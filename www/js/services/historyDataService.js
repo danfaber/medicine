@@ -21,30 +21,38 @@
 
             for(var i = nextRecordId - 1; i > 0; i--)
             {
-                currentHistoryRecord = getDisplayHistory(i);
+                currentHistoryRecord = getDisplayHistory(i, true);
                 if (currentHistoryRecord) {
-                    displayRecords.push(getRecordDisplayDetails(currentHistoryRecord));
+                    displayRecords.push(currentHistoryRecord);
                 }
             }
             return displayRecords;
         };
 
 
-        var getDisplayHistory = function(recordId)
+        var getDisplayHistory = function(recordId, removeEmptyFields)
         {
             var historyJson = $window.localStorage.getItem(recordId.toString());
-            return (historyJson) ? JSON.parse(historyJson) : undefined;
+
+            if (!historyJson) { return; }
+
+            var historyRecord = JSON.parse(historyJson);
+
+            return getRecordDisplayDetails(historyRecord, removeEmptyFields);
         }
 
 
-        function getRecordDisplayDetails(historyRecord)
+        function getRecordDisplayDetails(historyRecord, removeEmptyFields)
         {
             var displayRecord = angular.copy(historyRecord);
             var type = typeDataService.getType(historyRecord.typeId);
 
             displayRecord.typeName = type.name;
 
-         /*   utilitiesService.removeFromArray(displayRecord.fields, function(field) {return !field.value;})*/
+            if (removeEmptyFields)
+            {
+                utilitiesService.removeFromArray(displayRecord.fields, function(field) {return !field.value;})
+            }
 
             _(displayRecord.fields).each(function(field) {
                addFieldDisplayProperties(field, type);

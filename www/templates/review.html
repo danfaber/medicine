@@ -1,6 +1,24 @@
-<ion-view title=" {{data.currentRecord.name}}">
+<ion-view title=" {{data.currentRecord.typeName}}">
     <ion-content class="has-header">
-        hello
+        <div class="card">
+            <div class="item">
+
+                <div class="row">
+                    <div class="col col-40 item-text-wrap">Created</div>
+                    <div class="col col-60 item-text-wrap">{{data.currentRecord.createdDateTime | date : 'EEEE d MMM HH:mm'}}</div>
+                </div>
+
+                <div class="row" ng-hide="data.currentRecord.createdDateTime === data.currentRecord.modifiedDateTime">
+                    <div class="col col-40 item-text-wrap">Modified</div>
+                    <div class="col col-60 item-text-wrap">{{data.currentRecord.modifiedDateTime | date : 'EEEE d MMM HH:mm'}}</div>
+                </div>
+
+                <div ng-repeat="field in data.currentRecord.fields" class="row">
+                    <div class="col col-40 item-text-wrap">{{field.name}}</div>
+                    <div class="col col-60 item-text-wrap">{{field.displayText}}</div>
+                </div>
+            </div>
+        </div>
 
 <!--        <div class="list" id="addForm">
 
