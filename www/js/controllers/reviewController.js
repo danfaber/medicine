@@ -8,6 +8,27 @@
 
         $scope.data.currentRecord = historyDataService.getDisplayHistory($stateParams.recordId, false)
 
+        $scope.$on("backButtonClicked", function () {
+            $ionicNavBarDelegate.back();
+        });
+
+        $scope.deleteRecord = function()
+        {
+
+            var confirmBackPopup = $ionicPopup.confirm({
+                title: 'Delete Record',
+                template: 'Are you sure you want to permanently delete this record?  It cannot be undone!'
+            });
+
+            confirmBackPopup.then(function (result) {
+                if (result) {
+                    historyDataService.deleteRecord($stateParams.recordId);
+                    $state.go('app.types');
+                    $ionicLoading.show({ template: 'Record Deleted', noBackdrop: true, duration: 1500 });
+                }
+            })
+        }
+
 
     });
 

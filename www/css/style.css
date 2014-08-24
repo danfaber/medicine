@@ -138,7 +138,6 @@ ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header
     border-radius: 5px;
     float: left;
     border: 1px solid #e7e7e7 ;
-
 }
 
 #historyPage .historyHeading
@@ -153,4 +152,10 @@ ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header
 
 #saveRecord {
     margin-top: 0;
+}
+
+#editRecord
+{
+    padding-left: 40px;
+    padding-right: 40px;
 }

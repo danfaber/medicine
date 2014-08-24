@@ -62,7 +62,7 @@
             currentRecordDataService.save($stateParams.typeId);
             currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
             $state.go('app.types');
-            $ionicLoading.show({ template: 'Saved!', noBackdrop: true, duration: 1000 });
+            $ionicLoading.show({ template: 'Saved!', noBackdrop: true, duration: 1500 });
         }
 
     });

@@ -39,6 +39,11 @@
             var historyRecord = JSON.parse(historyJson);
 
             return getRecordDisplayDetails(historyRecord, removeEmptyFields);
+        };
+
+        var deleteRecord = function(recordId)
+        {
+            $window.localStorage.removeItem(recordId.toString());
         }
 
 
@@ -106,7 +111,8 @@
 
         return {
             getAllDisplayHistory: getAllDisplayHistory,
-            getDisplayHistory: getDisplayHistory
+            getDisplayHistory: getDisplayHistory,
+            deleteRecord: deleteRecord
         };
     }]);
 
