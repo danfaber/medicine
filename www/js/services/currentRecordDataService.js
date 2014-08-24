@@ -13,7 +13,7 @@
                 currentRecordByType[typeId] = typeDataService.getTypeWithOptionGroups(typeId);
             }
             return currentRecordByType[typeId];
-        }
+        };
 
         var updateAutocompleteField = function(typeId, fieldId, newValue)
         {
@@ -22,7 +22,7 @@
                 [0];
 
             field.value = newValue;
-        }
+        };
 
         var save = function(typeId){
             var record = currentRecordByType[typeId];
@@ -31,9 +31,11 @@
             var jsonSave = JSON.stringify(toSave);
             $window.localStorage.setItem(toSave.id.toString(), jsonSave);
 
-            var read = $window.localStorage.getItem(toSave.id.toString());
-            alert(read);
-        }
+            currentRecordByType[typeId] = null;
+
+/*            var read = $window.localStorage.getItem(toSave.id.toString());
+            alert(read);*/
+        };
 
         var loadHistoryRecord = function(recordId)
         {
@@ -45,7 +47,7 @@
             loadDataIntoCurrentRecord(currentRecord, historyRecord);
 
             currentRecordByType[historyRecord.typeId] = currentRecord;
-        }
+        };
 
 
         function loadDataIntoCurrentRecord(currentRecord, historyRecord)
@@ -122,15 +124,15 @@
 
         function generateRecordToSave(record)
         {
-            var toSave = {
+            return {
                 id: getId(),
                 typeId: record.typeId,
                 createdDateTime: new Date(),
                 modifiedDateTime: new Date(),
-                fields: _(record.fields).map(function(field) {return generateFieldToSave(field);})
+                fields: _(record.fields).map(function (field) {
+                    return generateFieldToSave(field);
+                })
             };
-
-            return toSave;
         }
 
         function generateFieldToSave(field)
