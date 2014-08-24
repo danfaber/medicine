@@ -17,7 +17,9 @@
 
         $scope.$on("backButtonClicked", function (event, args) {
 
-            if (!$scope.isAnyFieldSet()) {
+            var isNewRecordWithNoFieldsSet = !$scope.isEdit && !currentRecordDataService.isAnyFieldSet($stateParams.typeId);
+
+            if (isNewRecordWithNoFieldsSet || $scope.recordForm.$pristine) {
                 $ionicNavBarDelegate.back();
                 return;
             }
@@ -50,12 +52,7 @@
             {
                 field.dropdowns.push(dropdown.value);
             }
-        }
-
-        $scope.isAnyFieldSet = function()
-        {
-            return currentRecordDataService.isAnyFieldSet($stateParams.typeId);
-        }
+        };
 
         $scope.saveRecord = function()
         {

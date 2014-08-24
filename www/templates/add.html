@@ -1,6 +1,6 @@
 <ion-view title="{{isEdit ? 'Edit' : 'New'}} {{data.currentRecord.name}}">
     <ion-content class="has-header">
-
+<form name="$parent.recordForm" novalidate>
         <div class="list" id="addForm">
 
             <div class="item item-input" ng-repeat="field in data.currentRecord.fields">
@@ -34,10 +34,12 @@
 
         </div>
 
+</form>
+
     </ion-content>
 
     <div class="bar bar-footer">
-        <button ng-click="saveRecord()" ng-disabled="!isAnyFieldSet()" class="button button-block button-positive"
+        <button ng-click="saveRecord()" ng-disabled="recordForm.$pristine" class="button button-block button-positive"
                 id="saveRecord">Save
         </button>
     </div>
