@@ -125,7 +125,7 @@
     };
 
 
-    var getParentChain = function(optionGroupId, optionValueId)
+    var getParentChainWithNumberOfChildren = function(optionGroupId, optionValueId, numberOfChildren)
     {
         var optionValues = optionValueMap[optionGroupId];
 
@@ -136,6 +136,20 @@
             })
             [0];
 
+        var matchIds = _(match).map(function(value) {return value.id;});
+
+        var index = matchIds.indexOf(optionValueId);
+
+        var firstNumberOfElements = index + 1 + numberOfChildren;
+
+        return _(match).first(firstNumberOfElements);
+    }
+
+
+/*    var getParentChain = function(optionGroupId, optionValueId)
+    {
+        var match = getChainMatch(optionGroupId, optionValueId);
+
         var parentChain = [];
         var i = -1;
 
@@ -145,7 +159,15 @@
         } while (match[i].id != optionValueId)
 
         return parentChain;
-    };
+    };*/
+
+
+/*    var getParentAndFirstChildChain = function(optionGroupId, optionValueId)
+    {
+        var match = getChainMatch(optionGroupId, optionValueId);
+
+        var parentChain = [];
+    }*/
 
     var getOptionValue = function(optionGroupId, optionValueId) {
         var match;
@@ -195,8 +217,9 @@
             getOptionGroup: getOptionGroup,
             isParent: isParent,
             getOptionValue: getOptionValue,
-            getParentChain: getParentChain,
-            getParentId: getParentId
+          //  getParentChain: getParentChain,
+            getParentId: getParentId,
+            getParentChainWithNumberOfChildren: getParentChainWithNumberOfChildren
         };
     });
 

@@ -83,7 +83,7 @@
                     * then i need to build a dropdown for each
                     * */
 
-                    var parentChain =  optionGroupDataService.getParentChain(currentField.optionGroupId, historyField.value);
+                    var parentChain =  optionGroupDataService.getParentChainWithNumberOfChildren(currentField.optionGroupId, historyField.value, 1);
                     var dropdowns = _(parentChain).rest();
                     var dropdown;
                     var parentId;

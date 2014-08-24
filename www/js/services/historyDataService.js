@@ -69,7 +69,7 @@
                     break;
 
                 case dataType.dropdown:
-                    var optionValueChain = optionGroupDataService.getParentChain(fieldInfo.optionGroupId, field.value);
+                    var optionValueChain = optionGroupDataService.getParentChainWithNumberOfChildren(fieldInfo.optionGroupId, field.value, 0);
                     var optionValueDescriptions = _.chain(optionValueChain)
                         .rest()
                         .map(function(value) {return value.description;})
