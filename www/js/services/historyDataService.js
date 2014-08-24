@@ -15,23 +15,26 @@
         var getAllDisplayHistory = function()
         {
             var displayRecords = [];
-            var currentHistoryJson;
             var currentHistoryRecord;
 
             var nextRecordId = getNextRecordId();
 
             for(var i = nextRecordId - 1; i > 0; i--)
             {
-                currentHistoryJson = $window.localStorage.getItem(i.toString());
-
-                if (currentHistoryJson)
-                {
-                    currentHistoryRecord = JSON.parse(currentHistoryJson);
+                currentHistoryRecord = getDisplayHistory(i);
+                if (currentHistoryRecord) {
                     displayRecords.push(getRecordDisplayDetails(currentHistoryRecord));
                 }
             }
             return displayRecords;
         };
+
+
+        var getDisplayHistory = function(recordId)
+        {
+            var historyJson = $window.localStorage.getItem(recordId.toString());
+            return (historyJson) ? JSON.parse(historyJson) : undefined;
+        }
 
 
         function getRecordDisplayDetails(historyRecord)
@@ -41,7 +44,7 @@
 
             displayRecord.typeName = type.name;
 
-            utilitiesService.removeFromArray(displayRecord.fields, function(field) {return !field.value;})
+         /*   utilitiesService.removeFromArray(displayRecord.fields, function(field) {return !field.value;})*/
 
             _(displayRecord.fields).each(function(field) {
                addFieldDisplayProperties(field, type);
@@ -58,6 +61,12 @@
             field.dataType = fieldInfo.dataType;
             field.name = fieldInfo.name;
 
+            if (!field.value)
+            {
+                field.displayText = null;
+                return;
+            }
+
             switch (field.dataType)
             {
                 case dataType.freeText:
@@ -69,6 +78,7 @@
                     break;
 
                 case dataType.dropdown:
+
                     var optionValueChain = optionGroupDataService.getParentChainWithNumberOfChildren(fieldInfo.optionGroupId, field.value, 0);
                     var optionValueDescriptions = _.chain(optionValueChain)
                         .rest()
@@ -87,8 +97,8 @@
         }
 
         return {
-            getAllDisplayHistory:getAllDisplayHistory
-
+            getAllDisplayHistory: getAllDisplayHistory,
+            getDisplayHistory: getDisplayHistory
         };
     }]);
 

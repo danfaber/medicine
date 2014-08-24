@@ -10,14 +10,10 @@
 
         $scope.isEdit = !!recordId;
 
-/*        if ($scope.isEdit)
+        if ($scope.isEdit)
         {
             currentRecordDataService.loadHistoryRecord(recordId);
-            $ionicNavBarDelegate.showBackButton(true);
-
-        } else {
-            $ionicNavBarDelegate.showBackButton(false);
-        }*/
+        }
 
         $scope.$on("backButtonClicked", function (event, args) {
 

@@ -5,7 +5,7 @@
   <ion-content id="historyPage" class="has-header">
 
     <div class="card"  ng-repeat="record in data.historyRecords" >
-        <a href="#/app/add?typeId={{record.typeId}}&recordId={{record.id}}">
+        <a href="#/app/review?typeId={{record.typeId}}&recordId={{record.id}}">
             <div class="item item-divider historyHeading">
                 <i class="icon ion-medkit typeIcon"></i>
                 {{record.createdDateTime | date : 'EEEE d MMM HH:mm'}}

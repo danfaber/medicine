@@ -1,7 +1,8 @@
-<ion-view title="{{isEdit ? 'Edit' : 'New'}} {{data.currentRecord.name}}">
+<ion-view title=" {{data.currentRecord.name}}">
     <ion-content class="has-header">
+        hello
 
-        <div class="list" id="addForm">
+<!--        <div class="list" id="addForm">
 
             <div class="item item-input" ng-repeat="field in data.currentRecord.fields">
 
@@ -27,18 +28,17 @@
 
                     <input ng-switch-when="1" type="text" ng-model="field.value"/>
 
-
                 </ng-switch>
 
             </div>
 
-        </div>
+        </div>-->
 
     </ion-content>
 
-    <div class="bar bar-footer">
+<!--    <div class="bar bar-footer">
         <button ng-click="saveRecord()" ng-disabled="!isAnyFieldSet()" class="button button-block button-positive"
                 id="saveRecord">Save
         </button>
-    </div>
+    </div>-->
 </ion-view>

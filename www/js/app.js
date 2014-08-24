@@ -83,7 +83,19 @@ angular.module('medicine', ['ionic'])
           controller: 'addController'
         }
       }
-    });
+    })
+
+      .state('app.review', {
+          url: "/review?typeId&recordId",
+          views: {
+              'menuContent': {
+                  templateUrl: "templates/review.html",
+                  controller: 'reviewController'
+              }
+          }
+      });
+
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/types');
 });
