@@ -1,24 +1,24 @@
 <ion-view hide-nav-bar="true">
     <ion-content id="autoCompleteContent" class="has-header">
 
-        <div class="bar bar-header item-input-inset">
+        <div class="bar bar-header" id="autoCompleteHeader">
 
-            <label class="item-input-wrapper">
+            <label id="autoCompleteSearch" class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input id="searchBox" type="text" ng-change="changeSearchText()" ng-model="data.searchText" ng-trim="false" placeholder="Search">
+                <input id="searchBox" type="text" placeholder="Search" ng-change="changeSearchText()" ng-model="data.searchText" ng-trim="false" >
             </label>
+
+
             <i id="closeIcon" class="icon ion-close-round" ng-click="goBack()"></i>
         </div>
-        {{typeId}}
 
-
-        <ul class="list">
+        <ul id="wordMatchList">
             <li ng-repeat="wordMatch in data.wordMatches" ng-click="selectWord(wordMatch)" class="item">
                 {{wordMatch}}
             </li>
         </ul>
 
-        <div class="list list-inset">
+        <div class="list list-inset" id="searchResultList">
             <div ng-repeat="searchResult in data.searchResults" ng-click="selectAutocomplete(searchResult)" class="item item-text-wrap">
                 {{searchResult.phrase}}
             </div>

@@ -1,39 +1,15 @@
- /*.fieldSwitch input, .fieldSwitch select
- {
-     text-align: right;
- }
 
- .fieldSwitch .input-label{
-     width: 45%;
-     max-width: none;
-     flex-basis: 45%;
-     display: block;
- }
-
- .fieldSwitch .inputRegion
- {
-     max-width: none;
-     display: block;
-     flex-basis: 55%;
-     width: 55%;
-
- }
-*/
  #closeIcon
  {
      padding: 10px 10px 10px 20px;
 
  }
-/*
- #favouritesIcon
- {
-     padding: 10px 20px 10px 10px;
 
- }
-*/
- #autoCompleteContent, #favouritesAutoCompleteContent
+ #autoCompleteContent, #autoCompleteContent .scroll
  {
      top: 0;
+     position: absolute;
+     width: 100%;
  }
 
 select {
@@ -65,31 +41,12 @@ select {
     clear: both;*/
 }
 
-/* NEW */
 
-/*
-.input-label{
-     width: 45%;
-     max-width: none;
-     display: block;
- }
-
-.inputRegion
- {
-     max-width: none;
-     display: block;
-     width: 55%;
-
- }*/
 
  .input-label {
-/*     max-width: 0;
-    min-width: 0;
-    flex-basis: 35%;*/
      width: 40%;
      display: block;
      max-width: none;
-
  }
 
  .inputRegion {
@@ -117,10 +74,25 @@ select {
      white-space: pre-wrap;
  }
 
-.bar.bar-stable, .bar.bar-footer
+.bar.bar-stable, .bar.bar-footer, #autoCompleteSearch, #autoCompleteHeader
 {
     background-color: #d9edff;
 }
+
+#autoCompleteSearch {
+    width: 90%;
+    border: none;
+}
+
+#searchResultList
+{
+    top:35px;
+}
+
+#wordMatchList {
+    top:35px;
+}
+
 
 ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header
 
