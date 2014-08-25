@@ -5,12 +5,7 @@
 
  }
 
- #autoCompleteContent, #autoCompleteContent .scroll
- {
-     top: 0;
-     position: absolute;
-     width: 100%;
- }
+
 
 select {
 /*    -webkit-appearance: none;
@@ -84,13 +79,22 @@ select {
     border: none;
 }
 
+ #autoCompleteContent,  #autoCompleteContent .scroll
+ {
+     top: 0;
+     position: absolute;
+     width: 100%;
+ }
+
 #searchResultList
 {
-    top:35px;
+    position: relative;
+    top: 35px;
 }
 
 #wordMatchList {
-    top:35px;
+    position: relative;
+    top: 44px;
 }
 
 
