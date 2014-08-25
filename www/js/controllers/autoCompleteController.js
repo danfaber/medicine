@@ -1,7 +1,7 @@
 (function(){
     var app = angular.module("medicine");
 
-    var controller = function($scope, $stateParams, $ionicScrollDelegate, autoCompleteTypesDataService, $timeout, typeDataService, currentRecordDataService, $state, $ionicNavBarDelegate) {
+    var controller = function($scope, $stateParams, $ionicScrollDelegate, autoCompleteTypesDataService, $timeout, typeDataService, currentRecordDataService, $state, $ionicNavBarDelegate, $rootScope) {
 
         var typeId = $stateParams.typeId;
         var fieldId = $stateParams.fieldId;

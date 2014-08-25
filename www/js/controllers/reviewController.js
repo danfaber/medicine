@@ -24,7 +24,6 @@
                 if (result) {
                     historyDataService.deleteRecord($stateParams.recordId);
                     $state.go('app.types');
-                    $ionicLoading.show({ template: 'Record Deleted', noBackdrop: true, duration: 1500 });
                 }
             })
         }

@@ -74,6 +74,7 @@
 
             currentRecord.createdDateTime = historyRecord.createdDateTime;
             currentRecord.modifiedDateTime = historyRecord.modifiedDateTime;
+            currentRecord.id = historyRecord.id;
 
             _(currentRecord.fields).each(function(currentField) {
                 historyField = _(historyRecord.fields)
@@ -146,11 +147,13 @@
 
         function generateRecordToSave(record)
         {
+            var now = new Date();
+
             return {
-                id: getId(),
+                id: record.id ? record.id : getId(),
                 typeId: record.typeId,
-                createdDateTime: new Date(),
-                modifiedDateTime: new Date(),
+                createdDateTime: record.createdDateTime ? record.createdDateTime : now,
+                modifiedDateTime: now,
                 fields: _(record.fields).map(function (field) {
                     return generateFieldToSave(field);
                 })

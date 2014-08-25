@@ -25,9 +25,8 @@
     </ion-content>
 
     <div class="bar bar-footer">
-        <button class="button button-clear icon-left ion-trash-a" ng-click="deleteRecord()"></button>
-        <a class="button button-stable" href="#/app/add?typeId={{data.currentRecord.typeId}}&recordId={{data.currentRecord.id}}" id="editRecord">Edit</a>
-    <!--    <button class="button button-stable" ng-click="editRecord()" id="deleteRecord">Edit</button>-->
+        <button class="button button-icon icon-left ion-trash-a" ng-click="deleteRecord()"></button>
+        <a class="button button-icon icon ion-edit" href="#/app/add?typeId={{data.currentRecord.typeId}}&recordId={{data.currentRecord.id}}"></a>
     </div>
 
 </ion-view>

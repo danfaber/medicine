@@ -15,7 +15,7 @@
             currentRecordDataService.loadHistoryRecord(recordId);
         }
 
-        $scope.$on("backButtonClicked", function (event, args) {
+        $scope.$on("backButtonClicked", function () {
 
             var isNewRecordWithNoFieldsSet = !$scope.isEdit && !currentRecordDataService.isAnyFieldSet($stateParams.typeId);
 
@@ -37,8 +37,6 @@
             })
         });
 
-
-
         $scope.data.currentRecord =  currentRecordDataService.getCurrentRecord($stateParams.typeId);
 
         $scope.selectedOptionValue = function(field, dropdown)
@@ -59,7 +57,6 @@
             currentRecordDataService.save($stateParams.typeId);
             currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
             $state.go('app.types');
-            $ionicLoading.show({ template: 'Saved!', noBackdrop: true, duration: 1500 });
         }
 
     });

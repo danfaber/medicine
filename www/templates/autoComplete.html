@@ -4,7 +4,7 @@
         <div class="bar bar-header item-input-inset">
 
             <label class="item-input-wrapper">
-                <i class="icon ion-ios7-search placeholder-icon"></i>
+                <i class="icon ion-search placeholder-icon"></i>
                 <input id="searchBox" type="text" ng-change="changeSearchText()" ng-model="data.searchText" ng-trim="false" placeholder="Search">
             </label>
             <i id="closeIcon" class="icon ion-close-round" ng-click="goBack()"></i>
@@ -25,4 +25,8 @@
         </div>
 
     </ion-content>
+
+    <div class="bar bar-footer">
+        <button class="button button-icon icon ion-close-circled" ng-click="selectAutocomplete(null)"></button>
+    </div>
 </ion-view>

@@ -57,7 +57,7 @@ angular.module('medicine', ['ionic'])
           url: "/autocomplete?typeId&fieldId",
           views: {
               'menuContent' :{
-                  templateUrl: "templates/autoComp.html",
+                  templateUrl: "templates/autoComplete.html",
                   controller: "autoCompleteController"
               }
           }

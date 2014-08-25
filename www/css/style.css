@@ -145,17 +145,12 @@ ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header
     background-color: #E1F5FF;
 }
 
+#historyPage .historyLink
+{
+    text-decoration: none;
+}
+
 #historyPage .typeIcon
 {
     margin-right: 10px;
-}
-
-#saveRecord {
-    margin-top: 0;
-}
-
-#editRecord
-{
-    padding-left: 40px;
-    padding-right: 40px;
 }
