@@ -1,7 +1,7 @@
 
 var app = angular.module('medicine');
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope) {
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, currentRecordDataService) {
 
 /*  // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -35,6 +35,14 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope) {
   $scope.backButtonClicked = function(){
       $rootScope.$broadcast("backButtonClicked",{});
   };
+
+  document.addEventListener("pause", function() {
+      currentRecordDataService.persistCurrentRecords();
+  }, false);
+
+  document.addEventListener("resume", function() {
+      currentRecordDataService.hydrateCurrentRecords();
+  }, false);
 
 });
 

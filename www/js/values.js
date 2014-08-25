@@ -9,4 +9,6 @@
         "autoComplete": 4
       });
 
+    app.value('currentRecordPrefix','C');
+
 })();

@@ -12,8 +12,10 @@
 
         if ($scope.isEdit)
         {
-            currentRecordDataService.loadHistoryRecord(recordId);
+            currentRecordDataService.loadHistoryRecord(recordId.toString());
         }
+
+        $scope.data.currentRecord =  currentRecordDataService.getCurrentRecord($stateParams.typeId);
 
         $scope.$on("backButtonClicked", function () {
 
@@ -37,7 +39,6 @@
             })
         });
 
-        $scope.data.currentRecord =  currentRecordDataService.getCurrentRecord($stateParams.typeId);
 
         $scope.selectedOptionValue = function(field, dropdown)
         {

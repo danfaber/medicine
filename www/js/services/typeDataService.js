@@ -73,12 +73,17 @@
             return sortedTypes;
         };
 
+        var getAll = function()
+        {
+            return types;
+        };
+
 
         var getField = function(typeId, fieldId)
         {
             var type = getType(typeId);
             return getFieldFromType(type, fieldId);
-        }
+        };
 
         var getFieldFromType = function(type, fieldId)
         {
@@ -87,14 +92,14 @@
                 [0];
 
             return field;
-        }
+        };
 
         var getType = function(typeId)
         {
             return _(types)
                 .filter(function(tp) {return tp.typeId == typeId;})
                 [0];
-        }
+        };
 
         var getTypeWithOptionGroups = function(typeId){
             var type = getType(typeId)
@@ -112,13 +117,17 @@
             return typeWithOptionGroups;
         };
 
-
+/*
+* CHANGE THIS TO USE ANGULAR COPY NOT ACTUAL TYPES!!!
+*
+* */
         return {
             getTypeWithOptionGroups: getTypeWithOptionGroups,
             getAllSorted: getAllSorted,
             getField: getField,
             getType: getType,
-            getFieldFromType: getFieldFromType
+            getFieldFromType: getFieldFromType,
+            getAll: getAll
         };
     }])
 

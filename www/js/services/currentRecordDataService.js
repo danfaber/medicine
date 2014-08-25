@@ -4,7 +4,7 @@
     var currentRecordByType = {};
 
     app.factory("currentRecordDataService", ['typeDataService','dataType','$window', 'autoCompleteTypesDataService','optionGroupDataService',
-        function(typeDataService, dataType, $window, autoCompleteTypesDataService, optionGroupDataService){
+        function(typeDataService, dataType, $window, autoCompleteTypesDataService, optionGroupDataService, currentRecordPrefix){
 
         var getCurrentRecord = function(typeId)
         {
@@ -26,11 +26,9 @@
 
         var save = function(typeId){
             var record = currentRecordByType[typeId];
-            var toSave = generateRecordToSave(record);
-
-            var jsonSave = JSON.stringify(toSave);
-            $window.localStorage.setItem(toSave.id.toString(), jsonSave);
-
+            var recordToSave = generateRecordToSave(record);
+            var jsonRecord = JSON.stringify(recordToSave);
+            $window.localStorage.setItem(recordToSave.id.toString(), jsonRecord);
         };
 
         var wipeCurrentRecord = function(typeId)
@@ -38,9 +36,9 @@
             currentRecordByType[typeId] = null;
         };
 
-        var loadHistoryRecord = function(recordId)
+        var loadHistoryRecord = function(storageKey)
         {
-            var historyJson = $window.localStorage.getItem(recordId.toString());
+            var historyJson = $window.localStorage.getItem(storageKey);
             var historyRecord = JSON.parse(historyJson);
 
             var currentRecord = typeDataService.getTypeWithOptionGroups(historyRecord.typeId);
@@ -65,8 +63,30 @@
 
             return nonDropdownFields.some(function(field) {return field.value;})
                 || dropdowns.some(function(dropdown) {return dropdown.value;})
-        }
+        };
 
+        var persistCurrentRecords = function () {
+            _(currentRecordByType).each(function(record){
+                var recordToSave = generateRecordToSave(record);
+                var jsonRecord = JSON.stringify(recordToSave);
+                $window.localStorage.setItem(currentRecordPrefix + recordToSave.typeId.toString(), jsonRecord);
+            });
+        };
+
+        var hydrateCurrentRecords = function(){
+            if (!_.isEmpty(currentRecordByType)) { return; }
+
+            _(typeDataService.getAll()).each(function(type) {
+                loadHistoryRecord(currentRecordPrefix + type.typeId.toString())
+            });
+        };
+
+/*        function saveRecord(record)
+        {
+            var recordToSave = generateRecordToSave(record);
+            var jsonRecord = JSON.stringify(recordToSave);
+            $window.localStorage.setItem(recordToSave.id.toString(), jsonRecord);
+        }*/
 
         function loadDataIntoCurrentRecord(currentRecord, historyRecord)
         {
@@ -198,7 +218,9 @@
             save: save,
             loadHistoryRecord: loadHistoryRecord,
             isAnyFieldSet: isAnyFieldSet,
-            wipeCurrentRecord: wipeCurrentRecord
+            wipeCurrentRecord: wipeCurrentRecord,
+            persistCurrentRecords: persistCurrentRecords,
+            hydrateCurrentRecords: hydrateCurrentRecords
         };
     }]);
 
