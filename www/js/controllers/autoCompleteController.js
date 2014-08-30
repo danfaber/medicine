@@ -48,7 +48,7 @@
             $scope.data.searchResults = [];
 
             $ionicScrollDelegate.scrollTop();
-        }
+        };
 
         $scope.selectWord = function(word)
         {
@@ -63,18 +63,21 @@
             showMatchingDiseases();
 
             $timeout(function(){document.getElementById("searchBox").focus();},0);
-        }
+        };
 
         $scope.selectAutocomplete = function(searchResult) {
 
             currentRecordDataService.updateAutocompleteField(typeId, fieldId, searchResult);
+
+            currentRecordDataService.getCurrentRecord(typeId).isDirty = true;
 
             $state.go('app.add', {typeId: typeId} );
         };
         
         $scope.goBack = function () {
             $ionicNavBarDelegate.back();
-        }
+        };
+
 
         function buildFavourites()
         {
