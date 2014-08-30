@@ -3,7 +3,7 @@
 
     var currentRecordByType = {};
 
-    app.factory("currentRecordDataService", ['typeDataService','dataType','$window', 'autoCompleteTypesDataService','optionGroupDataService',
+    app.factory("currentRecordDataService", ['typeDataService','dataType','$window', 'autoCompleteTypesDataService','optionGroupDataService','currentRecordPrefix',
         function(typeDataService, dataType, $window, autoCompleteTypesDataService, optionGroupDataService, currentRecordPrefix){
 
         var getCurrentRecord = function(typeId)
@@ -39,6 +39,9 @@
         var loadHistoryRecord = function(storageKey)
         {
             var historyJson = $window.localStorage.getItem(storageKey);
+
+            if (!historyJson) {return;}
+
             var historyRecord = JSON.parse(historyJson);
 
             var currentRecord = typeDataService.getTypeWithOptionGroups(historyRecord.typeId);

@@ -1,5 +1,9 @@
 <ion-view title="{{isEdit ? 'Edit' : 'New'}} {{data.currentRecord.name}}">
     <ion-content class="has-header">
+        <div>{{getPaused()}}</div>
+        <div>{{getResumed()}}</div>
+        <button ng-click="pause()">Pause</button>
+
 <form name="$parent.recordForm" novalidate>
         <div class="list" id="addForm">
 

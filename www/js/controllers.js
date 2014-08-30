@@ -36,13 +36,14 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, cu
       $rootScope.$broadcast("backButtonClicked",{});
   };
 
-  document.addEventListener("pause", function() {
-      currentRecordDataService.persistCurrentRecords();
-  }, false);
 
-  document.addEventListener("resume", function() {
-      currentRecordDataService.hydrateCurrentRecords();
-  }, false);
+    document.addEventListener('pause', function() {
+        window.localStorage.setItem("pause","paused at"+new Date());
+    })
+
+    document.addEventListener('resume', function() {
+        window.localStorage.setItem("resume","resumed at"+new Date());
+    })
 
 });
 
