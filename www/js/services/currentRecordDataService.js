@@ -77,7 +77,7 @@
         };
 
         var hydrateCurrentRecords = function(){
-            if (!_.isEmpty(currentRecordByType)) { return; }
+           /* if (!_.isEmpty(currentRecordByType)) { return; }*/
 
             _(typeDataService.getAll()).each(function(type) {
                 loadHistoryRecord(currentRecordPrefix + type.typeId.toString())

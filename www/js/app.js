@@ -10,7 +10,7 @@ medicineApp
 // 'starter.controllers' is found in controllers.js
 angular.module('medicine', ['ionic'])
 
-    .run(function ($ionicPlatform) {
+    .run(function ($ionicPlatform, currentRecordDataService) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -21,6 +21,16 @@ angular.module('medicine', ['ionic'])
                 // org.apache.cordova.statusbar required
                 StatusBar.styleDefault();
             }
+
+            window.localStorage.setItem("deviceready","ready at"+new Date());
+            currentRecordDataService.hydrateCurrentRecords();
+
+
+/*            document.addEventListener('deviceready', function() {
+                window.localStorage.setItem("deviceready","ready at"+new Date());
+                currentRecordDataService.hydrateCurrentRecords();
+            });*/
+
         });
     })
 

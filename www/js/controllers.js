@@ -39,11 +39,13 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, cu
 
     document.addEventListener('pause', function() {
         window.localStorage.setItem("pause","paused at"+new Date());
-    })
+        currentRecordDataService.persistCurrentRecords();
+    });
 
-    document.addEventListener('resume', function() {
+/*    document.addEventListener('resume', function() {
         window.localStorage.setItem("resume","resumed at"+new Date());
-    })
+        currentRecordDataService.hydrateCurrentRecords();
+    });*/
 
 });
 

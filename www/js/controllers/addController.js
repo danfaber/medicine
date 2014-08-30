@@ -5,21 +5,30 @@
     app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService, $state, $ionicLoading, $ionicPopup, $ionicNavBarDelegate) {
 
 /*        window.localStorage.setItem("sure","surely");
-        $scope.sure = window.localStorage.getItem("sure");
+        $scope.sure = window.localStorage.getItem("sure");*/
 
         $scope.getPaused = function(){
             return window.localStorage.getItem("pause");
-        }*/
+        };
+
+        $scope.getResumed = function(){
+            return window.localStorage.getItem("resume");
+        };
+
+        $scope.getReady = function(){
+            return window.localStorage.getItem("deviceready");
+        };
+
 
         $scope.pause = function()
         {
             currentRecordDataService.persistCurrentRecords();
         };
 
-        $scope.resume = function()
+/*        $scope.resume = function()
         {
             currentRecordDataService.hydrateCurrentRecords();
-        }
+        }*/
 
         $scope.data = {};
 
