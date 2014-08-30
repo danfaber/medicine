@@ -6,10 +6,10 @@
         $scope.data = {};
         $scope.data.historyRecords = historyDataService.getAllDisplayHistory();
 
-        $scope.resume = function()
+/*        $scope.resume = function()
         {
             currentRecordDataService.hydrateCurrentRecords();
-        }
+        }*/
     });
 
 })();

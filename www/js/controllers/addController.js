@@ -45,12 +45,21 @@
 
         $scope.$on("backButtonClicked", function () {
 
-            var isNewRecordWithNoFieldsSet = !$scope.isEdit && !currentRecordDataService.isAnyFieldSet($stateParams.typeId);
+            var isNotChangedOrIsEmpty = !$scope.data.currentRecord.isDirty || !currentRecordDataService.isAnyFieldSet($stateParams.typeId);
+
+            if (isNotChangedOrIsEmpty)
+            {
+                navigateBackAndDeleteCurrentRecord();
+                return;
+            }
+
+
+/*            var isNewRecordWithNoFieldsSet = !$scope.isEdit && !currentRecordDataService.isAnyFieldSet($stateParams.typeId);
 
             if (isNewRecordWithNoFieldsSet || $scope.recordForm.$pristine) {
                 $ionicNavBarDelegate.back();
                 return;
-            }
+            }*/
 
             var confirmBackPopup = $ionicPopup.confirm({
                 title: 'Cancel Record',
@@ -59,15 +68,30 @@
 
             confirmBackPopup.then(function (result) {
                 if (result) {
-                    currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
-                    $ionicNavBarDelegate.back();
+                    navigateBackAndDeleteCurrentRecord();
+/*                    currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
+                    $ionicNavBarDelegate.back();*/
                 }
             })
         });
 
+        function navigateBackAndDeleteCurrentRecord()
+        {
+            currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
+            $ionicNavBarDelegate.back();
+        }
+
+
+        $scope.setRecordToDirty = function()
+        {
+            $scope.data.currentRecord.isDirty = true;
+        }
+
 
         $scope.selectedOptionValue = function(field, dropdown)
         {
+            $scope.setRecordToDirty();
+
             var index = field.dropdowns.indexOf(dropdown);
 
             // remove all lower down dropdowns coz they are no longer correct

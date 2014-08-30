@@ -71,6 +71,7 @@
         var persistCurrentRecords = function () {
             _(currentRecordByType).each(function(record){
                 var recordToSave = generateRecordToSave(record);
+                recordToSave.isDirty = record.isDirty;
                 var jsonRecord = JSON.stringify(recordToSave);
                 $window.localStorage.setItem(currentRecordPrefix + recordToSave.typeId.toString(), jsonRecord);
             });
@@ -98,6 +99,7 @@
             currentRecord.createdDateTime = historyRecord.createdDateTime;
             currentRecord.modifiedDateTime = historyRecord.modifiedDateTime;
             currentRecord.id = historyRecord.id;
+            currentRecord.isDirty = historyRecord.isDirty;
 
             _(currentRecord.fields).each(function(currentField) {
                 historyField = _(historyRecord.fields)
