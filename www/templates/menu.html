@@ -13,18 +13,27 @@
     </header>
     <ion-content class="has-header">
       <ion-list>
-        <ion-item nav-clear menu-close ng-click="login()">
-          Login
-        </ion-item>
-        <ion-item nav-clear menu-close href="#/app/types">
+          
+        <ion-item nav-clear menu-close class="item-icon-left" href="#/app/types">
+          <i class="icon ion-plus"></i>
           New
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/history">
+
+        <ion-item nav-clear menu-close class="item-icon-left" href="#/app/history">
+          <i class="icon ion-search"></i>
           History
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/export">
+
+        <ion-item nav-clear menu-close class="item-icon-left" href="#/app/export">
+            <i class="icon ion-ios7-download"></i>
             Export
         </ion-item>
+
+        <ion-item nav-clear menu-close class="item-icon-left" href="#/app/export">
+            <i class="icon ion-gear-a"></i>
+            Settings
+        </ion-item>
+
       </ion-list>
     </ion-content>
   </ion-side-menu>
