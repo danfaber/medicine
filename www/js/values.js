@@ -6,7 +6,8 @@
         "freeText": 1,
         "date": 2,
         "dropdown": 3,
-        "autoComplete": 4
+        "autoComplete": 4,
+        "barcode": 5
       });
 
     app.value('currentRecordPrefix','C');

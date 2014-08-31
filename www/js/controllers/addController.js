@@ -2,7 +2,7 @@
 
     var app = angular.module("medicine");
 
-    app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService, $state, $ionicLoading, $ionicPopup, $ionicNavBarDelegate) {
+    app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService, $state, $ionicLoading, $ionicPopup, $ionicNavBarDelegate, settingsDataService, $cordovaBarcodeScanner) {
 
 /*        window.localStorage.setItem("sure","surely");
         $scope.sure = window.localStorage.getItem("sure");*/
@@ -31,6 +31,8 @@
         }*/
 
         $scope.data = {};
+
+        $scope.isBarcodeScannerEnabled = settingsDataService.getBarcodeScannerEnabled();
 
         var recordId = $stateParams.recordId;
 
@@ -108,6 +110,16 @@
             currentRecordDataService.save($stateParams.typeId);
             currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
             $state.go('app.types');
+        }
+
+        $scope.openBarcodeScanner = function(field)
+        {
+            $cordovaBarcodeScanner.scan().then(function(imageData) {
+                //success
+                field.value = imageData.text;
+            }, function(error) {
+                //error
+            });
         }
 
     });

@@ -47,6 +47,12 @@
                                 {key:"M92.6",count:5},
                                 {key:"M94.99",count:2},
                                 {key:"N05.4",count:7}]
+                        },
+                        {
+                            id:6,
+                            sortOrder: 6,
+                            name: "Barcode",
+                            dataType: dataType.barcode
                         }
                     ]
                 },
