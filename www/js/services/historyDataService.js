@@ -106,6 +106,10 @@
                         .getByKey(fieldInfo.autoCompleteTypeId, field.value)
                         .phrase;
                     break;
+
+                case dataType.barcode:
+                    field.displayText = field.value;
+                    break;
             }
         }
 

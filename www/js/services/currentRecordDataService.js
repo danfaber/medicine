@@ -158,6 +158,10 @@
                         ? autoCompleteTypesDataService.getByKey(currentField.autoCompleteTypeId, historyField.value)
                         : null;
                     break;
+
+                case dataType.barcode:
+                    currentField.value = historyField.value;
+                    break;
             }
         }
 
@@ -211,6 +215,10 @@
 
                 case dataType.autoComplete:
                     saveField.value = (field.value) ?  field.value.key : null;
+                    break;
+
+                case dataType.barcode:
+                    saveField.value = (field.value) ? field.value : null;
                     break;
             }
 

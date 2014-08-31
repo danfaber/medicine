@@ -34,7 +34,7 @@
 
                     <div ng-switch-when="5">
                         <input ng-if="!isBarcodeScannerEnabled" type="text" ng-model="field.value" ng-change="setRecordToDirty()">
-                        <div ng-if="isBarcodeScannerEnabled" ng-click="openBarcodeScanner(field)">x-{{field.value}}</div>
+                        <div class="fullWidth" ng-if="isBarcodeScannerEnabled" ng-click="openBarcodeScanner(field)">{{field.value}}</div>
                     </div>
 
                 </ng-switch>
