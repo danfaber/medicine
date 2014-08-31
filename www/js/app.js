@@ -95,6 +95,16 @@ angular.module('medicine', ['ionic'])
       }
     })
 
+      .state('app.settings', {
+          url: "/settings",
+          views: {
+              'menuContent' :{
+                  templateUrl: "templates/settings.html",
+                  controller: "settingsController"
+              }
+          }
+      })
+
       .state('app.review', {
           url: "/review?typeId&recordId",
           views: {

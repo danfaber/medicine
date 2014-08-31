@@ -1,0 +1,24 @@
+<ion-view title="Settings">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+
+        <ul class="list">
+            <li class="item item-toggle">
+                Barcode Scanner
+                <label class="toggle">
+                    <input type="checkbox" ng-model="data.isBarcodeScannerEnabled" ng-change="changeBarcodeScanner()">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+        </ul>
+
+
+
+
+
+    </ion-content>
+</ion-view>
