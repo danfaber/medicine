@@ -58,7 +58,8 @@ angular.module('medicine', ['ionic','ngCordova'])
       url: "/export",
       views: {
         'menuContent' :{
-          templateUrl: "templates/export.html"
+          templateUrl: "templates/export.html",
+          controller: "exportController"
         }
       }
     })
