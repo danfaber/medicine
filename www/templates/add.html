@@ -10,7 +10,7 @@
 
             <div class="item item-input" ng-repeat="field in data.currentRecord.fields">
 
-                <label class="input-label">{{field.name}}</label>
+                <label class="input-label item-text-wrap">{{field.name}}</label>
                 <ng-switch on="field.dataType" class="inputRegion">
 
                     <a href="#/app/autocomplete?typeId={{data.currentRecord.typeId}}&fieldId={{field.id}}"
@@ -34,7 +34,7 @@
 
                     <div ng-switch-when="5">
                         <input ng-if="!isBarcodeScannerEnabled" type="text" ng-model="field.value" ng-change="setRecordToDirty()">
-                        <div class="fullWidth" ng-if="isBarcodeScannerEnabled" ng-click="openBarcodeScanner(field)">{{field.value}}</div>
+                        <div class="barcodeDisplay" ng-if="isBarcodeScannerEnabled" ng-click="openBarcodeScanner(field)">{{field.value}}</div>
                     </div>
 
                 </ng-switch>

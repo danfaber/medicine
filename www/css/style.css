@@ -131,7 +131,8 @@ ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header
     margin-right: 10px;
 }
 
-#addForm .fullWidth
+#addForm .barcodeDisplay
 {
     width: 100%;
+    height: 34px;
 }
