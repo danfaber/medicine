@@ -7,25 +7,34 @@
     var gFileEntry;
 
 
+    function padToTwoDigits(number)
+    {
+        var numberString = number.toString();
+        return (numberString.length === 1) ? "0"+numberString : numberString;
+    }
+
+
     app.controller("exportController", function($scope) {
 
         function getFileName()
         {
-            return applicationName + " " + currentDateTime+".html";
+            return applicationName + " "
+                + padToTwoDigits(currentDateTime.getDay()) + "-"
+                + padToTwoDigits(currentDateTime.getMonth()) + "-"
+                + currentDateTime.getFullYear().toString() + " "
+                + padToTwoDigits(currentDateTime.getHours()) + "."
+                + padToTwoDigits(currentDateTime.getMinutes())
+                +".html";
         }
 
         $scope.exportData = function()
         {
-
-
-         //   alert(cordova.file.dataDirectory);
-
-
            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
 
+            currentDateTime = new Date();
 
             function gotFS(fileSystem) {
-                fileSystem.root.getFile("bob.txt", {create: true, exclusive: false}, gotFileEntry, fail);
+                fileSystem.root.getFile(getFileName(), {create: true, exclusive: false}, gotFileEntry, fail);
             }
 
             function gotFileEntry(fileEntry) {
@@ -59,7 +68,7 @@
             window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
 
             function gotFS(fileSystem) {
-                fileSystem.root.getFile("bob.txt", null, gotFileEntry, fail);
+                fileSystem.root.getFile(getFileName(), null, gotFileEntry, fail);
             }
 
             function gotFileEntry(fileEntry) {
@@ -68,27 +77,7 @@
             }
 
             function gotFile(file){
-                readDataUrl(file);
-                readAsText(file);
                 emailFile(file);
-            }
-
-            function readDataUrl(file) {
-                var reader = new FileReader();
-                reader.onloadend = function(evt) {
-                    alert("Read as data URL");
-                    alert(evt.target.result);
-                };
-                reader.readAsDataURL(file);
-            }
-
-            function readAsText(file) {
-                var reader = new FileReader();
-                reader.onloadend = function(evt) {
-                    alert("Read as text");
-                    alert(evt.target.result);
-                };
-                reader.readAsText(file);
             }
 
             function fail(evt) {
