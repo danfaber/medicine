@@ -34,14 +34,20 @@
             currentDateTime = new Date();
 
             function gotFS(fileSystem) {
-                fileSystem.root.getFile(getFileName(), {create: true, exclusive: false}, gotFileEntry, fail);
+                gFileSystem = fileSystem;
+                gFileSystem.root.getFile(getFileName(), {create: true, exclusive: false}, gotFileEntry, fail);
             }
 
             function gotFileEntry(fileEntry) {
-                fileEntry.createWriter(gotFileWriter, fail);
+                gFileEntry = fileEntry;
+                gFileEntry.createWriter(gotFileWriter, fail);
             }
 
             function gotFileWriter(writer) {
+                writer.onwriteend = function(evt) {
+                    emailFile(gFileEntry.toURL());
+                };
+
 /*                writer.onwriteend = function(evt) {
                     alert("contents of file now 'some sample text'");
                     writer.truncate(11);
@@ -54,7 +60,7 @@
                         }
                     };
                 };*/
-                writer.write("dan text here");
+                writer.write("<h1>Heading</h1><div>Maybe this will work</div>");
             }
 
             function fail(error) {
