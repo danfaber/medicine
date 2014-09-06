@@ -20,15 +20,15 @@
 
                     <input ng-switch-when="2" type="date" ng-model="field.value" ng-change="setRecordToDirty()"/>
 
-                    <ul ng-switch-when="3" class="list">
-                        <li class="item" ng-repeat="dropdown in field.dropdowns" style="border: none;">
-                            <select style="display: block;" ng-change="selectedOptionValue(field,dropdown)"
+                    <div ng-switch-when="3" class="list" style="margin-top: -6px; margin-bottom: -5px;">
+                        <div class="item item-input" ng-repeat="dropdown in field.dropdowns" style="border: none; padding: 0;">
+                            <select style="display: block; height: 49px;" ng-change="selectedOptionValue(field,dropdown)"
                                     ng-options="x.description for x in dropdown.optionValues" ng-model="dropdown.value">
                                 <option value="">Please Select</option>
                             </select>
-                        </li>
+                        </div>
 
-                    </ul>
+                    </div>
 
                     <input ng-switch-when="1" type="text" ng-model="field.value" ng-change="setRecordToDirty()"/>
 
