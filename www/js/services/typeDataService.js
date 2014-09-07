@@ -59,6 +59,12 @@
                             sortOrder: 7,
                             name: "Flag",
                             dataType: dataType.toggle
+                        },
+                        {
+                            id:8,
+                            sortOrder: 8,
+                            name: "Other symptoms",
+                            dataType: dataType.autoCompleteMultiSelect
                         }
                     ]
                 },

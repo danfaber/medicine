@@ -4,8 +4,6 @@
 
     app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService, $state, $ionicLoading, $ionicPopup, $ionicNavBarDelegate, settingsDataService, $cordovaBarcodeScanner) {
 
-/*        window.localStorage.setItem("sure","surely");
-        $scope.sure = window.localStorage.getItem("sure");*/
 
         $scope.getPaused = function(){
             return window.localStorage.getItem("pause");
@@ -19,16 +17,10 @@
             return window.localStorage.getItem("deviceready");
         };
 
-
         $scope.pause = function()
         {
             currentRecordDataService.persistCurrentRecords();
         };
-
-/*        $scope.resume = function()
-        {
-            currentRecordDataService.hydrateCurrentRecords();
-        }*/
 
         $scope.data = {};
 
@@ -54,14 +46,6 @@
                 navigateBackAndDeleteCurrentRecord();
                 return;
             }
-
-
-/*            var isNewRecordWithNoFieldsSet = !$scope.isEdit && !currentRecordDataService.isAnyFieldSet($stateParams.typeId);
-
-            if (isNewRecordWithNoFieldsSet || $scope.recordForm.$pristine) {
-                $ionicNavBarDelegate.back();
-                return;
-            }*/
 
             var confirmBackPopup = $ionicPopup.confirm({
                 title: 'Cancel Record',
