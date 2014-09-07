@@ -9,12 +9,14 @@
                 <label class="input-label item-text-wrap">{{field.name}}</label>
                 <ng-switch on="field.dataType" class="inputRegion">
 
-                    <a href="#/app/autocomplete?typeId={{data.currentRecord.typeId}}&fieldId={{field.id}}"
+                    <a href="#/app/autocomplete?typeId={{data.currentRecord.typeId}}&fieldId={{field.id}}&index=0"
                        ng-switch-when="4" class="autoCompleteField">
-                        <div>{{field.value.phrase}}</div>
+                        <div>{{field.value[0].phrase}}</div>
                     </a>
 
-                    <div ng-switch-when="7"></div>
+                    <div ng-switch-when="7">
+
+                    </div>
 
                     <input ng-switch-when="2" type="date" ng-model="field.value" ng-change="setRecordToDirty()"/>
 

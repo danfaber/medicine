@@ -65,7 +65,7 @@ angular.module('medicine', ['ionic','ngCordova'])
     })
 
       .state('app.autocomplete', {
-          url: "/autocomplete?typeId&fieldId",
+          url: "/autocomplete?typeId&fieldId&index",
           views: {
               'menuContent' :{
                   templateUrl: "templates/autoComplete.html",

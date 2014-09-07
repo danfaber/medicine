@@ -15,13 +15,14 @@
             return currentRecordByType[typeId];
         };
 
-        var updateAutocompleteField = function(typeId, fieldId, newValue)
+        var updateAutocompleteField = function(typeId, fieldId, index, newValue)
         {
-            var field = currentRecordByType[typeId].fields
-                .filter(function(field) {return field.id == fieldId;})
-                [0];
+            var field = _(currentRecordByType[typeId].fields)
+                .find(function(field) {return field.id == fieldId;});
 
-            field.value = newValue;
+            if (!field.value) {field.value = [];}
+
+            field.value[index] = newValue;
         };
 
         var save = function(typeId){

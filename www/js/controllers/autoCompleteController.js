@@ -1,10 +1,11 @@
 (function(){
     var app = angular.module("medicine");
 
-    var controller = function($scope, $stateParams, $ionicScrollDelegate, autoCompleteTypesDataService, $timeout, typeDataService, currentRecordDataService, $state, $ionicNavBarDelegate, $rootScope) {
+    var controller = function($scope, $stateParams, $ionicScrollDelegate, autoCompleteTypesDataService, $timeout, typeDataService, currentRecordDataService, $state, $ionicNavBarDelegate) {
 
         var typeId = $stateParams.typeId;
         var fieldId = $stateParams.fieldId;
+        var index = parseInt($stateParams.index);
 
         var field = typeDataService.getField(typeId,fieldId)
 
@@ -67,7 +68,7 @@
 
         $scope.selectAutocomplete = function(searchResult) {
 
-            currentRecordDataService.updateAutocompleteField(typeId, fieldId, searchResult);
+            currentRecordDataService.updateAutocompleteField(typeId, fieldId, index, searchResult);
 
             currentRecordDataService.getCurrentRecord(typeId).isDirty = true;
 
