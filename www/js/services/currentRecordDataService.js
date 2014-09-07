@@ -78,19 +78,10 @@
         };
 
         var hydrateCurrentRecords = function(){
-           /* if (!_.isEmpty(currentRecordByType)) { return; }*/
-
             _(typeDataService.getAll()).each(function(type) {
                 loadHistoryRecord(currentRecordPrefix + type.typeId.toString())
             });
         };
-
-/*        function saveRecord(record)
-        {
-            var recordToSave = generateRecordToSave(record);
-            var jsonRecord = JSON.stringify(recordToSave);
-            $window.localStorage.setItem(recordToSave.id.toString(), jsonRecord);
-        }*/
 
         function loadDataIntoCurrentRecord(currentRecord, historyRecord)
         {
@@ -162,6 +153,10 @@
                 case dataType.barcode:
                     currentField.value = historyField.value;
                     break;
+
+                case dataType.toggle:
+                    currentField.value = historyField.value;
+                    break;
             }
         }
 
@@ -172,7 +167,6 @@
             $window.localStorage.setItem("nextRecordId",(id+1).toString());
             return id;
         }
-
 
         function generateRecordToSave(record)
         {
@@ -219,6 +213,10 @@
 
                 case dataType.barcode:
                     saveField.value = (field.value) ? field.value : null;
+                    break;
+
+                case dataType.toggle:
+                    saveField.value = (field.value) ? field.value : false;
                     break;
             }
 

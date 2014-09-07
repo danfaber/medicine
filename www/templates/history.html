@@ -4,9 +4,6 @@
   </ion-nav-buttons>
   <ion-content id="historyPage" class="has-header">
 
-    <!--  <button ng-click="resume()">Resume</button>-->
-
-
       <div class="card"  ng-repeat="record in data.historyRecords" >
         <a href="#/app/review?typeId={{record.typeId}}&recordId={{record.id}}" class="historyLink">
             <div class="item item-divider historyHeading">

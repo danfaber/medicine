@@ -53,6 +53,12 @@
                             sortOrder: 6,
                             name: "Barcode",
                             dataType: dataType.barcode
+                        },
+                        {
+                            id:7,
+                            sortOrder: 7,
+                            name: "Flag",
+                            dataType: dataType.toggle
                         }
                     ]
                 },

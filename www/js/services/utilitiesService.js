@@ -12,7 +12,7 @@
                    array.splice(i,1);
                }
            }
-       }
+       };
 
 
        return {

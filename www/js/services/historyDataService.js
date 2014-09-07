@@ -56,7 +56,7 @@
 
             if (removeEmptyFields)
             {
-                utilitiesService.removeFromArray(displayRecord.fields, function(field) {return !field.value;})
+                utilitiesService.removeFromArray(displayRecord.fields, function(field) {return field.value == null})
             }
 
             _(displayRecord.fields).each(function(field) {
@@ -74,7 +74,7 @@
             field.dataType = fieldInfo.dataType;
             field.name = fieldInfo.name;
 
-            if (!field.value)
+            if (field.value == null)
             {
                 field.displayText = null;
                 return;
@@ -109,6 +109,10 @@
 
                 case dataType.barcode:
                     field.displayText = field.value;
+                    break;
+
+                case dataType.toggle:
+                    field.displayText = field.value ? "Yes" : "No";
                     break;
             }
         }
