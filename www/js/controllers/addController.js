@@ -4,24 +4,6 @@
 
     app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService, $state, $ionicLoading, $ionicPopup, $ionicNavBarDelegate, settingsDataService, $cordovaBarcodeScanner) {
 
-
-        $scope.getPaused = function(){
-            return window.localStorage.getItem("pause");
-        };
-
-        $scope.getResumed = function(){
-            return window.localStorage.getItem("resume");
-        };
-
-        $scope.getReady = function(){
-            return window.localStorage.getItem("deviceready");
-        };
-
-        $scope.pause = function()
-        {
-            currentRecordDataService.persistCurrentRecords();
-        };
-
         $scope.data = {};
 
         $scope.isBarcodeScannerEnabled = settingsDataService.getBarcodeScannerEnabled();
