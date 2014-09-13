@@ -3,10 +3,9 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header">
-      {{message}}
     <ion-list>
-      <ion-item ng-repeat="type in types" href="#/app/add?typeId={{type.typeId}}">
-        {{type.name}}
+      <ion-item ng-repeat="recordDefinition in recordDefinitions" href="#/app/add?recordDefinitionId={{recordDefinition.id}}">
+        {{recordDefinition.name}}
       </ion-item>
     </ion-list>
   </ion-content>

@@ -23,7 +23,7 @@
 
             return (savedPickList)
                 ? savedPickList
-                : pickListEntityService.defaultPickLists
+                : _(pickListEntityService.defaultPickLists)
                 .find(function(pickList) {return pickList.id === id;});
         }
 

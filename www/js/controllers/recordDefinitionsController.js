@@ -5,8 +5,7 @@
 
     function recordDefinitionsController($scope, recordDefinitions)
     {
-//        $scope.recordDefinitions = recordDefinitions.all;
-        $scope.message = "hi";
+        $scope.recordDefinitions = recordDefinitions.all;
     }
 
 

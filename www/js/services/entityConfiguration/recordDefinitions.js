@@ -1,16 +1,8 @@
 (function(){
 
+    angular.module("medicine").factory("recordDefinitions", ['recordDefinitionEntity', 'fieldDefinitionEntity', 'pickListService', 'dataType', recordDefinitions]);
 
-    //angular.module("medicine").factory("recordDefinitions", ['recordDefinitionEntity', 'fieldDefinitionEntity', 'dataType', 'pickListService', recordDefinitions]);
-    angular.module("medicine").factory("recordDefinitions", ['recordDefinitionEntity', 'fieldDefinitionEntity','dataType','pickListService', recordDefinitions]);
-
-    //  angular.module("medicine").factory("recordDefinitions", [recordDefinitions]);
-
-    function recordDefinitions() {
-        return {};
-    }
-
-/*    function recordDefinitions(recordDefinitionEntity, fieldDefinitionEntity, pickListService, dataType){
+    function recordDefinitions(recordDefinitionEntity, fieldDefinitionEntity, pickListService, dataType){
 
         var recordDefinitions = [
 
@@ -31,7 +23,7 @@
 
         function withFieldDefinition(id, name, sortOrder, isToggled, isMultiSelect, dataType, pickListId, autoCompleteId)
         {
-            var pickList = pickListService.getPickList(pickListId);
+            var pickList = (pickListId) ? pickListService.getPickList(pickListId) : undefined;
 
             return new fieldDefinitionEntity.FieldDefinition(id, name, sortOrder, isToggled, isMultiSelect, dataType, pickList)
         }
@@ -50,5 +42,5 @@
             all: recordDefinitions,
             get: get
         };
-    }*/
+    }
 })();

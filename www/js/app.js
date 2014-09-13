@@ -76,11 +76,11 @@ angular.module('medicine', ['ionic','ngCordova'])
 
 
 
-    .state('app.types', {
-      url: "/types",
+    .state('app.recordDefinitions', {
+      url: "/recordDefinitions",
       views: {
         'menuContent' :{
-          templateUrl: "templates/types.html",
+          templateUrl: "templates/recordDefinitions.html",
           controller: 'recordDefinitionsController'
         }
       }
@@ -118,6 +118,6 @@ angular.module('medicine', ['ionic','ngCordova'])
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/types');
+  $urlRouterProvider.otherwise('/app/recordDefinitions');
 });
 
