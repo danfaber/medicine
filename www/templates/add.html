@@ -22,7 +22,7 @@
 
                     <div ng-switch-when="3" class="list" style="margin-top: -6px; margin-bottom: -5px;">
                         <div class="item item-input" ng-repeat="dropdown in field.dropdowns" style="border: none; padding-top: 6px; padding-bottom: 5px;">
-                            <select style="display: block; height: 34px;" ng-change="selectedOptionValue(field,dropdown)"
+                            <select multiple style="display: block; height: 34px;" ng-change="selectedOptionValue(field,dropdown)"
                                     ng-options="x.description for x in dropdown.optionValues" ng-model="dropdown.value">
                                 <option value="">Please Select</option>
                             </select>

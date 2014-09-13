@@ -103,7 +103,7 @@
 
                 case dataType.autoComplete:
                     field.displayText = autoCompleteTypesDataService
-                        .getByKey(fieldInfo.autoCompleteTypeId, field.value)
+                        .getByKey(fieldInfo.autoCompleteTypeId, field.value[0])
                         .phrase;
                     break;
 
