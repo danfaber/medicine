@@ -4,13 +4,25 @@
 
     function recordDefinitionEntity(){
 
-        function RecordDefinition(id, name, sortOrder, fields)
+        function RecordDefinition(id, name, sortOrder, fieldDefinitions)
         {
             this.id = id;
             this.name = name;
             this.sortOrder = sortOrder;
-            this.fields = fields;
+            this.fieldDefinitions = fieldDefinitions;
         }
+
+        RecordDefinition.prototype = function()
+        {
+            function createRecord()
+            {
+
+            }
+
+            return {
+
+            };
+        }();
 
 
 
