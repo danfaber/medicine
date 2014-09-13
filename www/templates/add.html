@@ -1,12 +1,29 @@
 <ion-view title="{{isEdit ? 'Edit' : 'New'}} {{data.currentRecord.name}}">
     <ion-content class="has-header">
 
-<form name="$parent.recordForm" novalidate>
+        <div class="list">
+            <field ng-repeat="field in data.currentRecord.fields" field="field"></field>
+        </div>
+
+<!--<form name="$parent.recordForm" novalidate>
         <div class="list" id="addForm">
 
             <div class="item item-input" ng-repeat="field in data.currentRecord.fields">
 
                 <label class="input-label item-text-wrap">{{field.name}}</label>
+
+                <label class="checkbox" ng-show="field.isToggled">
+                    <input type="checkbox" ng-model="field.data.isChecked">
+                </label>
+
+
+
+
+
+
+
+
+
                 <ng-switch on="field.dataType" class="inputRegion">
 
                     <a href="#/app/autocomplete?typeId={{data.currentRecord.typeId}}&fieldId={{field.id}}&index=0"
@@ -52,7 +69,7 @@
 
         </div>
 
-</form>
+</form>-->
 
     </ion-content>
 

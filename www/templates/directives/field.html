@@ -1,0 +1,25 @@
+<div class="row">
+
+    <div class="col col-80">
+
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">First Name</span>
+
+            <ul>
+                <li ng-repeat="record in field.data.records">
+                    <input type="text" value="record.value">
+                </li>
+            </ul>
+
+        </label>
+
+    </div>
+
+    <div class="col">
+        <input type="checkbox" ng-model="field.data.isSelected">
+    </div>
+
+</div>
+
+
+

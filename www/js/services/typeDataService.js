@@ -11,7 +11,7 @@
                     name: "Procedure",
                     sortOrder: 2,
                     fields: [
-                        {
+/*                        {
                             id: 1,
                             sortOrder: 1,
                             name: "Issue Type",
@@ -65,6 +65,14 @@
                             sortOrder: 8,
                             name: "Other symptoms",
                             dataType: dataType.autoCompleteMultiSelect
+                        },*/
+                        {
+                            id: 9,
+                            sortOrder: 9,
+                            name: "pick list",
+                            dataType: dataType.pickList,
+                            isMultiSelect: true,
+                            isToggled: true
                         }
                     ]
                 },

@@ -1,0 +1,14 @@
+(function(){
+
+    angular.module("medicine")
+        .directive("field", function(){
+            return {
+                restrict: "E",
+                templateUrl: "templates/directives/field.html",
+                scope: {
+                    field: "="
+                }
+            }
+        });
+
+})();

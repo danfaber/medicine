@@ -9,7 +9,8 @@
         "autoComplete": 4,
         "barcode": 5,
         "toggle": 6,
-        "autoCompleteMultiSelect": 7
+        "autoCompleteMultiSelect": 7,
+        "pickList": 8
       });
 
     app.value('currentRecordPrefix','C');
