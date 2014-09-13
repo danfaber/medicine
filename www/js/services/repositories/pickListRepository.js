@@ -1,8 +1,8 @@
 (function(){
 
-    angular.module("medicine").factory("pickListRepository",['$window','pickListEntityService', pickListRepository]);
+    angular.module("medicine").factory("pickListRepository",['$window','pickListEntity', pickListRepository]);
 
-    function pickListRepository($window, pickListEntityService){
+    function pickListRepository($window, pickListEntity){
         var pickListPrefix = 'PL';
 
         return {
@@ -25,7 +25,7 @@
             var tabs = _(pickListData.tabs)
                 .map(function(tab) {return regenerateTab(tab) ;});
 
-            return new pickListEntityService.PickList(pickListData.id, pickListData.name, tabs);
+            return new pickListEntity.PickList(pickListData.id, pickListData.name, tabs);
         }
 
         function regenerateTab(tabData)
@@ -33,12 +33,12 @@
             var values = _(tabData).values
                 .map(function(value) {return regenerateTabValue(value);});
 
-            return new pickListEntityService.Tab(tabData.id, tabData.name, values);
+            return new pickListEntity.Tab(tabData.id, tabData.name, values);
         }
 
         function regenerateTabValue(tabValueData)
         {
-            return new pickListEntityService.TabValue(tabValueData.text, tabValueData.count);
+            return new pickListEntity.TabValue(tabValueData.text, tabValueData.count);
         }
     }
 

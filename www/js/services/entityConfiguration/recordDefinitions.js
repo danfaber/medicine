@@ -1,8 +1,16 @@
 (function(){
 
-    angular.module("medicine").factory("recordDefinitionConfiguration", ['recordDefinitionEntity', 'fieldDefinitionEntity', 'dataType', 'pickListService', recordDefinitionConfiguration]);
 
-    function recordDefinitionConfiguration(recordDefinitionEntity, fieldDefinitionEntity, pickListService, dataType){
+    //angular.module("medicine").factory("recordDefinitions", ['recordDefinitionEntity', 'fieldDefinitionEntity', 'dataType', 'pickListService', recordDefinitions]);
+    angular.module("medicine").factory("recordDefinitions", ['recordDefinitionEntity', 'fieldDefinitionEntity','dataType','pickListService', recordDefinitions]);
+
+    //  angular.module("medicine").factory("recordDefinitions", [recordDefinitions]);
+
+    function recordDefinitions() {
+        return {};
+    }
+
+/*    function recordDefinitions(recordDefinitionEntity, fieldDefinitionEntity, pickListService, dataType){
 
         var recordDefinitions = [
 
@@ -39,8 +47,8 @@
         }
 
         return {
-            recordDefinitions: recordDefinitions,
+            all: recordDefinitions,
             get: get
         };
-    }
+    }*/
 })();

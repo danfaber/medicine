@@ -81,7 +81,7 @@ angular.module('medicine', ['ionic','ngCordova'])
       views: {
         'menuContent' :{
           templateUrl: "templates/types.html",
-          controller: 'typeController'
+          controller: 'recordDefinitionsController'
         }
       }
     })

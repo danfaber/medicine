@@ -16,26 +16,8 @@
             this.autoComplete = autoComplete;
         }
 
-        FieldDefinition.prototype = function(){
-
-            function createRecordField()
-            {
-
-            }
-
-
-            return {
-
-            }
-
-
-        }();
-
-
-
         return {
             FieldDefinition: FieldDefinition
-
         };
     }
 })();

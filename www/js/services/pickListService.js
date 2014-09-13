@@ -1,6 +1,6 @@
 (function(){
 
-    angular.module("medicine").factory("pickListService", ['pickListRepository','pickListEntityService', pickListService]);
+    angular.module("medicine").factory("pickListService", ['pickListRepository','pickListEntity', pickListService]);
 
     function pickListService(pickListRepository, pickListEntityService){
 
