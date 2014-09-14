@@ -22,23 +22,23 @@
 
         function regeneratePickList(pickListData)
         {
-            var tabs = _(pickListData.tabs)
-                .map(function(tab) {return regenerateTab(tab) ;});
+            var categories = _(pickListData.categories)
+                .map(function(category) {return regenerateCategory(category) ;});
 
-            return new pickListEntity.PickList(pickListData.id, pickListData.name, tabs);
+            return new pickListEntity.PickList(pickListData.id, pickListData.name, pickListData.isAbleToAddNewValues, pickListData.showCategoriesAsTabs, categories);
         }
 
-        function regenerateTab(tabData)
+        function regenerateCategory(categoryData)
         {
-            var values = _(tabData).values
-                .map(function(value) {return regenerateTabValue(value);});
+            var values = _(categoryData).values
+                .map(function(value) {return regeneratePickValue(value);});
 
-            return new pickListEntity.Tab(tabData.id, tabData.name, values);
+            return new pickListEntity.Category(categoryData.id, categoryData.name, values);
         }
 
-        function regenerateTabValue(tabValueData)
+        function regeneratePickValue(tabValueData)
         {
-            return new pickListEntity.TabValue(tabValueData.text, tabValueData.count);
+            return new pickListEntity.PickValue(tabValueData.text, tabValueData.count);
         }
     }
 

@@ -1,8 +1,6 @@
 (function(){
 
-    angular.module("medicine").factory("recordDefinitions",
-//        ['recordDefinitionEntity', 'fieldDefinitionEntity', 'pickListService', 'shortTextType', 'date_Type', 'booleanType', 'longTextType', 'barcodeType', recordDefinitions]);
-    ['recordDefinitionEntity', 'fieldDefinitionEntity', 'pickListService', 'allFieldTypes' , recordDefinitions]);
+    angular.module("medicine").factory("recordDefinitions",['recordDefinitionEntity', 'fieldDefinitionEntity', 'pickListService', 'allFieldTypes' , recordDefinitions]);
 
     function recordDefinitions(recordDefinitionEntity, fieldDefinitionEntity, pickListService, allFieldTypes){
 

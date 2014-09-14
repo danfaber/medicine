@@ -5,28 +5,25 @@
     function pickListConfiguration(pickListEntity){
 
         var defaultPickLists = [
-            addPickList(1,'Symptoms',[
-                withTab(1, 'Heart', ['Upper Heart','Middle Heart', 'Lower Heart','Related Cardiac']),
-                withTab(2, 'Lung', ['Left Lung', 'Right Lung', 'Top Lung'])]),
+            addPickList(1,'Symptoms',true, true,[
+                withCategory(1, 'Heart', ['Upper Heart','Middle Heart', 'Lower Heart','Related Cardiac']),
+                withCategory(2, 'Lung', ['Left Lung', 'Right Lung', 'Top Lung'])]),
 
             addPickList(2, 'Location', [
-                withTab(3, 'All', ['London', 'Manchester', 'Liverpool', 'Loughborough'])
+                withCategory(3, 'All', ['London', 'Manchester', 'Liverpool', 'Loughborough'])
             ])
         ];
 
-
-        function addPickList(id, name, tabs)
+        function addPickList(id, name, isAbleToAddNewValues, showCategoriesAsTabs, categories)
         {
-            return new pickListEntity.PickList(id, name, tabs);
+            return new pickListEntity.PickList(id, name, isAbleToAddNewValues, showCategoriesAsTabs, categories);
         }
 
-
-        function withTab(id, name, values)
+        function withCategory(id, name, values)
         {
-            var tabValues = _(values).map(function(value) {return new pickListEntity.TabValue(value, 0); });
-            return new pickListEntity.Tab(id, name, tabValues);
+            var pickValues = _(values).map(function(value) {return new pickListEntity.PickValue(value, 0); });
+            return new pickListEntity.Category(id, name, pickValues);
         }
-
 
         return {
             defaultPickLists: defaultPickLists
