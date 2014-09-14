@@ -1,14 +1,26 @@
 (function(){
 
     angular.module("medicine")
-        .directive("field", function(){
+        .directive("field",[function(fieldType){
             return {
                 restrict: "E",
                 templateUrl: "templates/directives/field.html",
                 scope: {
-                    field: "="
-                }
+                    recordField: "="
+                },
+                controller: controller
             }
-        });
+        }]);
+
+    var controller = function($scope)
+    {
+        $scope.changeToggle = function()
+        {
+            if (!$scope.recordField.data.isChecked)
+            {
+                $scope.recordField.data.values = [];
+            }
+        };
+    }
 
 })();

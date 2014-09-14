@@ -87,7 +87,7 @@ angular.module('medicine', ['ionic','ngCordova'])
     })
 
     .state('app.add', {
-      url: "/add?typeId&recordId",
+      url: "/add?recordDefinitionId",
       views: {
         'menuContent' :{
           templateUrl: "templates/add.html",

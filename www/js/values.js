@@ -13,6 +13,17 @@
         "pickList": 8
       });
 
+/*
+    app.value('fieldType',{
+        "freeText":1,
+        "date": 2,
+        "pickList": 3,
+        "autoComplete": 4,
+        "barcode": 5,
+        "boolean": 6
+    });
+*/
+
     app.value('currentRecordPrefix','C');
 
 })();

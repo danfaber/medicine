@@ -1,8 +1,16 @@
 (function() {
 
-    var app = angular.module("medicine");
+    angular.module("medicine").controller("addController", addController);
 
-    app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService, $state, $ionicLoading, $ionicPopup, $ionicNavBarDelegate, settingsDataService, $cordovaBarcodeScanner) {
+    function addController($scope, $stateParams, recordDefinitions)
+    {
+        var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
+
+        $scope.record = recordDefinitions.get(recordDefinitionId).getCurrentRecord();
+    }
+
+
+/*    app.controller("addController", function($scope, $stateParams, currentRecordDataService, dataType, optionGroupDataService, $state, $ionicLoading, $ionicPopup, $ionicNavBarDelegate, settingsDataService, $cordovaBarcodeScanner) {
 
         $scope.data = {};
 
@@ -37,8 +45,8 @@
             confirmBackPopup.then(function (result) {
                 if (result) {
                     navigateBackAndDeleteCurrentRecord();
-/*                    currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
-                    $ionicNavBarDelegate.back();*/
+*//*                    currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
+                    $ionicNavBarDelegate.back();*//*
                 }
             })
         });
@@ -76,7 +84,7 @@
             currentRecordDataService.save($stateParams.typeId);
             currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
             $state.go('app.types');
-        }
+        };
 
         $scope.openBarcodeScanner = function(field)
         {
@@ -88,7 +96,7 @@
             });
         }
 
-    });
+    });*/
 
 })();
 

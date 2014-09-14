@@ -1,3 +1,4 @@
+/*
 
  #closeIcon
  {
@@ -6,34 +7,15 @@
  }
 
 
-
 select {
-/*    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    position: absolute;
-    right: 0;
-    max-width: 65%;
-    border: none;
-    background: #fff;
-    color: #333;
-    text-indent: 0.01px;
-    text-overflow: '';
-    white-space: nowrap;
-    font-size: 14px;
-    cursor: pointer;*/
     width: 100%;
     border: none;
     background: #fff;
     color: #333;
-    /*padding: 20px 0;*/
     background: #fff;
     color: #333;
     font-size: 14px;
     cursor: pointer;
-
-   /* float: right;
-    clear: both;*/
 }
 
 
@@ -98,7 +80,7 @@ select {
 }
 
 
-ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header
+ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header, .item-stacked-label input, .item-stacked-label textarea
 
 {
     background-color: #f0f8ff;
@@ -135,4 +117,4 @@ ion-pane, .item, select, ion-content.scroll-content.ionic-scroll.has-header
 {
     width: 100%;
     height: 34px;
-}
+}*/

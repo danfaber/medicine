@@ -1,8 +1,12 @@
 <ion-view title="{{isEdit ? 'Edit' : 'New'}} {{data.currentRecord.name}}">
     <ion-content class="has-header">
 
+        {{record}}
+
+
+
         <div class="list">
-            <field ng-repeat="field in data.currentRecord.fields" field="field"></field>
+            <field ng-repeat="recordField in record.recordFields" record-field="recordField"></field>
         </div>
 
 <!--<form name="$parent.recordForm" novalidate>

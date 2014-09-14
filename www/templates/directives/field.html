@@ -3,11 +3,17 @@
     <div class="col col-80">
 
         <label class="item item-input item-stacked-label">
-            <span class="input-label">First Name</span>
+            <span class="input-label">{{recordField.fieldDefinition.name}}</span>
 
             <ul>
-                <li ng-repeat="record in field.data.records">
-                    <input type="text" value="record.value">
+                <li ng-repeat="value in recordField.data.values">
+
+                    <div ng-switch="recordField.fieldDefinition.fieldType.name">
+
+                        <free-text ng-switch-when="freeText"></free-text>
+                        <date ng-switch-when="date"></date>
+                        <boolean ng-switch-when="boolean"></boolean>
+                    </div>
                 </li>
             </ul>
 
@@ -15,8 +21,14 @@
 
     </div>
 
-    <div class="col">
-        <input type="checkbox" ng-model="field.data.isSelected">
+    <div class="col" style="position: relative">
+        <label class="checkbox" ng-show="recordField.fieldDefinition.isToggled" >
+            <input type="checkbox" ng-model="recordField.data.isChecked" ng-change="changeToggle()">
+        </label>
+
+        <a class="button button-icon icon ion-plus-circled"
+           ng-show="recordField.fieldDefinition.isMultiSelect"
+           style="position: absolute; bottom: 0; left: 5px;"></a>
     </div>
 
 </div>
