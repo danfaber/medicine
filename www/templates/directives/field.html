@@ -6,13 +6,13 @@
 
             <ul>
                 <li ng-repeat="value in recordField.data.values">
-
                     <div ng-switch="recordField.fieldDefinition.fieldType.name">
-                        <short-text ng-switch-when="shortText"></short-text>
-                        <date ng-switch-when="date"></date>
-                        <boolean ng-switch-when="boolean"></boolean>
-                        <long-text ng-switch-when="longText"></long-text>
-                        <short-text ng-switch-when="barcode"></short-text>
+                        <short-text ng-switch-when="shortText" value="value"></short-text>
+                        <date ng-switch-when="date" value="value"></date>
+                        <boolean ng-switch-when="boolean" value="value"></boolean>
+                        <long-text ng-switch-when="longText" value="value"></long-text>
+                        <short-text ng-switch-when="barcode" value="value"></short-text>
+                        <pick-list ng-switch-when="pickList" value="value" recordField="recordField"></pick-list>
                     </div>
                 </li>
             </ul>

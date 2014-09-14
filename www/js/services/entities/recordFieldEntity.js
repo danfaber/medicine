@@ -8,11 +8,9 @@
         {
             this.fieldDefinition = fieldDefinition;
 
-            var defaultValue = null;
-
             this.data = {
                 isChecked: false,
-                values: [defaultValue]
+                values: [{value:null}]
             }
         }
 

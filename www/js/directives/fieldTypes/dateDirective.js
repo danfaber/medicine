@@ -4,9 +4,9 @@
         .directive("date", function(){
             return {
                 restrict: "E",
-                template: '<input type="date">',
+                template: '<input type="date" ng-model="value.value">',
                 scope: {
-                    recordField: "="
+                    value: "="
                 }
             }
         });

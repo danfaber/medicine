@@ -4,9 +4,9 @@
         .directive("longText", function(){
             return {
                 restrict: "E",
-                template: '<textarea></textarea>',
+                template: '<textarea ng-model="value.value"></textarea>',
                 scope: {
-                    recordField: "="
+                    value: "="
                 }
             }
         });
