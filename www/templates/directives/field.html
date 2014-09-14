@@ -1,7 +1,6 @@
 <div class="row">
 
     <div class="col col-80">
-
         <label class="item item-input item-stacked-label">
             <span class="input-label">{{recordField.fieldDefinition.name}}</span>
 
@@ -9,16 +8,15 @@
                 <li ng-repeat="value in recordField.data.values">
 
                     <div ng-switch="recordField.fieldDefinition.fieldType.name">
-
-                        <free-text ng-switch-when="freeText"></free-text>
+                        <short-text ng-switch-when="shortText"></short-text>
                         <date ng-switch-when="date"></date>
                         <boolean ng-switch-when="boolean"></boolean>
+                        <long-text ng-switch-when="longText"></long-text>
+                        <short-text ng-switch-when="barcode"></short-text>
                     </div>
                 </li>
             </ul>
-
         </label>
-
     </div>
 
     <div class="col" style="position: relative">
@@ -29,6 +27,9 @@
         <a class="button button-icon icon ion-plus-circled"
            ng-show="recordField.fieldDefinition.isMultiSelect"
            style="position: absolute; bottom: 0; left: 5px;"></a>
+
+        <a class="icon button button-icon ion-ios7-barcode"
+           ng-show="recordField.fieldDefinition.name == 'barcode'"></a>
     </div>
 
 </div>

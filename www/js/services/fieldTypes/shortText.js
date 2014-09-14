@@ -1,11 +1,11 @@
 (function(){
 
-    angular.module("medicine").factory("freeTextType", [freeTextType]);
+    angular.module("medicine").factory("shortTextType", [shortTextType]);
 
-    function freeTextType(fieldType){
+    function shortTextType(){
 
         var defaultValue = null;
-        var name = "freeText";
+        var name = "shortText";
 
 
         return {

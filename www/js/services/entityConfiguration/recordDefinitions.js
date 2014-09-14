@@ -1,16 +1,20 @@
 (function(){
 
-    angular.module("medicine").factory("recordDefinitions", ['recordDefinitionEntity', 'fieldDefinitionEntity', 'pickListService', 'freeTextType', 'date_Type', 'booleanType', recordDefinitions]);
+    angular.module("medicine").factory("recordDefinitions",
+//        ['recordDefinitionEntity', 'fieldDefinitionEntity', 'pickListService', 'shortTextType', 'date_Type', 'booleanType', 'longTextType', 'barcodeType', recordDefinitions]);
+    ['recordDefinitionEntity', 'fieldDefinitionEntity', 'pickListService', 'allFieldTypes' , recordDefinitions]);
 
-    function recordDefinitions(recordDefinitionEntity, fieldDefinitionEntity, pickListService, freeTextType, date_Type, booleanType){
+    function recordDefinitions(recordDefinitionEntity, fieldDefinitionEntity, pickListService, allFieldTypes){
 
         var recordDefinitions = [
 
             addRecordDefinition(1, "Clinic", 1, [
-                withFieldDefinition(1, "free text", 1, true, false, freeTextType),
-                withFieldDefinition(2, "complications", 2, true, true, freeTextType, 1 ),
-                withFieldDefinition(3, "date", 3, false, false, date_Type),
-                withFieldDefinition(4, "boolean",4, false, false, booleanType)
+                withFieldDefinition(6, "barcode", 0, false, false, allFieldTypes.barcode),
+                withFieldDefinition(1, "free text", 1, true, false, allFieldTypes.shortText),
+                withFieldDefinition(2, "complications", 2, true, true, allFieldTypes.shortText, 1 ),
+                withFieldDefinition(3, "date", 3, false, false, allFieldTypes.date),
+                withFieldDefinition(4, "boolean",4, false, false, allFieldTypes.boolean),
+                withFieldDefinition(5, "comments", 5, false, false, allFieldTypes.longText)
             ]),
 
             addRecordDefinition(2, "Procedures", 2, [])
