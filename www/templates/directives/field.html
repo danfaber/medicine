@@ -3,7 +3,7 @@
     <div class="col col-80">
         <label class="item item-input item-stacked-label">
             <span class="input-label">{{recordField.fieldDefinition.name}}</span>
-
+{{recordField}}
             <ul>
                 <li ng-repeat="value in recordField.data.values">
                     <div ng-switch="recordField.fieldDefinition.fieldType.name">
@@ -12,8 +12,10 @@
                         <boolean ng-switch-when="boolean" value="value"></boolean>
                         <long-text ng-switch-when="longText" value="value"></long-text>
                         <short-text ng-switch-when="barcode" value="value"></short-text>
-                        <pick-list ng-switch-when="pickList" value="value" recordField="recordField"></pick-list>
+                        <pick-list ng-switch-when="pickList" value="value" record-definition-id="{{recordDefinition.id}}" field-definition-id="{{recordField.fieldDefinition.id}}" index="{{$index}}"></pick-list>
                     </div>
+
+
                 </li>
             </ul>
         </label>

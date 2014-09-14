@@ -4,10 +4,12 @@
         .directive("pickList", function(){
             return {
                 restrict: "E",
-                template: '<a href="#/app/pickList?recordDefinitionId=4&fieldDefinitionId=2&index=0"></a>',
+                template: '<a href="#/app/pickList?recordDefinitionId={{recordDefinitionId}}&fieldDefinitionId={{fieldDefinitionId}}&index={{index}}">link text</a>',
                 scope: {
                     value: "=",
-                    recordField: "="
+                    recordDefinitionId: "@",
+                    fieldDefinitionId: "@",
+                    index: "@"
                 }
             }
         });
