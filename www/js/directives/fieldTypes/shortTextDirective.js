@@ -4,7 +4,7 @@
         .directive("shortText", function(){
             return {
                 restrict: "E",
-                templateUrl: "templates/directives/shortText.html"
+                template: "<input type='text'>"
             }
         });
 

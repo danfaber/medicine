@@ -4,7 +4,7 @@
         .directive("date", function(){
             return {
                 restrict: "E",
-                templateUrl: "templates/directives/date.html"
+                template: "<input type='date'>"
             }
         });
 

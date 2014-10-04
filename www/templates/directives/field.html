@@ -9,8 +9,8 @@
 -->
 
 
-<div class="row" style="padding: 0; height: 43px;">
-    <div class="col col-60" style="padding:20px 0 0 5px;">
+<div class="row" style="padding: 0 16px; height: 43px; background-color: #f5f5f5;">
+    <div class="col col-60" style="padding:20px 0 0 0;">
         {{recordField.fieldDefinition.name}}
     </div>
     <div class="col col-20" style="padding:0;">
@@ -22,6 +22,20 @@
         <a class="button button-icon icon ion-plus-circled" style="min-height: 42px;"></a>
     </div>
 </div>
+
+<div class="list">
+    <div ng-repeat="item in recordField.data.values" class="item">
+        <div ng-switch="recordField.fieldDefinition.fieldType.name">
+            <short-text ng-switch-when="shortText"></short-text>
+            <date ng-switch-when="date"></date>
+            <boolean ng-switch-when="boolean"></boolean>
+            <long-text ng-switch-when="longText"></long-text>
+            <short-text ng-switch-when="barcode"></short-text>
+        </div>
+    </div>
+</div>
+
+
 
 
 <!--

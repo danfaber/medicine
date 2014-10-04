@@ -4,7 +4,7 @@
         .directive("boolean", function(){
             return {
                 restrict: "E",
-                templateUrl: "templates/directives/boolean.html"
+                template: "<input type='checkbox'>"
             }
         });
 
