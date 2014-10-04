@@ -13,13 +13,15 @@
     <div class="col col-60" style="padding:20px 0 0 0;">
         {{recordField.fieldDefinition.name}}
     </div>
-    <div class="col col-20" style="padding:0;">
-        <label class="checkbox">
-            <input type="checkbox">
+    <div class="col col-20" style="padding: 0">
+        <label class="checkbox" ng-show="recordField.fieldDefinition.isToggled">
+            <input type="checkbox" ng-model="recordField.data.isChecked" ng-change="changeToggle()">
         </label>
     </div>
-    <div class="col col-20" style="padding:0;">
-        <a class="button button-icon icon ion-plus-circled" style="min-height: 42px;"></a>
+    <div class="col col-20" style="padding: 0;">
+        <a class="button button-icon icon ion-plus-circled" style="min-height: 42px;"
+           ng-if="recordField.fieldDefinition.isMultiSelect && (!recordField.fieldDefinition.isToggled || recordField.data.isChecked)" style="padding:0;"
+           ng-click="addNewValue()"></a>
     </div>
 </div>
 
@@ -28,7 +30,6 @@
         <div ng-switch="recordField.fieldDefinition.fieldType.name">
             <short-text ng-switch-when="shortText"></short-text>
             <date ng-switch-when="date"></date>
-            <boolean ng-switch-when="boolean"></boolean>
             <long-text ng-switch-when="longText"></long-text>
             <short-text ng-switch-when="barcode"></short-text>
         </div>
