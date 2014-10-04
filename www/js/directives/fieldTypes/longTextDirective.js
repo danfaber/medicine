@@ -4,10 +4,7 @@
         .directive("longText", function(){
             return {
                 restrict: "E",
-                template: '<textarea ng-model="value.value"></textarea>',
-                scope: {
-                    value: "="
-                }
+                templateUrl: "templates/directives/longText.html"
             }
         });
 

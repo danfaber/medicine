@@ -1,8 +1,65 @@
+<!--
+<div class="row">
+    <span style="padding-top: 11px;">{{recordField.fieldDefinition.name}}</span>
+    <label class="checkbox">
+        <input type="checkbox">
+    </label>
+    <a class="button button-icon icon ion-plus-circled"></a>
+</div>
+-->
+
+
+<div class="row" style="padding: 0; height: 43px;">
+    <div class="col col-60" style="padding:20px 0 0 5px;">
+        {{recordField.fieldDefinition.name}}
+    </div>
+    <div class="col col-20" style="padding:0;">
+        <label class="checkbox">
+            <input type="checkbox">
+        </label>
+    </div>
+    <div class="col col-20" style="padding:0;">
+        <a class="button button-icon icon ion-plus-circled" style="min-height: 42px;"></a>
+    </div>
+</div>
+
+
+<!--
+<div class="item item-input item-stacked-label" style="height: 50px;">
+    <div style="display: inline-block; padding:10px; position: relative; bottom: 10px;">{{recordField.fieldDefinition.name}}</div>
+
+    <label class="checkbox" ng-show="recordField.fieldDefinition.isToggled" >
+        <input type="checkbox" ng-model="recordField.data.isChecked" style="padding: 0; " ng-change="changeToggle()">
+    </label>
+
+    <a class="button button-icon icon ion-plus-circled"
+       ng-show="recordField.fieldDefinition.isMultiSelect && (!recordField.fieldDefinition.isToggled || recordField.data.isChecked)"
+       style="position: relative; bottom: 9px; padding: 0 7px;"
+       ng-click="addNewValue()"></a>
+
+</div>
+-->
+
+
+
+<!--
 <div class="row">
 
     <div class="col col-80">
         <div class="item item-input item-stacked-label">
-            <div ng-click="setFocus($event)">{{recordField.fieldDefinition.name}}</div>
+
+            <div ng-switch="recordField.fieldDefinition.fieldType.name">
+
+                <short-text ng-switch-when="shortText"></short-text>
+                <long-text ng-switch-when="longText"></long-text>
+                <date ng-switch-when="date"></date>
+                <boolean ng-switch-when="boolean"></boolean>
+            </div>
+-->
+
+
+
+<!--            <div ng-click="setFocus($event)">{{recordField.fieldDefinition.name}}</div>
 
             <ul>
                 <li ng-repeat="value in recordField.data.values">
@@ -16,7 +73,8 @@
                                    field-definition-id="{{recordField.fieldDefinition.id}}" index="{{$index}}"></pick-list>
                     </div>
                 </li>
-            </ul>
+            </ul>-->
+<!--
         </div>
 
     </div>
@@ -36,6 +94,7 @@
     </div>
 
 </div>
+-->
 
 
 

@@ -1,11 +1,19 @@
 <ion-view title="{{isEdit ? 'Edit' : 'New'}} {{data.currentRecord.name}}">
     <ion-content class="has-header">
 
-        {{record}}
 
 
+        <div>
 
-        <div class="list">
+<!--            <div ng-repeat="recordField in record.recordFields" ng-switch="recordField.fieldDefinition.fieldType.name">
+
+                <short-text ng-switch-when="shortText"></short-text>
+                <long-text ng-switch-when="longText"></long-text>
+                <date ng-switch-when="date"></date>
+                <boolean ng-switch-when="boolean"></boolean>
+
+            </div>-->
+
             <field ng-repeat="recordField in record.recordFields" record-field="recordField" record-definition="record.recordDefinition"></field>
         </div>
 
