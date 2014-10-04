@@ -26,12 +26,12 @@
 </div>
 
 <div class="list">
-    <div ng-repeat="item in recordField.data.values" class="item">
+    <div ng-repeat="item in recordField.data.values">
         <div ng-switch="recordField.fieldDefinition.fieldType.name">
             <short-text ng-switch-when="shortText"></short-text>
             <date ng-switch-when="date"></date>
             <long-text ng-switch-when="longText"></long-text>
-            <short-text ng-switch-when="barcode"></short-text>
+            <barcode ng-switch-when="barcode"></barcode>
         </div>
     </div>
 </div>

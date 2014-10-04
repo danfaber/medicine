@@ -11,7 +11,7 @@
                 withFieldDefinition(1, "free text", 1, true, true, allFieldTypes.shortText),
                 withFieldDefinition(2, "complications", 2, true, true, allFieldTypes.pickList, 1 ),
                 withFieldDefinition(3, "date", 3, false, false, allFieldTypes.date),
-                withFieldDefinition(4, "boolean",4, false, false, allFieldTypes.boolean),
+                withFieldDefinition(4, "boolean",4, true, false, allFieldTypes.boolean),
                 withFieldDefinition(5, "comments", 5, false, false, allFieldTypes.longText)
             ]),
 

@@ -4,7 +4,7 @@
         .directive("shortText", function(){
             return {
                 restrict: "E",
-                template: "<input type='text'>"
+                template: "<div class='item'><input type='text'></div>"
             }
         });
 

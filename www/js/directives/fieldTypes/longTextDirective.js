@@ -4,7 +4,7 @@
         .directive("longText", function(){
             return {
                 restrict: "E",
-                template: "<textarea></textarea>"
+                template: "<div class='item'><textarea></textarea></div>"
             }
         });
 
