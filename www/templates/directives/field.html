@@ -8,8 +8,28 @@
 </div>
 -->
 
+<div class="card list">
+    <div class="item" style="background-color: #f5f5f5; padding-top: 0; padding-bottom: 0;">
 
-<div class="row" style="padding: 0 16px; height: 43px; background-color: #f5f5f5;">
+        <div class="row" style="padding: 0; height: 43px;">
+            <div class="col col-60" style="padding:13px 0 0 0;">
+                {{recordField.fieldDefinition.name}}
+            </div>
+            <div class="col col-20" style="padding: 0">
+                <label class="checkbox" ng-show="recordField.fieldDefinition.isToggled">
+                    <input type="checkbox" ng-model="recordField.data.isChecked" ng-change="changeToggle()">
+                </label>
+            </div>
+            <div class="col col-20" style="padding: 0;">
+                <a class="button button-icon icon ion-plus-circled" style="min-height: 42px;"
+                   ng-if="recordField.fieldDefinition.isMultiSelect && (!recordField.fieldDefinition.isToggled || recordField.data.isChecked)" style="padding:0;"
+                   ng-click="addNewValue()"></a>
+            </div>
+        </div>
+
+    </div>
+
+<!--<div class="row" style="padding: 0 16px; height: 43px; background-color: #f5f5f5;">
     <div class="col col-60" style="padding:20px 0 0 0;">
         {{recordField.fieldDefinition.name}}
     </div>
@@ -23,21 +43,21 @@
            ng-if="recordField.fieldDefinition.isMultiSelect && (!recordField.fieldDefinition.isToggled || recordField.data.isChecked)" style="padding:0;"
            ng-click="addNewValue()"></a>
     </div>
-</div>
+</div>-->
 
-<div class="list">
-    <div ng-repeat="item in recordField.data.values">
-        <div ng-switch="recordField.fieldDefinition.fieldType.name">
-            <short-text ng-switch-when="shortText"></short-text>
-            <date ng-switch-when="date"></date>
-            <long-text ng-switch-when="longText"></long-text>
-            <barcode ng-switch-when="barcode"></barcode>
+    <div>
+        <div ng-repeat="item in recordField.data.values">
+            <div ng-switch="recordField.fieldDefinition.fieldType.name">
+                <short-text ng-switch-when="shortText"></short-text>
+                <date ng-switch-when="date"></date>
+                <long-text ng-switch-when="longText"></long-text>
+                <barcode ng-switch-when="barcode"></barcode>
+            </div>
         </div>
     </div>
+
+
 </div>
-
-
-
 
 <!--
 <div class="item item-input item-stacked-label" style="height: 50px;">
