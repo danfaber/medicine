@@ -4,7 +4,7 @@
 
     function date_Type(){
 
-        var defaultValue = null;
+        var defaultValue = new Date();
         var name = "date";
 
 

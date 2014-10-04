@@ -13,15 +13,77 @@
             }
         }]);
 
-    var controller = function($scope)
+    var controller = function($scope, $timeout)
     {
         $scope.changeToggle = function()
         {
-            if (!$scope.recordField.data.isChecked)
-            {
-                $scope.recordField.data.values = [];
-            }
+            $scope.recordField.data.values = ($scope.recordField.data.isChecked)
+                ? [{
+                    value: $scope.recordField.fieldDefinition.fieldType.defaultValue,
+                    index: 0
+                    }]
+                : [];
         };
-    }
 
+        $scope.addNewValue = function()
+        {
+            $scope.recordField.data.values.push(
+                {
+                    value: $scope.recordField.fieldDefinition.fieldType.defaultValue,
+                    index: $scope.recordField.data.values.length
+                }
+
+            );
+        };
+
+
+        $scope.setFocus = function($event)
+        {
+
+            $timeout(function(){
+                var firstItem = angular.element($event.target)[0].nextElementSibling.children[0].querySelector('input');
+                var $firstItem = angular.element(firstItem)[0];
+                $firstItem.focus();
+
+
+            });
+
+/*            console.log(firstItem);
+*//*            var then = firstItem.querySelector('input')[0];
+            console.log(then);*//*
+
+
+
+            var label = $event.target;
+
+            console.log(label);
+
+            var item = angular.element(label);
+
+            console.log(item);
+
+           var x = item[0].nextElementSibling.children[0];
+
+            console.log(x);
+
+            var y = x.querySelector('input');
+
+            console.log(y);
+
+
+            var a = angular.element(y);
+            console.log(a[0]);
+
+
+            $timeout(function(){
+                a[0].focus();
+            });*/
+        //    angular.element(y).trigger('focus');
+
+          //  angular.element($event.target)
+
+        };
+
+
+    }
 })();

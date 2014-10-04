@@ -1,8 +1,9 @@
 <div class="row">
 
     <div class="col col-80">
-        <label class="item item-input item-stacked-label">
-            <span class="input-label">{{recordField.fieldDefinition.name}}</span>
+        <div class="item item-input item-stacked-label">
+            <div ng-click="setFocus($event)">{{recordField.fieldDefinition.name}}</div>
+
             <ul>
                 <li ng-repeat="value in recordField.data.values">
                     <div ng-switch="recordField.fieldDefinition.fieldType.name">
@@ -16,7 +17,8 @@
                     </div>
                 </li>
             </ul>
-        </label>
+        </div>
+
     </div>
 
     <div class="col" style="position: relative">
@@ -25,8 +27,9 @@
         </label>
 
         <a class="button button-icon icon ion-plus-circled"
-           ng-show="recordField.fieldDefinition.isMultiSelect"
-           style="position: absolute; bottom: 0; left: 5px;"></a>
+           ng-show="recordField.fieldDefinition.isMultiSelect && (!recordField.fieldDefinition.isToggled || recordField.data.isChecked)"
+           style="position: absolute; bottom: 0; left: 5px;"
+           ng-click="addNewValue()"></a>
 
         <a class="icon button button-icon ion-ios7-barcode"
            ng-show="recordField.fieldDefinition.name == 'barcode'"></a>

@@ -8,7 +8,7 @@
 
             addRecordDefinition(1, "Clinic", 1, [
                 withFieldDefinition(6, "barcode", 0, false, false, allFieldTypes.barcode),
-                withFieldDefinition(1, "free text", 1, true, false, allFieldTypes.shortText),
+                withFieldDefinition(1, "free text", 1, true, true, allFieldTypes.shortText),
                 withFieldDefinition(2, "complications", 2, true, true, allFieldTypes.pickList, 1 ),
                 withFieldDefinition(3, "date", 3, false, false, allFieldTypes.date),
                 withFieldDefinition(4, "boolean",4, false, false, allFieldTypes.boolean),

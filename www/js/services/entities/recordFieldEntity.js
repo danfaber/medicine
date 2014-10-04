@@ -8,9 +8,13 @@
         {
             this.fieldDefinition = fieldDefinition;
 
+            var values = (fieldDefinition.isToggled)
+                ? []
+                : [{value: fieldDefinition.fieldType.defaultValue, index:0}];
+
             this.data = {
                 isChecked: false,
-                values: [{value:null}]
+                values: values
             }
         }
 
