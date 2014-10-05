@@ -7,15 +7,13 @@
         function RecordField(fieldDefinition)
         {
             this.fieldDefinition = fieldDefinition;
+            this.fieldDefinitionId = fieldDefinition.id;
 
-            var values = (fieldDefinition.isToggled)
-                ? []
-                : [{value: fieldDefinition.fieldType.defaultValue, index:0}];
+            var isCheckboxType = (fieldDefinition.isToggled || fieldDefinition.fieldType.name == "boolean");
 
-            this.data = {
-                isChecked: false,
-                values: values
-            }
+            this.data = (isCheckboxType)
+                ? {isChecked: false, values:[]}
+                : {values:[fieldDefinition.fieldType.defaultValue]};
         }
 
         return {

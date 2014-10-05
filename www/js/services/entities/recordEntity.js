@@ -7,6 +7,7 @@
         function Record(recordDefinition)
         {
             this.recordDefinition = recordDefinition;
+            this.recordDefinitionId = recordDefinition.id;
             this.recordFields = recordDefinition.fieldDefinitions
                 .map(function(fieldDefinition) {return new recordFieldEntity.RecordField(fieldDefinition);})
         }
