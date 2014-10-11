@@ -12,7 +12,7 @@
             this.fieldDefinitions = fieldDefinitions;
         }
 
-        RecordDefinition.prototype = function(){
+/*        RecordDefinition.prototype = function(){
 
             function getCurrentRecord()
             {
@@ -24,7 +24,7 @@
             return {
                 getCurrentRecord: getCurrentRecord
             };
-        }();
+        }();*/
 
         return {
             RecordDefinition: RecordDefinition

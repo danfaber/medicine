@@ -2,11 +2,23 @@
 
     angular.module("medicine").controller("addController", addController);
 
-    function addController($scope, $stateParams, recordDefinitions)
+    function addController($scope, $stateParams, currentRecordService, $state)
     {
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
 
-        $scope.record = recordDefinitions.get(recordDefinitionId).getCurrentRecord();
+        $scope.record = currentRecordService.get(recordDefinitionId);
+
+        $scope.saveRecord = function()
+        {
+            currentRecordService.save(recordDefinitionId);
+            $state.go('app.recordDefinitions');
+
+/*            currentRecordDataService.save($stateParams.typeId);
+            currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
+            $state.go('app.types');*/
+        }
+
+
     }
 
 

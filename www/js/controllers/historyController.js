@@ -1,10 +1,12 @@
 (function(){
     var app = angular.module("medicine");
 
-    app.controller("historyController", function($scope, historyDataService) {
+    app.controller("historyController", function($scope, recordDefinitions) {
 
-        $scope.data = {};
-        $scope.data.historyRecords = historyDataService.getAllDisplayHistory();
+        $scope.recordDefinitions = recordDefinitions.all;
+
+/*        $scope.data = {};
+        $scope.data.historyRecords = historyDataService.getAllDisplayHistory();*/
     });
 
 })();
