@@ -16,7 +16,11 @@
                       {{record.id}}
                   </li>
               </ul>-->
-              {{recordDefinition.name}}
+
+              <div class="bar bar-stable" style="position: relative;">
+                  <h2 class="title"> {{recordDefinition.name}}</h2>
+              </div>
+
               <ul class="list">
                   <li ng-repeat="record in recordDefinition.records" class="item">
                       {{record.id}}
