@@ -4,13 +4,24 @@
   </ion-nav-buttons>
   <ion-content id="historyPage" class="has-header">
 
-      <ion-slide-box on-slide-changed="changeRecordDefinition($index)">
-          <ion-slide ng-repeat="recordDefinition in recordDefinitions">
-              <div class="row">
+      <ion-slide-box>
+          <ion-slide ng-repeat="recordDefinition in recordDefinitions" active-slide="recordDefinition" >
+<!--              <div class="row">
                   <div class="col">{{$first ? "" : recordDefinitions[$index-1].name}}</div>
                   <div class="col">{{recordDefinition.name}}</div>
                   <div class="col">{{$last ? "" : recordDefinitions[$index+1].name}}</div>
               </div>
+              <ul class="list">
+                  <li ng-repeat="record in records" class="item">
+                      {{record.id}}
+                  </li>
+              </ul>-->
+              {{recordDefinition.name}}
+              <ul class="list">
+                  <li ng-repeat="record in recordDefinition.records" class="item">
+                      {{record.id}}
+                  </li>
+              </ul>
 
 
 

@@ -1,3 +1,7 @@
+#historyPage .scroll, #historyPage .slider {
+    height: 100%;
+}
+
 /*
 
  #closeIcon

@@ -10,7 +10,9 @@
         return {
             save:save,
             getCurrentRecord: getCurrentRecord,
-            deleteCurrentRecord: deleteCurrentRecord
+            deleteCurrentRecord: deleteCurrentRecord,
+            get: getRecordById,
+            all: getAllRecords
         };
 
         function save(record)
@@ -27,8 +29,14 @@
             });
 
             var recordJson = JSON.stringify(record);
+            var key = getRecordKey(record.recordDefinitionId, record.id);
 
-            $window.localStorage.setItem(recordPrefix + record.recordDefinitionId + "_" + record.id, recordJson);
+            $window.localStorage.setItem(key, recordJson);
+        }
+
+        function getRecordKey(recordDefinitionId, recordId)
+        {
+            return recordPrefix + recordDefinitionId + "_" + recordId;
         }
 
         function getRecordId(recordDefinitionId)
@@ -42,7 +50,7 @@
         function nextRecordId (recordDefinitionId)
         {
             var key = nextKey(recordDefinitionId);
-            var nextRecordId = $window.localStorage.getItem(nextKey);
+            var nextRecordId = $window.localStorage.getItem(key);
             return (!nextRecordId) ? 1 : parseInt(nextRecordId);
         }
 
@@ -81,9 +89,28 @@
             $window.localStorage.removeItem(currentRecordPrefix + recordDefinitionId);
         }
 
-        function all(recordDefinitionId)
+        function getRecordById(recordDefinitionId, recordId)
         {
+            var key = getRecordKey(recordDefinitionId,recordId);
+            var recordJson = $window.localStorage.getItem(key);
+            if (!recordJson) {return;}
 
+            return rehydrateRecordFromJson(recordJson);
+        }
+
+        function getAllRecords(recordDefinitionId)
+        {
+            var nextId = nextRecordId(recordDefinitionId);
+            var records = [];
+            var record;
+
+            for (var i = nextId - 1; i > 0; i--)
+            {
+                record = getRecordById(recordDefinitionId, i);
+                if (record) { records.push(record); }
+            }
+
+            return records;
         }
     }
 })();
