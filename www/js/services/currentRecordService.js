@@ -17,7 +17,7 @@
             if (!record)
             {
                 record = recordRepository.getCurrentRecord(recordDefinitionId);
-                currentRecords[recordDefinitionId] = recordRepository.getCurrentRecord(recordDefinitionId);
+                currentRecords[recordDefinitionId] = record;
             }
             return record;
         }

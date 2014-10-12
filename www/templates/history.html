@@ -4,18 +4,8 @@
   </ion-nav-buttons>
   <ion-content id="historyPage" class="has-header">
 
-      <ion-slide-box>
-          <ion-slide ng-repeat="recordDefinition in recordDefinitions" active-slide="recordDefinition" >
-<!--              <div class="row">
-                  <div class="col">{{$first ? "" : recordDefinitions[$index-1].name}}</div>
-                  <div class="col">{{recordDefinition.name}}</div>
-                  <div class="col">{{$last ? "" : recordDefinitions[$index+1].name}}</div>
-              </div>
-              <ul class="list">
-                  <li ng-repeat="record in records" class="item">
-                      {{record.id}}
-                  </li>
-              </ul>-->
+      <ion-slide-box does-continue="true" show-pager="false">
+          <ion-slide ng-repeat="recordDefinition in recordDefinitions" active-slide="recordDefinition">
 
               <div class="bar bar-stable" style="position: relative;">
                   <h2 class="title"> {{recordDefinition.name}}</h2>
@@ -23,12 +13,42 @@
 
               <ul class="list">
                   <li ng-repeat="record in recordDefinition.records" class="item">
-                      {{record.id}}
+<!--
+                      <ul>
+                          <li ng-repeat="field in record.recordFields">
+                              {{field.data.values}}
+                          </li>
+                      </ul>
+-->
+<ul>
+    <li ng-repeat="field in record.displayFields">
+        {{field.name}}
+        <ul>
+            <li ng-repeat="value in field.values">
+                {{value.value}}
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<!--
+                      <ul>
+                          <li ng-repeat="field in record.recordFields | filter:isFieldToDisplay">
+                              {{field.fieldDefinition.name}}
+                              WOW
+                          </li>
+                      </ul>-->
+
+                      <ul>
+                       id:   {{record.id}}
+                       recdef:   {{record.recordDefinitionId}}
+                       allinfo:   {{record.recordDefinition}}
+<!--                          <li ng-repeat="field in record.recordFields">
+                              {{field}}
+                          </li>-->
+                      </ul>
                   </li>
               </ul>
-
-
-
           </ion-slide>
       </ion-slide-box>
 

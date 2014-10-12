@@ -28,7 +28,7 @@
                 delete field.fieldDefinition
             });
 
-            var recordJson = JSON.stringify(record);
+            var recordJson = angular.toJson(record);
             var key = getRecordKey(record.recordDefinitionId, record.id);
 
             $window.localStorage.setItem(key, recordJson);

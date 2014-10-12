@@ -1,3 +1,5 @@
+{{recordField}}
+
 <div class="card list">
     <div class="item" style="background-color: #f5f5f5; padding-top: 0; padding-bottom: 0;">
 
@@ -20,12 +22,16 @@
     </div>
 
     <div>
-        <div ng-repeat="item in recordField.data.values">
+        <div ng-repeat="value in recordField.data.values">
             <div ng-switch="recordField.fieldDefinition.fieldType.name">
-                <short-text ng-switch-when="shortText"></short-text>
-                <date ng-switch-when="date"></date>
-                <long-text ng-switch-when="longText"></long-text>
-                <barcode ng-switch-when="barcode"></barcode>
+                <short-text ng-switch-when="shortText" value="value"></short-text>
+
+
+       <!--         <div ng-switch-when="shortText" class='item item-input'><input type='text' ng-model='value.value'></div>-->
+
+                <date ng-switch-when="date" value="value"></date>
+                <long-text ng-switch-when="longText" value="value"></long-text>
+                <barcode ng-switch-when="barcode" value="value"></barcode>
             </div>
         </div>
     </div>

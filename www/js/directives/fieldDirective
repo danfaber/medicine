@@ -17,6 +17,8 @@
     {
         $scope.changeToggle = function()
         {
+            if ($scope.recordField.fieldDefinition.fieldType.name === "boolean") { return; }
+
             $scope.recordField.data.values = ($scope.recordField.data.isChecked)
                 ? [{
                     value: $scope.recordField.fieldDefinition.fieldType.defaultValue,

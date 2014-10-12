@@ -1,10 +1,14 @@
 (function(){
 
-    angular.module("medicine").factory("date_Type", [date_Type]);
+    angular.module("medicine").factory("date_Type", ["$filter", date_Type]);
 
-    function date_Type(){
+    function date_Type($filter){
 
-        var defaultValue = new Date();
+        function defaultValue ()
+        {
+            return $filter('date')(new Date(),'yyyy-MM-dd');
+        }
+
         var name = "date";
 
 
