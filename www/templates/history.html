@@ -11,15 +11,31 @@
                   <h2 class="title"> {{recordDefinition.name}}</h2>
               </div>
 
-              <ul class="list">
+              <div ng-repeat="record in recordDefinition.records" class="list list-insert" style="margin:20px;">
+
+                  <div ng-repeat="field in record.displayFields" class="item row" style="padding: 5px; background-color: #f4f4f4;">
+
+                          <div class="col-33" style="color: #999999;">
+                              {{field.name}}
+                          </div>
+                          <div class="col-67" style="white-space: normal;">
+                              <ul>
+                                  <li ng-repeat="value in field.values">
+                                          {{value.value}}
+                                  </li>
+                              </ul>
+                          </div>
+
+                  </div>
+
+              </div>
+
+
+
+
+<!--              <ul class="list">
                   <li ng-repeat="record in recordDefinition.records" class="item">
-<!--
-                      <ul>
-                          <li ng-repeat="field in record.recordFields">
-                              {{field.data.values}}
-                          </li>
-                      </ul>
--->
+
 <ul>
     <li ng-repeat="field in record.displayFields">
         {{field.name}}
@@ -31,24 +47,16 @@
     </li>
 </ul>
 
-<!--
-                      <ul>
-                          <li ng-repeat="field in record.recordFields | filter:isFieldToDisplay">
-                              {{field.fieldDefinition.name}}
-                              WOW
-                          </li>
-                      </ul>-->
+
 
                       <ul>
                        id:   {{record.id}}
                        recdef:   {{record.recordDefinitionId}}
                        allinfo:   {{record.recordDefinition}}
-<!--                          <li ng-repeat="field in record.recordFields">
-                              {{field}}
-                          </li>-->
+
                       </ul>
                   </li>
-              </ul>
+              </ul>-->
           </ion-slide>
       </ion-slide-box>
 
