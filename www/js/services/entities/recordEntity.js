@@ -9,7 +9,10 @@
             this.recordDefinition = recordDefinition;
             this.recordDefinitionId = recordDefinition.id;
             this.recordFields = recordDefinition.fieldDefinitions
-                .map(function(fieldDefinition) {return new recordFieldEntity.RecordField(fieldDefinition);})
+                .map(function(fieldDefinition) {return new recordFieldEntity.RecordField(fieldDefinition);});
+
+            this.createdDateTime = null;
+            this.modifiedDateTime = null;
         }
 
         function setDisplayFields(record)
@@ -20,12 +23,7 @@
 
                 var values = _(field.data.values)
                     .filter(function(value) {return !!value.value;});
-/*
-                var values = _.chain(field.data.values)
-                    .map(function(value) {return value.value;})
-                    .filter(function(value) {return !!value;})
-                    .value();
-                */
+
                 var isCheckboxField = field.fieldDefinition.isToggled || field.fieldDefinition.fieldType.name === "boolean";
 
 
@@ -40,12 +38,9 @@
                         }
                     );
                 }
-
                 _(values).each(function(value) {
                    displayValues.push(value);
                 });
-
-
 
                 if (displayValues.length == 0) {return;}
 
@@ -58,15 +53,42 @@
             });
         }
 
-/*        function isCheckboxField(recordField)
+        function isEqualToDefaultRecord(record)
         {
-            return (recordField.fieldDefinition.isToggled || recordField.fieldDefinition.fieldType.name == "boolean");
-        }*/
+            var isAllFieldsEqualToDefault = _(record.recordFields)
+                .every(function(field) {return isFieldEqualDefault(field);})
 
+            return isAllFieldsEqualToDefault;
+        }
+
+        function isFieldEqualDefault(field)
+        {
+            var defaultField = new recordFieldEntity.RecordField(field.fieldDefinition);
+
+            var hasCheckbox = _.has(defaultField, "isChecked");
+
+            var defaultData = defaultField.data;
+            var fieldData = field.data;
+
+            if (hasCheckbox && defaultData.isChecked != fieldData.isChecked) { return false; }
+
+            var hasSameNumberOfValues = defaultData.values.length === fieldData.values.length;
+            if (!hasSameNumberOfValues) { return false; }
+
+            for (var i = 0; i < defaultData.values.length; i++)
+            {
+                if (defaultData.values[i].value !== fieldData.values[i].value)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         return {
             Record: Record,
-            setDisplayFields: setDisplayFields
+            setDisplayFields: setDisplayFields,
+            isEqualToDefaultRecord: isEqualToDefaultRecord
         };
     }
 })();

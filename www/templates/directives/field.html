@@ -24,10 +24,6 @@
         <div ng-repeat="value in recordField.data.values">
             <div ng-switch="recordField.fieldDefinition.fieldType.name">
                 <short-text ng-switch-when="shortText" value="value"></short-text>
-
-
-       <!--         <div ng-switch-when="shortText" class='item item-input'><input type='text' ng-model='value.value'></div>-->
-
                 <date ng-switch-when="date" value="value"></date>
                 <long-text ng-switch-when="longText" value="value"></long-text>
                 <barcode ng-switch-when="barcode" value="value"></barcode>

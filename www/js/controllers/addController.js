@@ -2,7 +2,7 @@
 
     angular.module("medicine").controller("addController", addController);
 
-    function addController($scope, $stateParams, currentRecordService, $state)
+    function addController($scope, $stateParams, currentRecordService, $state, $ionicPopup, recordEntity, $ionicNavBarDelegate)
     {
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
 
@@ -12,13 +12,29 @@
         {
             currentRecordService.save(recordDefinitionId);
             $state.go('app.recordDefinitions');
+        };
 
-/*            currentRecordDataService.save($stateParams.typeId);
-            currentRecordDataService.wipeCurrentRecord($stateParams.typeId);
-            $state.go('app.types');*/
-        }
+        $scope.$on("backButtonClicked", function () {
+            var isCurrentRecordSameAsDefault = recordEntity.isEqualToDefaultRecord($scope.record);
 
+            if (isCurrentRecordSameAsDefault)
+            {
+                $ionicNavBarDelegate.back();
+                return;
+            }
 
+            var confirmBackPopup = $ionicPopup.confirm({
+                title: 'Cancel Record',
+                template: 'Are you sure you want to cancel this record without saving?'
+            });
+
+            confirmBackPopup.then(function (result) {
+                if (result) {
+                    currentRecordService.remove($scope.record.recordDefinitionId);
+                    $ionicNavBarDelegate.back();
+                }
+            })
+        });
     }
 
 

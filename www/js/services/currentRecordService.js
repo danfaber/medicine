@@ -8,7 +8,8 @@
 
         return {
             get: get,
-            save: save
+            save: save,
+            remove: remove
         };
 
         function get(recordDefinitionId)
@@ -26,9 +27,16 @@
         {
             var record = currentRecords[recordDefinitionId];
             recordRepository.save(record);
+            remove(recordDefinitionId);
+        }
+
+        function remove(recordDefinitionId)
+        {
             recordRepository.deleteCurrentRecord(recordDefinitionId);
             delete currentRecords[recordDefinitionId];
         }
+
+
     }
 })();
 

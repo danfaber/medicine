@@ -17,10 +17,17 @@
 
         function save(record)
         {
+            var currentDateTime = new Date();
+
             if (!record.id)
             {
                 record.id = getRecordId(record.recordDefinitionId);
+                record.createdDateTime = currentDateTime;
+            } else
+            {
+                record.modifiedDateTime = currentDateTime;
             }
+
 
             delete record.recordDefinition;
 
