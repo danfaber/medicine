@@ -5,8 +5,19 @@
     function addController($scope, $stateParams, currentRecordService, $state, $ionicPopup, recordEntity, $ionicNavBarDelegate)
     {
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
+        $scope.data = {};
+        $scope.data.dirty = false;
 
-        $scope.record = currentRecordService.get(recordDefinitionId);
+        if ($stateParams.recordId)
+        {
+            var recordId = parseInt($stateParams.recordId);
+            $scope.record = currentRecordService.setCurrentRecord(recordDefinitionId, recordId);
+        }
+        else
+        {
+            $scope.record = currentRecordService.get(recordDefinitionId);
+        }
+
 
         $scope.saveRecord = function()
         {

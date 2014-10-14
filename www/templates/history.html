@@ -12,7 +12,7 @@
               </div>
 
               <ion-content class="has-header">
-                  <div ng-repeat="record in recordDefinition.records" class="list list-inset">
+                  <a ng-repeat="record in recordDefinition.records" href="#/app/add?recordDefinitionId={{recordDefinition.id}}&recordId={{record.id}}" class="list list-inset">
                       <div class="item stable-bg">
                           <span>Created: {{record.createdDateTime | date:'dd/MM/yy HH:mm' }}</span>
                           <span ng-show="record.modifiedDateTime" style="float: right;">Modified: {{record.modifiedDateTime | date:'dd/MM/yy HH:mm'}}</span>
@@ -25,7 +25,7 @@
                               </div>
                           </div>
                       </div>
-                  </div>
+                  </a>
               </ion-content>
 
           </ion-slide>

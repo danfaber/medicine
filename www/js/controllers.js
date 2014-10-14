@@ -36,7 +36,6 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, cu
       $rootScope.$broadcast("backButtonClicked",{});
   };
 
-
     document.addEventListener('pause', function() {
         window.localStorage.setItem("pause","paused at"+new Date());
         currentRecordDataService.persistCurrentRecords();

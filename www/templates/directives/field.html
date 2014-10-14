@@ -1,4 +1,6 @@
 
+{{dirty}}
+        <button ng-click="dirty=true">click me</button>
 <div class="card list">
     <div class="item" style="background-color: #f5f5f5; padding-top: 0; padding-bottom: 0;">
 
@@ -21,10 +23,13 @@
     </div>
 
     <div>
-        <div ng-repeat="value in recordField.data.values">
+        <div ng-repeat="value in recordField.data.values" on-drag-left="deleteItem($index)">
             <div ng-switch="recordField.fieldDefinition.fieldType.name">
                 <short-text ng-switch-when="shortText" value="value"></short-text>
-                <date ng-switch-when="date" value="value"></date>
+         <!--       <date ng-switch-when="date" value="value" dirty="dirty"></date>-->
+
+                <div ng-switch-when="date" class='item item-input'><input type='date' ng-model='value.value' ng-change='makeDirty()'></div>
+
                 <long-text ng-switch-when="longText" value="value"></long-text>
                 <barcode ng-switch-when="barcode" value="value"></barcode>
             </div>

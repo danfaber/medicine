@@ -7,7 +7,8 @@
                 templateUrl: "templates/directives/field.html",
                 scope: {
                     recordField: "=",
-                    recordDefinition: "="
+                    recordDefinition: "=",
+                    dirty: "="
                 },
                 controller: controller
             }
@@ -47,6 +48,15 @@
                 $firstItem.focus();
             });
         };
+
+        $scope.deleteItem = function(index){
+            $scope.recordField.data.values.splice(index, 1)
+        };
+
+        $scope.makeDirty = function()
+        {
+            $scope.dirty = true;
+        }
 
 
     }

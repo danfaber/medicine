@@ -9,7 +9,8 @@
         return {
             get: get,
             save: save,
-            remove: remove
+            remove: remove,
+            setCurrentRecord: setCurrentRecord
         };
 
         function get(recordDefinitionId)
@@ -34,6 +35,12 @@
         {
             recordRepository.deleteCurrentRecord(recordDefinitionId);
             delete currentRecords[recordDefinitionId];
+        }
+
+        function setCurrentRecord(recordDefinitionId, recordId)
+        {
+            currentRecords[recordDefinitionId] = recordRepository.get(recordDefinitionId, recordId);
+            return currentRecords[recordDefinitionId];
         }
 
 
