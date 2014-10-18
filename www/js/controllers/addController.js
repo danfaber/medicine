@@ -26,11 +26,10 @@
         };
 
         $scope.$on("backButtonClicked", function () {
-            var isCurrentRecordSameAsDefault = recordEntity.isEqualToDefaultRecord($scope.record);
 
-            if (isCurrentRecordSameAsDefault)
+            if (!$scope.data.dirty)
             {
-                $ionicNavBarDelegate.back();
+                clearCurrentRecordAndNavigateBack();
                 return;
             }
 
@@ -41,11 +40,16 @@
 
             confirmBackPopup.then(function (result) {
                 if (result) {
-                    currentRecordService.remove($scope.record.recordDefinitionId);
-                    $ionicNavBarDelegate.back();
+                    clearCurrentRecordAndNavigateBack();
                 }
             })
         });
+
+        function clearCurrentRecordAndNavigateBack()
+        {
+            currentRecordService.remove($scope.record.recordDefinitionId);
+            $ionicNavBarDelegate.back();
+        }
     }
 
 

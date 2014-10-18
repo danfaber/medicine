@@ -1,8 +1,6 @@
 
-{{dirty}}
-        <button ng-click="dirty=true">click me</button>
-<div class="card list">
-    <div class="item" style="background-color: #f5f5f5; padding-top: 0; padding-bottom: 0;">
+<div class="list-inset list" style="margin-bottom: 20px;">
+    <div class="item" style="background-color: #f5f5f5; padding-top: 0; padding-bottom: 0; padding-right: 6px;">
 
         <div class="row" style="padding: 0; height: 43px;">
             <div class="col col-60" style="padding:13px 0 0 0;">
@@ -14,7 +12,7 @@
                 </label>
             </div>
             <div class="col col-20" style="padding: 0;">
-                <a class="button button-icon icon ion-plus-circled" style="min-height: 42px;"
+                <a class="button button-icon icon ion-plus-circled" style="min-height: 42px; float: right;"
                    ng-if="recordField.fieldDefinition.isMultiSelect && (!recordField.fieldDefinition.isToggled || recordField.data.isChecked)" style="padding:0;"
                    ng-click="addNewValue()"></a>
             </div>
@@ -25,18 +23,23 @@
     <div>
         <div ng-repeat="value in recordField.data.values" on-drag-left="deleteItem($index)">
             <div ng-switch="recordField.fieldDefinition.fieldType.name">
-                <short-text ng-switch-when="shortText" value="value"></short-text>
-         <!--       <date ng-switch-when="date" value="value" dirty="dirty"></date>-->
+                <div ng-switch-when="shortText" class='item item-input'><input type='text' ng-model='value.value' ng-change='makeDirty()'></div>
 
                 <div ng-switch-when="date" class='item item-input'><input type='date' ng-model='value.value' ng-change='makeDirty()'></div>
 
-                <long-text ng-switch-when="longText" value="value"></long-text>
-                <barcode ng-switch-when="barcode" value="value"></barcode>
+                <div ng-switch-when="longText" class='item item-input'>
+                    <textarea rows='4' ng-model='value.value' ng-change='makeDirty()'>
+                    </textarea>
+                </div>
+
+                <div ng-switch-when="barcode" class='item item-input item-icon-right'>
+                    <input ng-model='value.value' type='text' ng-change='makeDirty()'>
+                    <i ng-click='openBarcodeReader()' class='icon ion-ios7-barcode'></i>
+                </div>
+
             </div>
         </div>
     </div>
-
-
 </div>
 
 <!--

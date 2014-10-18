@@ -53,15 +53,15 @@
             });
         }
 
-        function isEqualToDefaultRecord(record)
+/*        function isEqualToDefaultRecord(record)
         {
             var isAllFieldsEqualToDefault = _(record.recordFields)
                 .every(function(field) {return isFieldEqualDefault(field);})
 
             return isAllFieldsEqualToDefault;
-        }
+        }*/
 
-        function isFieldEqualDefault(field)
+/*        function isFieldEqualDefault(field)
         {
             var defaultField = new recordFieldEntity.RecordField(field.fieldDefinition);
 
@@ -83,12 +83,12 @@
                 }
             }
             return true;
-        }
+        }*/
 
         return {
             Record: Record,
-            setDisplayFields: setDisplayFields,
-            isEqualToDefaultRecord: isEqualToDefaultRecord
+            setDisplayFields: setDisplayFields
+          /*  isEqualToDefaultRecord: isEqualToDefaultRecord*/
         };
     }
 })();

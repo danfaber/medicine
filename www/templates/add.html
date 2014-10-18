@@ -1,7 +1,5 @@
 <ion-view title="{{isEdit ? 'Edit' : 'New'}} {{data.currentRecord.name}}">
     <ion-content class="has-header">
-{{data.dirty}}
-
         <div>
             <field ng-repeat="recordField in record.recordFields" record-field="recordField" record-definition="record.recordDefinition" dirty="data.dirty"></field>
         </div>

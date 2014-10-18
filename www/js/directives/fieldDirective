@@ -14,10 +14,12 @@
             }
         }]);
 
-    var controller = function($scope, $timeout)
+    var controller = function($scope, $timeout, $cordovaBarcodeScanner)
     {
         $scope.changeToggle = function()
         {
+            $scope.dirty = true;
+
             if ($scope.recordField.fieldDefinition.fieldType.name === "boolean") { return; }
 
             $scope.recordField.data.values = ($scope.recordField.data.isChecked)
@@ -30,6 +32,8 @@
 
         $scope.addNewValue = function()
         {
+            $scope.dirty = true;
+
             $scope.recordField.data.values.push(
                 {
                     value: $scope.recordField.fieldDefinition.fieldType.defaultValue,
@@ -56,7 +60,17 @@
         $scope.makeDirty = function()
         {
             $scope.dirty = true;
-        }
+        };
+
+        $scope.openBarcodeReader = function()
+        {
+            $cordovaBarcodeScanner.scan().then(function(imageData) {
+                //success
+                $scope.value.value = imageData.text;
+            }, function(error) {
+
+            });
+        };
 
 
     }
