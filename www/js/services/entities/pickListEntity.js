@@ -22,7 +22,9 @@
             this.valueCount = values.length;
         }
 
-        Category.prototype = function(){
+
+
+/*        Category.prototype = function(){
 
             function addNewValue(text)
             {
@@ -34,16 +36,16 @@
             return {
                 addNewValue: addNewValue
             };
-        }();
+        }();*/
 
-        function PickValue(text, count)
+        function PickValue(text)
         {
             this.text = text;
-            this.count = (count === undefined) ? 1 : count;
+            this.count = 0;// (count === undefined) ? 1 : count;
             this.words = pickValueSplitter.splitSentence(text);
         }
 
-        PickValue.prototype = function(){
+/*        PickValue.prototype = function(){
 
             function increment()
             {
@@ -53,7 +55,7 @@
             return {
                 increment: increment
             };
-        }();
+        }();*/
 
         return {
             PickList: PickList,

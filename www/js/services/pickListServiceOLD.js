@@ -1,3 +1,4 @@
+/*
 (function(){
 
     angular.module("medicine").factory("pickListService", ['pickListRepository','pickListEntity', pickListService]);
@@ -8,16 +9,19 @@
 
         function getPickList(id)
         {
-            var pickList = _(pickLists).find(function(list) {return list.id == id;});
+            return _(pickLists).find(function(list) {return list.id == id;});
 
-            if (pickList) {return pickList;}
+*/
+/*            if (pickList) {return pickList;}
 
             var loadedPickList = loadPickList(id);
             pickLists.push(loadedPickList);
-            return loadedPickList;
+            return loadedPickList;*//*
+
         }
 
-        function loadPickList(id)
+*/
+/*        function loadPickList(id)
         {
             var savedPickList = pickListRepository.getSavedPickList(id);
 
@@ -25,12 +29,28 @@
                 ? savedPickList
                 : _(pickListEntityService.defaultPickLists)
                 .find(function(pickList) {return pickList.id === id;});
+        }*//*
+
+
+*/
+/*        function setPickLists(lists)
+        {
+            pickLists = lists;
+        }
+
+        function getAll()
+        {
+            return pickLists;
         }
 
         return {
-            getPickList: getPickList
-        };
+            getPickList: getPickList,
+            setPickLists: setPickLists,
+            getAll: getAll
+        };*//*
+
 
     }
 
 })();
+*/

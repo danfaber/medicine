@@ -1,15 +1,18 @@
 (function(){
 
-    angular.module("medicine").factory("pickListRepository",['$window','pickListEntity', pickListRepository]);
+    angular.module("medicine").factory("pickListRepository",['$window', pickListRepository]);
 
-    function pickListRepository($window, pickListEntity){
-        var pickListPrefix = 'PL';
+    function pickListRepository($window){
+        var pickListPrefix = 'PickLists';
+
 
         return {
-            getSavedPickList: getSavedPickList
+         /*   getSavedPickList: getSavedPickList*/
+            getAll: getAll,
+            saveAll: saveAll
         };
 
-        function getSavedPickList(id)
+/*        function getSavedPickList(id)
         {
             var pickListJson = $window.localStorage.getItem(pickListPrefix+id.toString());
 
@@ -39,7 +42,25 @@
         function regeneratePickValue(tabValueData)
         {
             return new pickListEntity.PickValue(tabValueData.text, tabValueData.count);
+        }*/
+
+
+        function getAll()
+        {
+            var pickListJson = $window.localStorage.getItem(pickListPrefix);
+
+            if (!pickListJson) {return [];}
+
+            return JSON.parse(pickListJson);
         }
+
+        function saveAll(pickLists)
+        {
+            var pickListJson = angular.toJson(pickLists);
+            $window.localStorage.setItem(pickListPrefix, pickListJson);
+        }
+
+
     }
 
 })();

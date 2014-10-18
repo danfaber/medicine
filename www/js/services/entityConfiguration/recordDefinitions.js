@@ -26,7 +26,7 @@
 
         function withFieldDefinition(id, name, sortOrder, isToggled, isMultiSelect, fieldType, pickListId, autoCompleteId)
         {
-            var pickList = (pickListId) ? pickListService.getPickList(pickListId) : undefined;
+            var pickList = (pickListId) ? pickListService.getById(pickListId) : undefined;
 
             return new fieldDefinitionEntity.FieldDefinition(id, name, sortOrder, isToggled, isMultiSelect, fieldType, pickList)
         }

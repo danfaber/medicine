@@ -10,7 +10,7 @@ medicineApp
 // 'starter.controllers' is found in controllers.js
 angular.module('medicine', ['ionic','ngCordova'])
 
-    .run(function ($ionicPlatform, currentRecordDataService) {
+    .run(function ($ionicPlatform, currentRecordDataService, pickListService) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -24,6 +24,8 @@ angular.module('medicine', ['ionic','ngCordova'])
 
             window.localStorage.setItem("deviceready","ready at"+new Date());
             currentRecordDataService.hydrateCurrentRecords();
+
+            pickListService.loadPickLists();
 
 
 /*            document.addEventListener('deviceready', function() {
