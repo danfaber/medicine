@@ -41,9 +41,23 @@
             return recordDefinition;
         }
 
+        function all()
+        {
+            return recordDefinitions;
+        }
+
+        function getFieldDefinition(recordDefinitionId, fieldDefinitionId)
+        {
+            var recordDefinition = get(recordDefinitionId);
+
+            return _(recordDefinition.fieldDefinitions)
+                .find(function(fieldDefinition) {return fieldDefinition.id === fieldDefinitionId;})
+        }
+
         return {
-            all: recordDefinitions,
-            get: get
+            all: all,
+            get: get,
+            getFieldDefinition: getFieldDefinition
         };
     }
 })();

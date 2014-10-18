@@ -86,6 +86,18 @@ angular.module('medicine', ['ionic','ngCordova'])
           }
       })
 
+      .state('app.pickListCategory', {
+          url: "/pickListCategory?recordDefinitionId&fieldDefinitionId&index",
+          views: {
+              'menuContent' :{
+                  templateUrl: "templates/pickListCategory.html",
+                  controller: "pickListCategoryController"
+              }
+          }
+      })
+
+
+
     .state('app.recordDefinitions', {
       url: "/recordDefinitions",
       views: {

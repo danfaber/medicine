@@ -5,9 +5,8 @@
 
     function recordDefinitionsController($scope, recordDefinitions)
     {
-        $scope.recordDefinitions = recordDefinitions.all;
+        $scope.recordDefinitions = recordDefinitions.all();
     }
-
 
 })();
 
