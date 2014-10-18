@@ -20,9 +20,17 @@
             this.name = name;
             this.values = values;
             this.valueCount = values.length;
+            this.allWords = getUniqueWords(values);
         }
 
-
+        function getUniqueWords(pickValues)
+        {
+            return _.chain(pickValues)
+                .map(function(value) {return value.words;})
+                .flatten()
+                .uniq()
+                .value();
+        }
 
 /*        Category.prototype = function(){
 

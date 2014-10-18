@@ -1,4 +1,11 @@
 <ion-view title="{{isEdit ? 'Edit' : 'New'}} {{data.currentRecord.name}}">
+
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-ios7-checkmark-outline"
+                ng-click="saveRecord()">
+        </button>
+    </ion-nav-buttons>
+
     <ion-content class="has-header">
         <div>
             <field ng-repeat="recordField in record.recordFields" record-field="recordField" record-definition="record.recordDefinition" dirty="data.dirty"></field>
@@ -72,7 +79,7 @@
 
     </ion-content>
 
-    <div class="bar bar-footer">
+<!--    <div class="bar bar-footer">
         <button ng-click="saveRecord()" class="button button-icon icon ion-checkmark-round pull-right"></button>
-    </div>
+    </div>-->
 </ion-view>

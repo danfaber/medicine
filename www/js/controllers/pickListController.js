@@ -7,12 +7,18 @@
         var fieldDefinitionId = parseInt($stateParams.fieldDefinitionId);
         var categoryId = parseInt($stateParams.categoryId);
         var index = parseInt($stateParams.index);
+        $scope.data = {};
 
         var pickListId = recordDefinitions.getFieldDefinition(recordDefinitionId, fieldDefinitionId).pickListId;
 
         $scope.pickList = pickListService.getById(pickListId);
 
         $scope.category = pickListService.getCategory(pickListId, categoryId);
+
+        $scope.inputTextChanged = function()
+        {
+            $scope.data.wordMatches = pickListService.getWordMatches($scope.category, $scope.data.inputText);
+        };
 
 
         $scope.$on("backButtonClicked", function () {

@@ -4,7 +4,8 @@
 
     function pickListService(pickListEntity, pickListRepository){
 
-        var pickLists;
+        var pickLists = [];
+        var maximumWordMatches = 10;
         
         function getDefaultPickLists()
         {
@@ -57,17 +58,39 @@
                 .find(function(category) {return category.id === categoryId;})
         }
 
-        function getAll()
+        function getWordMatches(category, searchText)
         {
-            return pickLists;
+            if (!searchText) {return [];}
+
+            searchText = searchText.toLowerCase();
+            var searchTextLength = searchText.length;
+
+            var wordMatches = [];
+            var numberOfMatches = 0;
+            var currentWord;
+
+            for (var i = 0; i < category.allWords.length; i++)
+            {
+                currentWord = category.allWords[i];
+
+                if (currentWord.substring(0, searchTextLength) === searchText)
+                {
+                    numberOfMatches++;
+                    wordMatches.push(currentWord);
+
+                    if (numberOfMatches>=maximumWordMatches) {break;}
+                }
+            }
+            return wordMatches;
         }
+
 
         return {
             loadPickLists: loadPickLists,
             persistPickLists: persistPickLists,
             getById: getById,
             getCategory: getCategory,
-            getAll: getAll
+            getWordMatches: getWordMatches
         };
     }
 })();

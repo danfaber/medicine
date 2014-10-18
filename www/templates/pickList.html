@@ -1,28 +1,32 @@
 <ion-view title="{{pickList.name}} - {{category.name}}">
 
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-ios7-plus-outline">
+        </button>
+    </ion-nav-buttons>
+
     <ion-content class="has-header">
         <div class="bar bar-header">
             <div class="item item-input-inset" style="padding: 0; width: 100%; border: none;">
                 <label class="item-input-wrapper">
-                    <input type="text" placeholder="Search or Add">
-                    <i class="icon ion-close-round" style="padding: 0 5px;"></i>
+                    <input ng-model="data.inputText" ng-change="inputTextChanged()" ng-trim="false" type="text" placeholder="Search or Add">
+                    <i class="icon ion-close-round" style="padding: 0 11px;"></i>
                 </label>
-                <a class="button button-icon icon ion-ios7-plus-outline balanced" style="margin-left: 5px;"></a>
             </div>
+            {{inputText}}
         </div>
 
-        <div class="list">
-            <li ng-repeat="word in wordMatches" class="item">
-                word match
+        <div class="list" style="top:43px;">
+            <li ng-repeat="word in data.wordMatches" class="item">
+                {{word}}
             </li>
         </div>
 
         <div class="list list-insert">
-            <div ng-repeat="value in valueMatches" class="item">
+            <div ng-repeat="value in data.valueMatches" class="item">
                 value match
             </div>
         </div>
-
 
     </ion-content>
 </ion-view>
