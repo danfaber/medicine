@@ -4,7 +4,7 @@
 
     function pickListService(pickListEntity, pickListRepository){
 
-        var pickLists = [];
+        var pickLists;
         
         function getDefaultPickLists()
         {
@@ -47,13 +47,27 @@
         
         function getById(pickListId)
         {
-            return _(pickLists).find(function(list) {return list.id == pickListId;});
+            return _(pickLists).find(function(list) {return list.id === pickListId;});
+        }
+
+        function getCategory(pickListId, categoryId)
+        {
+            var pickList = getById(pickListId);
+            return _(pickList.categories)
+                .find(function(category) {return category.id === categoryId;})
+        }
+
+        function getAll()
+        {
+            return pickLists;
         }
 
         return {
             loadPickLists: loadPickLists,
             persistPickLists: persistPickLists,
-            getById: getById
+            getById: getById,
+            getCategory: getCategory,
+            getAll: getAll
         };
     }
 })();

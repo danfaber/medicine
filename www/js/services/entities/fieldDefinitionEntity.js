@@ -4,7 +4,7 @@
 
     function fieldDefinitionEntity(){
 
-        function FieldDefinition(id, name, sortOrder, isToggled, isMultiSelect, fieldType ,pickList, autoComplete)
+        function FieldDefinition(id, name, sortOrder, isToggled, isMultiSelect, fieldType ,pickListId, autoComplete)
         {
             this.id = id;
             this.name = name;
@@ -12,7 +12,7 @@
             this.isToggled = isToggled;
             this.isMultiSelect = isMultiSelect;
             this.fieldType = fieldType;
-            this.pickList = pickList;
+            this.pickListId = pickListId;
             this.autoComplete = autoComplete;
         }
 

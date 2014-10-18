@@ -10,7 +10,7 @@ medicineApp
 // 'starter.controllers' is found in controllers.js
 angular.module('medicine', ['ionic','ngCordova'])
 
-    .run(function ($ionicPlatform, currentRecordDataService, pickListService) {
+    .run(function ($ionicPlatform, pickListService) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -22,9 +22,11 @@ angular.module('medicine', ['ionic','ngCordova'])
                 StatusBar.styleDefault();
             }
 
-            window.localStorage.setItem("deviceready","ready at"+new Date());
-            currentRecordDataService.hydrateCurrentRecords();
+            window.localStorage.clear();
 
+/*            window.localStorage.setItem("deviceready","ready at"+new Date());
+            currentRecordDataService.hydrateCurrentRecords();*/
+            window.localStorage.setItem("loadedAt","loadedAt" + new Date());
             pickListService.loadPickLists();
 
 
@@ -77,7 +79,7 @@ angular.module('medicine', ['ionic','ngCordova'])
       })
 
       .state('app.pickList', {
-          url: "/pickList?recordDefinitionId&fieldDefinitionId&index",
+          url: "/pickList?recordDefinitionId&fieldDefinitionId&index&categoryId",
           views: {
               'menuContent' :{
                   templateUrl: "templates/pickList.html",

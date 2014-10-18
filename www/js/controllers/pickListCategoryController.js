@@ -1,19 +1,20 @@
 (function(){
     var app = angular.module("medicine");
 
-    app.controller("pickListCategoryController", function($scope, $stateParams, recordDefinitions, $ionicNavBarDelegate) {
+    app.controller("pickListCategoryController", function($scope, $stateParams, recordDefinitions, $ionicNavBarDelegate, pickListService) {
 
-        var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
-        var fieldDefinitionId = parseInt($stateParams.fieldDefinitionId);
+        $scope.recordDefinitionId = parseInt($stateParams.recordDefinitionId);
+        $scope.fieldDefinitionId = parseInt($stateParams.fieldDefinitionId);
+        $scope.index = parseInt($stateParams.index);
 
-        $scope.pickList = recordDefinitions.getFieldDefinition(recordDefinitionId, fieldDefinitionId).pickList;
+        var pickListId =  recordDefinitions.getFieldDefinition($scope.recordDefinitionId, $scope.fieldDefinitionId).pickListId;
 
+        $scope.pickList = pickListService.getById(pickListId);
 
         $scope.$on("backButtonClicked", function () {
 
             $ionicNavBarDelegate.back();
         });
-
     });
 
 })();
