@@ -3,7 +3,7 @@
 
     var app = angular.module("medicine");
 
-    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout) {
+    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout, currentRecordService, $state) {
 
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         var fieldDefinitionId = parseInt($stateParams.fieldDefinitionId);
@@ -92,6 +92,22 @@
                 partialWord: partialWord
             };
         }
+
+        $scope.selectValue = function(value)
+        {
+            var currentRecord = currentRecordService.get(recordDefinitionId);
+
+            var field = _(currentRecord.recordFields)
+                .find(function(field) {return field.fieldDefinitionId === fieldDefinitionId;});
+
+            var fieldValue = _(field.data.values)
+                .find(function(val) {return val.index == index;});
+
+            fieldValue.value = value;
+
+            $state.go('app.add', {recordDefinitionId: recordDefinitionId} );
+
+        };
 
         $scope.$on("backButtonClicked", function () {
 

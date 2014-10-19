@@ -22,7 +22,7 @@
         </div>
 
         <div class="list list-insert" style="top:53px; margin-right: 10px; margin-left: 10px;" ng-show="data.valueMatches.length > 0">
-            <div ng-repeat="value in data.valueMatches" class="item">
+            <div ng-repeat="value in data.valueMatches" class="item" ng-click="selectValue(value)">
                 {{value.text}}
             </div>
         </div>

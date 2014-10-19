@@ -37,8 +37,12 @@
                     <i ng-click='openBarcodeReader()' class='icon ion-ios7-barcode'></i>
                 </div>
 
-                <a ng-switch-when="pickList"
-                   href="#/app/pickListCategory?recordDefinitionId={{recordDefinition.id}}&fieldDefinitionId={{recordField.fieldDefinitionId}}&index={{value.index}}">go to{{value.value}}</a>
+                <a ng-switch-when="pickList" class="item"
+                    href="#/app/pickListCategory?recordDefinitionId={{recordDefinition.id}}&fieldDefinitionId={{recordField.fieldDefinitionId}}&index={{value.index}}">
+                        {{value.value.text ? value.value.text : '(Please Select)'}}
+                </a>
+
+
 
             </div>
         </div>
