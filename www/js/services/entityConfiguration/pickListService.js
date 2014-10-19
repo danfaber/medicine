@@ -6,7 +6,8 @@
     function pickListService(pickListEntity, pickListRepository){
 
         var pickLists = [];
-        var maximumWordMatches = 10;
+        var maximumWordMatches = 8;
+        var maximumValueMatches = 25;
         
         function getDefaultPickLists()
         {
@@ -59,6 +60,7 @@
                 .find(function(category) {return category.id === categoryId;})
         }
 
+/*
         function getWordMatches(category, searchText)
         {
             if (!searchText) {return [];}
@@ -84,7 +86,7 @@
             }
             return wordMatches;
         }
-
+*/
 
         function wordMatches(category, requiredWords, searchText)
         {
@@ -92,13 +94,9 @@
 
             searchText = searchText.toLowerCase();
 
-            var requiredWordsLowered = _(requiredWords)
-                .map(function(word) {return word.toLowerCase();});
+            var requiredWordsLowered = lowerCaseArray(requiredWords);
 
-            var isAllRequiredWordsMatching;
             var value;
-            var isRequiredWordNotMatched;
-            var requiredWord;
             var wordMatches = [];
             var numberOfRequiredWords = requiredWordsLowered.length;
             var searchTextLength;
@@ -108,20 +106,8 @@
             for (var valueIndex = 0; valueIndex < category.values.length; valueIndex++)
             {
                 value = category.values[valueIndex];
-                isAllRequiredWordsMatching = true;
-                for (var requiredWordIndex = 0; requiredWordIndex < numberOfRequiredWords; requiredWordIndex++)
-                {
-                    requiredWord = requiredWordsLowered[requiredWordIndex];
-                    isRequiredWordNotMatched = value.words.indexOf(requiredWord) === -1;
 
-                    if (isRequiredWordNotMatched)
-                    {
-                        isAllRequiredWordsMatching = false;
-                        break;
-                    }
-                }
-
-                if (!isAllRequiredWordsMatching) {continue;}
+                if (doesNotMatchRequiredWords(value, requiredWordsLowered, numberOfRequiredWords)) { continue; }
 
                 searchTextLength = searchText.length;
 
@@ -146,13 +132,56 @@
         }
 
 
+        function valueMatches(category, requiredWords)
+        {
+            if (requiredWords.length === 0) {return [];}
+
+            var valueMatches = [];
+            var value;
+            var requiredWordsLowered = lowerCaseArray(requiredWords);
+            var numberOfRequiredWords = requiredWordsLowered.length;
+
+            for (var i = 0; i < category.values.length; i++)
+            {
+                value = category.values[i];
+                if (doesNotMatchRequiredWords(value, requiredWordsLowered, numberOfRequiredWords)) { continue; }
+
+                valueMatches.push(value);
+                if (valueMatches.length >= maximumValueMatches) {break;}
+            }
+
+            return valueMatches;
+        }
+
+        function lowerCaseArray(items)
+        {
+            return _(items).map(function(item) {return item.toLowerCase();});
+        }
+
+
+        function doesNotMatchRequiredWords(value, requiredWords, numberOfWords)
+        {
+            var requiredWord;
+            for (var i = 0; i < numberOfWords; i++)
+            {
+                requiredWord = requiredWords[i];
+                if (value.words.indexOf(requiredWord) === -1)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         return {
             loadPickLists: loadPickLists,
             persistPickLists: persistPickLists,
             getById: getById,
             getCategory: getCategory,
-            getWordMatches: getWordMatches,
-            wordMatches: wordMatches
+          //  getWordMatches: getWordMatches,
+            wordMatches: wordMatches,
+            valueMatches: valueMatches
         };
     }
 })();

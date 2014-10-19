@@ -9,21 +9,21 @@
         <div class="bar bar-header" style="padding-top: 6px; padding-bottom: 4px;">
             <div class="item item-input-inset" style="padding: 0; width: 100%; border: none; height: 100%;">
                 <div class="item-input-wrapper" style="height: 33px;">
-                    <input ng-model="data.inputText" ng-change="inputTextChanged()" ng-trim="false" type="text" placeholder="Search or Add">
+                    <input ng-model="data.inputText" ng-change="inputTextChanged()" ng-trim="false" type="text" placeholder="Search or Add" id="inputText">
                     <i class="icon ion-close-round" ng-click="clearInputText()" style="padding: 0 11px;"></i>
                 </div>
             </div>
         </div>
 
-        <div class="list" style="top:43px;">
+        <div class="list" style="top:43px;" ng-show="data.wordMatches.length > 0">
             <li ng-repeat="word in data.wordMatches" class="item" ng-click="selectWord(word)">
                 {{word}}
             </li>
         </div>
 
-        <div class="list list-insert">
+        <div class="list list-insert" style="top:53px; margin-right: 10px; margin-left: 10px;" ng-show="data.valueMatches.length > 0">
             <div ng-repeat="value in data.valueMatches" class="item">
-                value match
+                {{value.text}}
             </div>
         </div>
 
