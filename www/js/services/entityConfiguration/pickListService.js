@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
 
     angular.module("medicine").factory("pickListService", ["pickListEntity", "pickListRepository", pickListService]);
 
@@ -85,12 +86,73 @@
         }
 
 
+        function wordMatches(category, requiredWords, searchText)
+        {
+            if (!searchText) {return [];}
+
+            searchText = searchText.toLowerCase();
+
+            var requiredWordsLowered = _(requiredWords)
+                .map(function(word) {return word.toLowerCase();});
+
+            var isAllRequiredWordsMatching;
+            var value;
+            var isRequiredWordNotMatched;
+            var requiredWord;
+            var wordMatches = [];
+            var numberOfRequiredWords = requiredWordsLowered.length;
+            var searchTextLength;
+            var searchTextMatches;
+            var searchTextMatch;
+
+            for (var valueIndex = 0; valueIndex < category.values.length; valueIndex++)
+            {
+                value = category.values[valueIndex];
+                isAllRequiredWordsMatching = true;
+                for (var requiredWordIndex = 0; requiredWordIndex < numberOfRequiredWords; requiredWordIndex++)
+                {
+                    requiredWord = requiredWordsLowered[requiredWordIndex];
+                    isRequiredWordNotMatched = value.words.indexOf(requiredWord) === -1;
+
+                    if (isRequiredWordNotMatched)
+                    {
+                        isAllRequiredWordsMatching = false;
+                        break;
+                    }
+                }
+
+                if (!isAllRequiredWordsMatching) {continue;}
+
+                searchTextLength = searchText.length;
+
+                searchTextMatches = _(value.words).filter(function(word){
+
+                   if (requiredWordsLowered.indexOf(word) > -1) {return false;}
+                   return word.substring(0, searchTextLength) === searchText;
+                });
+
+                for (var i = 0; i < searchTextMatches.length; i++ )
+                {
+                    searchTextMatch = searchTextMatches[i];
+                    if (wordMatches.indexOf(searchTextMatch) === -1)
+                    {
+                        wordMatches.push(searchTextMatch);
+                    }
+                }
+
+                if (wordMatches.length >= maximumWordMatches) {break;}
+            }
+            return wordMatches;
+        }
+
+
         return {
             loadPickLists: loadPickLists,
             persistPickLists: persistPickLists,
             getById: getById,
             getCategory: getCategory,
-            getWordMatches: getWordMatches
+            getWordMatches: getWordMatches,
+            wordMatches: wordMatches
         };
     }
 })();
