@@ -14,7 +14,7 @@
             }
         }]);
 
-    var controller = function($scope, $timeout, $cordovaBarcodeScanner)
+    var controller = function($scope, $timeout, $cordovaBarcodeScanner, $state, pickListService)
     {
         $scope.changeToggle = function()
         {
@@ -70,6 +70,22 @@
             }, function(error) {
 
             });
+        };
+
+        $scope.openPickList = function(index)
+        {
+            var pickListId = $scope.recordField.fieldDefinition.pickListId;
+
+            var pickList = pickListService.getById(pickListId);
+
+            var showCategories = pickList.showCategoriesAsTabs && pickList.categories.length > 1;
+
+            if (showCategories)
+            {
+                /* dan take over form here..*/
+            }
+
+           // $state.go('app.add', {recordDefinitionId: recordDefinitionId} );
         };
 
 
