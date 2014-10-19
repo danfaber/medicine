@@ -24,17 +24,26 @@
 
         $scope.inputTextChanged = function()
         {
-            var inputText = $scope.data.inputText;
+            var searchTerms = parseSearchText();
+            var isWordSearch = !!searchTerms.partialWord;
 
-            var words = inputText.split(" ");
-
-            var currentWord = _(words).last();
-
-            var completeWords = _(words).first(words.length - 1);
-
-            $scope.data.valueMatches = [];
-            $scope.data.wordMatches = pickListService.wordMatches($scope.category, completeWords, currentWord);
+            if (isWordSearch)
+            {
+                $scope.data.valueMatches = [];
+                $scope.data.wordMatches = pickListService.wordMatches($scope.category, searchTerms);
+            }
+            else
+            {
+                $scope.data.wordMatches = [];
+                $scope.data.valueMatches = pickListService.valueMatches($scope.category, searchTerms.completeWords);
+            }
         };
+
+        function cleanSpaces(text)
+        {
+            var cleaned = text.replace(/\s{2,}/g, " ");
+            return cleaned.trim();
+        }
 
         $scope.clearInputText = function()
         {
@@ -48,26 +57,41 @@
         {
             var inputText = $scope.data.inputText;
             var lastSpaceIndex = inputText.lastIndexOf(" ");
-            var newInputText;
-
-            if (lastSpaceIndex === -1)
-            {
-                newInputText = word;
-            } else
-            {
-                newInputText = inputText.substring(0, lastSpaceIndex + 1) + word
-            }
-
-            var requiredWords = newInputText.split(" ");
-
-            $scope.data.inputText = newInputText + " ";
-
-            $scope.data.valueMatches = pickListService.valueMatches($scope.category, requiredWords);
-
-            $scope.data.wordMatches = [];
-
+            $scope.data.inputText = inputText.substring(0, lastSpaceIndex + 1) + word + " ";
+            $scope.inputTextChanged();
             selectSearchBox();
         };
+
+        function parseAsCompleteWords(text)
+        {
+            var cleanedText = cleanSpaces(text);
+            return cleanedText.split(" ");
+        }
+
+        function parseSearchText()
+        {
+            var inputText = $scope.data.inputText;
+
+            var lastSpaceIndex = inputText.indexOf(" ");
+
+            var isLastCharacterSpace = lastSpaceIndex == (inputText.length -1);
+
+            if (isLastCharacterSpace)
+            {
+                return {
+                    completeWords: cleanSpaces(inputText).split(" "),
+                    partialWord: null
+                }
+            }
+
+            var partialWord = cleanSpaces(inputText.substring(lastSpaceIndex + 1));
+            var completeWordSection = cleanSpaces(inputText.substring(0, lastSpaceIndex));
+
+            return {
+                completeWords: completeWordSection ? completeWordSection.split(" ") : [],
+                partialWord: partialWord
+            };
+        }
 
         $scope.$on("backButtonClicked", function () {
 

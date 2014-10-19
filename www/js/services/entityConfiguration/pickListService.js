@@ -88,17 +88,17 @@
         }
 */
 
-        function wordMatches(category, requiredWords, searchText)
+        function wordMatches(category, searchTerms)
         {
-            if (!searchText) {return [];}
+            if (!searchTerms.partialWord) {return [];}
 
-            searchText = searchText.toLowerCase();
+            var searchText = searchTerms.partialWord.toLowerCase();
 
-            var requiredWordsLowered = lowerCaseArray(requiredWords);
+            var requiredWords = lowerCaseArray(searchTerms.completeWords);
 
             var value;
             var wordMatches = [];
-            var numberOfRequiredWords = requiredWordsLowered.length;
+            var numberOfRequiredWords = requiredWords.length;
             var searchTextLength;
             var searchTextMatches;
             var searchTextMatch;
@@ -107,13 +107,13 @@
             {
                 value = category.values[valueIndex];
 
-                if (doesNotMatchRequiredWords(value, requiredWordsLowered, numberOfRequiredWords)) { continue; }
+                if (doesNotMatchRequiredWords(value, requiredWords, numberOfRequiredWords)) { continue; }
 
                 searchTextLength = searchText.length;
 
                 searchTextMatches = _(value.words).filter(function(word){
 
-                   if (requiredWordsLowered.indexOf(word) > -1) {return false;}
+                   if (requiredWords.indexOf(word) > -1) {return false;}
                    return word.substring(0, searchTextLength) === searchText;
                 });
 
