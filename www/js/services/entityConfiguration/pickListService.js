@@ -12,6 +12,20 @@
         function getDefaultPickLists()
         {
             return [
+                new pickListEntity.PickList(1, 'Symptoms', true, true, [
+                        new pickListEntity.CategoryValue(1, 'Heart', ['Upper Heart','Middle Heart', 'Lower Heart','Related Cardiac']),
+                        new pickListEntity.CategoryValue(2, 'Lung', ['Left Lung', 'Right Lung', 'Top Lung'])
+                    ]),
+
+                new pickListEntity.PickList(2, 'Location', false, false, [
+                        new pickListEntity.CategoryValue(3, 'All', ['London', 'Manchester', 'Liverpool', 'Loughborough'])
+                ])
+            ];
+
+
+
+
+/*
                 addPickList(1,'Symptoms',true, true,[
                     withCategory(1, 'Heart', ['Upper Heart','Middle Heart', 'Lower Heart','Related Cardiac']),
                     withCategory(2, 'Lung', ['Left Lung', 'Right Lung', 'Top Lung'])]),
@@ -19,19 +33,22 @@
                 addPickList(2, 'Location', [
                     withCategory(3, 'All', ['London', 'Manchester', 'Liverpool', 'Loughborough'])
                 ])
-            ];
+            ];*/
         }
 
-        function addPickList(id, name, isAbleToAddNewValues, showCategoriesAsTabs, categories)
+/*        function addPickList(id, name, isAbleToAddNewValues, showCategoriesAsTabs, categoryValues)
         {
-            return new pickListEntity.PickList(id, name, isAbleToAddNewValues, showCategoriesAsTabs, categories);
+            return new pickListEntity.PickList(id, name, isAbleToAddNewValues, showCategoriesAsTabs, categoryValues);
         }
 
         function withCategory(id, name, values)
         {
+            var categoryValues =
+
+
             var pickValues = _(values).map(function(value) {return new pickListEntity.PickValue(value, 0); });
             return new pickListEntity.Category(id, name, pickValues);
-        }
+        }*/
 
         function loadPickLists()
         {
