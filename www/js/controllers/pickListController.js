@@ -7,8 +7,8 @@
 
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         var fieldDefinitionId = parseInt($stateParams.fieldDefinitionId);
-        var categoryId = parseInt($stateParams.categoryId);
         var index = parseInt($stateParams.index);
+        var categoryId = ($stateParams.categoryId) ? parseInt($stateParams.categoryId) : null;
 
         $scope.data = {
             inputText: "",
@@ -20,7 +20,7 @@
 
         $scope.pickList = pickListService.getById(pickListId);
 
-        $scope.category = pickListService.getCategory(pickListId, categoryId);
+       /* $scope.category = pickListService.getCategory(pickListId, categoryId);*/
 
         $scope.inputTextChanged = function()
         {
@@ -30,12 +30,12 @@
             if (isWordSearch)
             {
                 $scope.data.valueMatches = [];
-                $scope.data.wordMatches = pickListService.wordMatches($scope.category, searchTerms);
+                $scope.data.wordMatches = pickListService.wordMatches(pickListId, searchTerms, categoryId);
             }
             else
             {
                 $scope.data.wordMatches = [];
-                $scope.data.valueMatches = pickListService.valueMatches($scope.category, searchTerms.completeWords);
+                $scope.data.valueMatches = pickListService.valueMatches(pickListId, searchTerms.completeWords, categoryId);
             }
         };
 

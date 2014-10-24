@@ -82,6 +82,13 @@
 
             if (showCategories)
             {
+                $state.go('app.pickListCategory',
+                    {
+                        recordDefinitionId: $scope.recordDefinition.id,
+                        fieldDefinitionId: $scope.recordField.fieldDefinitionId,
+                        index: index
+                    });
+
                 /* dan take over form here..*/
             }
 

@@ -21,34 +21,8 @@
                         new pickListEntity.CategoryValue(3, 'All', ['London', 'Manchester', 'Liverpool', 'Loughborough'])
                 ])
             ];
-
-
-
-
-/*
-                addPickList(1,'Symptoms',true, true,[
-                    withCategory(1, 'Heart', ['Upper Heart','Middle Heart', 'Lower Heart','Related Cardiac']),
-                    withCategory(2, 'Lung', ['Left Lung', 'Right Lung', 'Top Lung'])]),
-
-                addPickList(2, 'Location', [
-                    withCategory(3, 'All', ['London', 'Manchester', 'Liverpool', 'Loughborough'])
-                ])
-            ];*/
         }
 
-/*        function addPickList(id, name, isAbleToAddNewValues, showCategoriesAsTabs, categoryValues)
-        {
-            return new pickListEntity.PickList(id, name, isAbleToAddNewValues, showCategoriesAsTabs, categoryValues);
-        }
-
-        function withCategory(id, name, values)
-        {
-            var categoryValues =
-
-
-            var pickValues = _(values).map(function(value) {return new pickListEntity.PickValue(value, 0); });
-            return new pickListEntity.Category(id, name, pickValues);
-        }*/
 
         function loadPickLists()
         {
@@ -70,44 +44,18 @@
             return _(pickLists).find(function(list) {return list.id === pickListId;});
         }
 
-        function getCategory(pickListId, categoryId)
+/*        function getCategory(pickListId, categoryId)
         {
             var pickList = getById(pickListId);
             return _(pickList.categories)
                 .find(function(category) {return category.id === categoryId;})
-        }
+        }*/
 
-/*
-        function getWordMatches(category, searchText)
-        {
-            if (!searchText) {return [];}
-
-            searchText = searchText.toLowerCase();
-            var searchTextLength = searchText.length;
-
-            var wordMatches = [];
-            var numberOfMatches = 0;
-            var currentWord;
-
-            for (var i = 0; i < category.allWords.length; i++)
-            {
-                currentWord = category.allWords[i];
-
-                if (currentWord.substring(0, searchTextLength) === searchText)
-                {
-                    numberOfMatches++;
-                    wordMatches.push(currentWord);
-
-                    if (numberOfMatches>=maximumWordMatches) {break;}
-                }
-            }
-            return wordMatches;
-        }
-*/
-
-        function wordMatches(category, searchTerms)
+        function wordMatches(pickListId, searchTerms, categoryId)
         {
             if (!searchTerms.partialWord) {return [];}
+
+            var pickList = getById(pickListId);
 
             var searchText = searchTerms.partialWord.toLowerCase();
 
@@ -119,10 +67,15 @@
             var searchTextLength;
             var searchTextMatches;
             var searchTextMatch;
+            var isNotInFilteredCategory;
 
-            for (var valueIndex = 0; valueIndex < category.values.length; valueIndex++)
+            for (var valueIndex = 0; valueIndex < pickList.values.length; valueIndex++)
             {
-                value = category.values[valueIndex];
+                value = pickList.values[valueIndex];
+
+                isNotInFilteredCategory = categoryId && value.categoryId !== categoryId;
+
+                if (isNotInFilteredCategory) { continue; }
 
                 if (doesNotMatchRequiredWords(value, requiredWords, numberOfRequiredWords)) { continue; }
 
@@ -149,18 +102,26 @@
         }
 
 
-        function valueMatches(category, requiredWords)
+        function valueMatches(pickListId, requiredWords, categoryId)
         {
             if (requiredWords.length === 0) {return [];}
 
+            var pickList = getById(pickListId);
+
             var valueMatches = [];
             var value;
+            var isNotInFilteredCategory;
             var requiredWordsLowered = lowerCaseArray(requiredWords);
             var numberOfRequiredWords = requiredWordsLowered.length;
 
-            for (var i = 0; i < category.values.length; i++)
+            for (var i = 0; i < pickList.values.length; i++)
             {
-                value = category.values[i];
+                value = pickList.values[i];
+
+                isNotInFilteredCategory = categoryId && value.categoryId !== categoryId;
+
+                if (isNotInFilteredCategory) { continue; }
+
                 if (doesNotMatchRequiredWords(value, requiredWordsLowered, numberOfRequiredWords)) { continue; }
 
                 valueMatches.push(value);
@@ -195,7 +156,7 @@
             loadPickLists: loadPickLists,
             persistPickLists: persistPickLists,
             getById: getById,
-            getCategory: getCategory,
+        /*    getCategory: getCategory,*/
           //  getWordMatches: getWordMatches,
             wordMatches: wordMatches,
             valueMatches: valueMatches
