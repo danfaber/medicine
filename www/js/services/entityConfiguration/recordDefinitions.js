@@ -14,8 +14,9 @@
                 withFieldDefinition(3, "Location", 3, false, false, allFieldTypes.shortText),
                 withFieldDefinition(4, "Reason for referral", 4, false, false, allFieldTypes.pickList, 1),
                 withFieldDefinition(5, "Presentation", 5, false, true, allFieldTypes.pickList, 2),
-                withFieldDefinition(6, "Notes", 6, false, false, allFieldTypes.longText),
-                withFieldDefinition(7, "Set Flag", 7, true, false, allFieldTypes.boolean)
+                withFieldDefinition(6, "Diagnoses", 6, false, true, allFieldTypes.pickList, 3),
+                withFieldDefinition(7, "Notes", 7, false, false, allFieldTypes.longText),
+                withFieldDefinition(8, "Set Flag", 8, true, false, allFieldTypes.boolean)
 /*                withFieldDefinition(6, "barcode", 0, false, false, allFieldTypes.barcode),
                 withFieldDefinition(1, "free text", 1, true, true, allFieldTypes.shortText),
                 withFieldDefinition(2, "complications", 2, true, true, allFieldTypes.pickList, 1 ),

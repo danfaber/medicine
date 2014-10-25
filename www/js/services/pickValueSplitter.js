@@ -9,7 +9,15 @@
 
         function splitSentence(sentence)
         {
-            sentence = sentence.toLowerCase();
+
+            try {
+                sentence = sentence.toLowerCase();
+
+            }
+            catch(err) {
+                var x = 100;
+            }
+
 
             sentence = replacePunctuationWithSpaces(sentence);
 
