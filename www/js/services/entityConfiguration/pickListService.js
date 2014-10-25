@@ -17,7 +17,7 @@
                         new pickListEntity.CategoryValue(2, 'Lung', ['Left Lung', 'Right Lung', 'Top Lung'])
                     ]),
 
-                new pickListEntity.PickList(2, 'Location', false, false, false, [
+                new pickListEntity.PickList(2, 'Location', true, false, false, [
                         new pickListEntity.CategoryValue(3, 'All', ['London Town', 'Manchester Area', 'Liverpool', 'Loughborough Ville'])
                 ])
             ];
@@ -188,6 +188,15 @@
             }
          }
 
+
+        function addNewValue(pickListId, text, categoryId)
+        {
+            var pickList = getById(pickListId);
+            var newValue = new pickListEntity.PickValue(text, categoryId);
+            pickList.values.push(newValue);
+            return newValue;
+        }
+
         return {
             loadPickLists: loadPickLists,
             persistPickLists: persistPickLists,
@@ -196,7 +205,8 @@
           //  getWordMatches: getWordMatches,
             wordMatches: wordMatches,
             valueMatches: valueMatches,
-            incrementCount: incrementCount
+            incrementCount: incrementCount,
+            addNewValue: addNewValue
         };
     }
 })();

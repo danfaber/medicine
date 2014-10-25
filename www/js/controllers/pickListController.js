@@ -120,6 +120,13 @@
             $ionicNavBarDelegate.back();
         });
 
+        $scope.addNewValue = function()
+        {
+            var text = cleanSpaces($scope.data.inputText);
+            var newValue = pickListService.addNewValue(pickListId, text, categoryId);
+            $scope.selectValue(newValue);
+        };
+
         function selectSearchBox()
         {
             $timeout(function(){document.getElementById("inputText").focus();},0);
