@@ -9,7 +9,7 @@
         <div class="bar bar-header" style="padding-top: 6px; padding-bottom: 4px;">
             <div class="item item-input-inset" style="padding: 0; width: 100%; border: none; height: 100%;">
                 <div class="item-input-wrapper" style="height: 33px;">
-                    <input ng-model="data.inputText" ng-change="inputTextChanged()" ng-trim="false" type="text" placeholder="Search or Add" id="inputText">
+                    <input ng-model="data.inputText" ng-change="inputTextChanged()" ng-trim="false" type="text" placeholder="Search{{pickList.isAbleToAddNewValues ? ' or Add':''}}" id="inputText">
                     <i class="icon ion-close-round" ng-click="clearInputText()" style="padding: 0 11px;"></i>
                 </div>
             </div>

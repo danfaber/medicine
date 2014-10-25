@@ -12,7 +12,8 @@
             getCurrentRecord: getCurrentRecord,
             deleteCurrentRecord: deleteCurrentRecord,
             get: getRecordById,
-            all: getAllRecords
+            all: getAllRecords,
+            persistCurrentRecord: persistCurrentRecord
         };
 
         function save(record)
@@ -30,6 +31,7 @@
 
 
             delete record.recordDefinition;
+            delete record.isDirty;
 
             _(record.recordFields).each(function(field){
                 delete field.fieldDefinition
@@ -118,6 +120,13 @@
             }
 
             return records;
+        }
+
+        function persistCurrentRecord(recordDefinitionId, record)
+        {
+            var key = currentRecordPrefix + recordDefinitionId;
+            var recordJson = angular.toJson(record);
+            $window.localStorage.setItem(key, recordJson);
         }
     }
 })();

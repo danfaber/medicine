@@ -14,11 +14,11 @@
               <ion-content class="has-header">
                   <a ng-repeat="record in recordDefinition.records"
                      href="#/app/add?recordDefinitionId={{recordDefinition.id}}&recordId={{record.id}}"
-                     class="list list-inset" style="text-decoration: none;">
+                     class="list list-inset" style="text-decoration: none; display: block;">
 
-                      <div class="item stable-bg">
-                          <span>Created: {{record.createdDateTime | date:'dd/MM/yy HH:mm' }}</span>
-                          <span ng-show="record.modifiedDateTime" style="float: right;">Modified: {{record.modifiedDateTime | date:'dd/MM/yy HH:mm'}}</span>
+                      <div class="item stable-bg" style="padding-top: 10px; padding-bottom: 10px;">
+                          <span><i class="icon ion-plus-round"></i> {{record.createdDateTime | date:'dd/MM/yy HH:mm' }}</span>
+                          <span ng-show="record.modifiedDateTime" style="float: right;"><i class="icon ion-edit"></i> {{record.modifiedDateTime | date:'dd/MM/yy HH:mm'}}</span>
                       </div>
                       <div class="item stable-bg" style="padding-bottom: 9px;">
                           <div ng-repeat="field in record.displayFields">

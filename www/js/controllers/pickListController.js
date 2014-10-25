@@ -111,6 +111,8 @@
 
             pickListService.incrementCount(pickListId, value);
 
+            currentRecordService.get(recordDefinitionId).isDirty = true;
+
             $state.go('app.add', {recordDefinitionId: recordDefinitionId} );
 
         };

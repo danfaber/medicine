@@ -1,7 +1,7 @@
 
 var app = angular.module('medicine');
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, currentRecordDataService) {
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, pickListService, currentRecordService) {
 
 /*  // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -37,8 +37,11 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, cu
   };
 
     document.addEventListener('pause', function() {
-        window.localStorage.setItem("pause","paused at"+new Date());
-        currentRecordDataService.persistCurrentRecords();
+/*        window.localStorage.setItem("pause","paused at"+new Date());
+        currentRecordDataService.persistCurrentRecords();*/
+
+        pickListService.persistPickLists();
+        currentRecordService.persistCurrentRecords();
     });
 
 /*    document.addEventListener('resume', function() {

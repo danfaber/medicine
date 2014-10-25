@@ -12,7 +12,7 @@
         function getDefaultPickLists()
         {
             return [
-                new pickListEntity.PickList(1, 'Symptoms', true, true, true, [
+                new pickListEntity.PickList(1, 'Symptoms', false, true, true, [
                         new pickListEntity.CategoryValue(1, 'Heart', ['Upper Heart','Middle Heart', 'Lower Heart','Related Cardiac']),
                         new pickListEntity.CategoryValue(2, 'Lung', ['Left Lung', 'Right Lung', 'Top Lung'])
                     ]),

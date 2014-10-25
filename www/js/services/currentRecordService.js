@@ -12,7 +12,8 @@
             remove: remove,
             setCurrentRecord: setCurrentRecord,
             getField: getField,
-            getFieldValue: getFieldValue
+            getFieldValue: getFieldValue,
+            persistCurrentRecords: persistCurrentRecords
         };
 
         function get(recordDefinitionId)
@@ -58,6 +59,16 @@
             return _(field.data.values)
                 .find(function(val){return val.index === index;});
         }
+
+        function persistCurrentRecords()
+        {
+            _(currentRecords).each(function(record, recordDefinitionId){
+                recordRepository.persistCurrentRecord(recordDefinitionId, record);
+            });
+
+            currentRecords = {};
+        }
+
 
 
     }

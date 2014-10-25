@@ -8,18 +8,20 @@
                 templateUrl: "templates/directives/field.html",
                 scope: {
                     recordField: "=",
-                    recordDefinition: "=",
-                    dirty: "="
+                    recordDefinition: "="
+  /*                  dirty: "="*/
                 },
                 controller: controller
             }
         }]);
 
-    var controller = function($scope, $timeout, $cordovaBarcodeScanner, $state, pickListService)
+    var controller = function($scope, $timeout, $cordovaBarcodeScanner, $state, pickListService, currentRecordService)
     {
         $scope.changeToggle = function()
         {
-            $scope.dirty = true;
+
+            $scope.makeDirty();
+      /*      $scope.dirty = true;*/
 
             if ($scope.recordField.fieldDefinition.fieldType.name === "boolean") { return; }
 
@@ -33,7 +35,9 @@
 
         $scope.addNewValue = function()
         {
-            $scope.dirty = true;
+      /*      $scope.dirty = true;
+*/
+            $scope.makeDirty();
 
             $scope.recordField.data.values.push(
                 {
@@ -60,7 +64,8 @@
 
         $scope.makeDirty = function()
         {
-            $scope.dirty = true;
+            currentRecordService.get($scope.recordDefinition.id).isDirty = true;
+           // $scope.recordDefinition.isDirty = true;
         };
 
         $scope.openBarcodeReader = function()
@@ -68,6 +73,7 @@
             $cordovaBarcodeScanner.scan().then(function(imageData) {
                 //success
                 $scope.value.value = imageData.text;
+                currentRecordService.get($scope.recordDefinition.id).isDirty = true;
             }, function(error) {
 
             });

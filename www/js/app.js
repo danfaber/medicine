@@ -26,7 +26,8 @@ angular.module('medicine', ['ionic','ngCordova'])
 
 /*            window.localStorage.setItem("deviceready","ready at"+new Date());
             currentRecordDataService.hydrateCurrentRecords();*/
-            window.localStorage.setItem("loadedAt","loadedAt" + new Date());
+
+
             pickListService.loadPickLists();
 
 

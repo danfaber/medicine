@@ -28,7 +28,7 @@
 
         $scope.$on("backButtonClicked", function () {
 
-            if (!$scope.data.dirty)
+            if (!$scope.record.isDirty)
             {
                 clearCurrentRecordAndNavigateBack();
                 return;

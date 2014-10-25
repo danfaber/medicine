@@ -14,6 +14,7 @@
 
             this.createdDateTime = null;
             this.modifiedDateTime = null;
+            this.isDirty = false;
         }
 
         function setDisplayFields(record)
