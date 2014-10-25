@@ -2,7 +2,7 @@
 
     <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-ios7-checkmark-outline"
-                ng-click="saveRecord()">
+                ng-click="saveRecord()" ng-show="record.isDirty">
         </button>
     </ion-nav-buttons>
 

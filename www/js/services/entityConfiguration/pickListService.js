@@ -12,14 +12,84 @@
         function getDefaultPickLists()
         {
             return [
-                new pickListEntity.PickList(1, 'Symptoms', false, true, true, [
+                new pickListEntity.PickList(1, "Referral Reason", true, false, false, [
+                    new pickListEntity.CategoryValue(1,"All",[])
+                ]),
+                new pickListEntity.PickList(2, "Presentation", true, false, false, [
+                    new pickListEntity.CategoryValue(1,"All",[
+                        'Acute back pain',
+                        'Abdominal Mass, Hepatomegaly, or splenomegaly',
+                        'Abnormal sensation (paraesthesia & numbness)',
+                        'Acute kidney injury',
+                        'Aggressive / Disturbed behaviour',
+                        'Alcohol / Substance Dependance',
+                        'Anxiety / Panic Disorder',
+                        'Blackout / collapse',
+                        'Breathlessness',
+                        'Bruising / Spontaneous bleeding',
+                        'Chest pain',
+                        'Chronic kidney disease',
+                        'Confusion (Acute/Delirium)',
+                        'Cough',
+                        'Dialysis',
+                        'Diarrhoea',
+                        'Dyspepsia',
+                        'Dysuria',
+                        'Falls',
+                        'Fever',
+                        'Fits / Seizure',
+                        'Genital Discharge / Ulceration',
+                        'Haematemesis / Malaena',
+                        'Haematuria',
+                        'Haemoptysis',
+                        'Head Injury',
+                        'Headache',
+                        'Hoarseness / stridor',
+                        'Hypothermia',
+                        'Immobility',
+                        'Incidental findings',
+                        'Involuntary Movements',
+                        'Jaundice',
+                        'Joint Swelling',
+                        'Limb pain / Swelling',
+                        'Loin Pain',
+                        'Lymphadenopathy',
+                        'Medical Problems / Complications following surgical procedures',
+                        'Medical Problems in Pregnancy',
+                        'Memory Loss (progressive)',
+                        'Micturition difficulties',
+                        'Neck pain',
+                        'Palliation / End of life care',
+                        'Palpitations',
+                        'Physical symptoms in absence of organic disease',
+                        'Poisoning',
+                        'Polydipsia',
+                        'Polyuria',
+                        'Pruritus',
+                        'Rash',
+                        'Rectal bleeding',
+                        'Skin / Mouth ulcers',
+                        'Speech disturbance',
+                        'Suicidal ideation',
+                        'Swallowing difficulties',
+                        'Syncope / Pre-syncope',
+                        'Unsteadiness / Balance disturbance',
+                        'Visual disturbance (diplopia, visual field deficit, or reduced acuity)',
+                        'Vomiting / Nausea',
+                        'Weakness / Paralysis',
+                        'Weight loss',
+                        'Abdominal pain'
+                    ])
+                ])
+
+/*                new pickListEntity.PickList(1, 'Symptoms', false, true, true, [
                         new pickListEntity.CategoryValue(1, 'Heart', ['Upper Heart','Middle Heart', 'Lower Heart','Related Cardiac']),
                         new pickListEntity.CategoryValue(2, 'Lung', ['Left Lung', 'Right Lung', 'Top Lung'])
                     ]),
 
                 new pickListEntity.PickList(2, 'Location', true, false, false, [
                         new pickListEntity.CategoryValue(3, 'All', ['London Town', 'Manchester Area', 'Liverpool', 'Loughborough Ville'])
-                ])
+                ])*/
             ];
         }
 

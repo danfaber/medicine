@@ -7,7 +7,7 @@
     {
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         $scope.data = {};
-        $scope.data.dirty = false;
+/*        $scope.data.dirty = false;*/
         $scope.data.isEdit = false;
 
         if ($stateParams.recordId)
