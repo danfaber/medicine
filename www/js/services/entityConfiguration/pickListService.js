@@ -12,13 +12,13 @@
         function getDefaultPickLists()
         {
             return [
-                new pickListEntity.PickList(1, 'Symptoms', true, true, [
+                new pickListEntity.PickList(1, 'Symptoms', true, true, true, [
                         new pickListEntity.CategoryValue(1, 'Heart', ['Upper Heart','Middle Heart', 'Lower Heart','Related Cardiac']),
                         new pickListEntity.CategoryValue(2, 'Lung', ['Left Lung', 'Right Lung', 'Top Lung'])
                     ]),
 
-                new pickListEntity.PickList(2, 'Location', false, false, [
-                        new pickListEntity.CategoryValue(3, 'All', ['London', 'Manchester', 'Liverpool', 'Loughborough'])
+                new pickListEntity.PickList(2, 'Location', false, false, false, [
+                        new pickListEntity.CategoryValue(3, 'All', ['London Town', 'Manchester Area', 'Liverpool', 'Loughborough Ville'])
                 ])
             ];
         }
@@ -44,12 +44,12 @@
             return _(pickLists).find(function(list) {return list.id === pickListId;});
         }
 
-/*        function getCategory(pickListId, categoryId)
+        function getCategory(pickListId, categoryId)
         {
             var pickList = getById(pickListId);
             return _(pickList.categories)
                 .find(function(category) {return category.id === categoryId;})
-        }*/
+        }
 
         function wordMatches(pickListId, searchTerms, categoryId)
         {
@@ -101,18 +101,30 @@
             return wordMatches;
         }
 
-
-        function valueMatches(pickListId, requiredWords, categoryId)
+/*        function partialMatches(pickListValue, requiredWords, partialWord, partialWordLength)
         {
-            if (requiredWords.length === 0) {return [];}
+            var searchTextMatches = _(pickListValue.words).filter(function(word){
+                if (requiredWords.indexOf(word) > -1) {return false;}
+                return word.substring(0, partialWordLength) === partialWord;
+            });
+        }*/
+
+
+        function valueMatches(pickListId, searchTerms, categoryId)
+        {
+            var isEmptySearch = !searchTerms.partialWord && !searchTerms.completeWords.length;
+
+            if (isEmptySearch) {return [];}
 
             var pickList = getById(pickListId);
 
             var valueMatches = [];
             var value;
             var isNotInFilteredCategory;
-            var requiredWordsLowered = lowerCaseArray(requiredWords);
+            var requiredWordsLowered = lowerCaseArray(searchTerms.completeWords);
             var numberOfRequiredWords = requiredWordsLowered.length;
+            var partialWord = searchTerms.partialWord ? searchTerms.partialWord.toLowerCase() : "";
+            var partialWordLength = partialWord.length;
 
             for (var i = 0; i < pickList.values.length; i++)
             {
@@ -124,12 +136,30 @@
 
                 if (doesNotMatchRequiredWords(value, requiredWordsLowered, numberOfRequiredWords)) { continue; }
 
+                if (doesNotMatchPartialWord(value, requiredWordsLowered, partialWord, partialWordLength)) { continue; }
+
                 valueMatches.push(value);
                 if (valueMatches.length >= maximumValueMatches) {break;}
             }
 
             return valueMatches;
         }
+
+        function doesNotMatchPartialWord(pickListValue, requiredWords, partialWord, partialWordLength)
+        {
+            if (!partialWord) { return false; }
+
+            var word;
+            for(var i = 0; i < pickListValue.words.length; i++)
+            {
+                word = pickListValue.words[i];
+                if (requiredWords.indexOf(word) > -1) {continue;}
+
+                if (word.substring(0, partialWordLength) === partialWord) {return false;}
+            }
+            return true;
+        }
+
 
         function lowerCaseArray(items)
         {
@@ -151,12 +181,39 @@
             return false;
         }
 
+        function phraseMatches(pickListId, searchTerms, categoryId)
+        {
+
+/*            * loop through all possible values for this pick list
+            * discard those that don't have an exact match on a given word
+            * then discard if they don't start with the simi word
+            *
+            * */
+
+            var isEmptySearch = !searchTerms || !searchTerms.partialWord || !searchTerms.completeWords;
+
+            if (isEmptySearch) {return [];}
+
+
+            var pickList = getById(pickListId);
+            var value;
+
+            var valueMatches = [];
+
+            for (var i = 0; i < pickList.values.length; i++)
+            {
+                value = pickList.values[i];
+
+            }
+
+         }
+
 
         return {
             loadPickLists: loadPickLists,
             persistPickLists: persistPickLists,
             getById: getById,
-        /*    getCategory: getCategory,*/
+            getCategory: getCategory,
           //  getWordMatches: getWordMatches,
             wordMatches: wordMatches,
             valueMatches: valueMatches

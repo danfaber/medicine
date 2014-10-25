@@ -78,6 +78,12 @@
 
             var pickList = pickListService.getById(pickListId);
 
+
+/*            var selectedValue = _($scope.recordField.data.values)
+                .find(function(val) {return val.index == index;});
+
+            var isAlreadySelected = !!selectedValue.value;*/
+
             var showCategories = pickList.showCategoriesAsTabs && pickList.categories.length > 1;
 
             if (showCategories)
@@ -88,8 +94,18 @@
                         fieldDefinitionId: $scope.recordField.fieldDefinitionId,
                         index: index
                     });
+            }
+            else
+            {
+                $state.go('app.pickList',
+                    {
+                        recordDefinitionId: $scope.recordDefinition.id,
+                        fieldDefinitionId: $scope.recordField.fieldDefinitionId,
+                        index: index
+                    }
+                );
 
-                /* dan take over form here..*/
+                ///pickList?recordDefinitionId&fieldDefinitionId&index&categoryId
             }
 
            // $state.go('app.add', {recordDefinitionId: recordDefinitionId} );

@@ -20,12 +20,15 @@
 
         $scope.pickList = pickListService.getById(pickListId);
 
-       /* $scope.category = pickListService.getCategory(pickListId, categoryId);*/
+        if (categoryId)
+        {
+            $scope.category = pickListService.getCategory(pickListId, categoryId);
+        }
 
         $scope.inputTextChanged = function()
         {
             var searchTerms = parseSearchText();
-            var isWordSearch = !!searchTerms.partialWord;
+            var isWordSearch = !!searchTerms.partialWord && $scope.pickList.isWordSearchFirst;
 
             if (isWordSearch)
             {
@@ -35,7 +38,7 @@
             else
             {
                 $scope.data.wordMatches = [];
-                $scope.data.valueMatches = pickListService.valueMatches(pickListId, searchTerms.completeWords, categoryId);
+                $scope.data.valueMatches = pickListService.valueMatches(pickListId, searchTerms, categoryId);
             }
         };
 

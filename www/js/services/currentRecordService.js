@@ -10,7 +10,9 @@
             get: get,
             save: save,
             remove: remove,
-            setCurrentRecord: setCurrentRecord
+            setCurrentRecord: setCurrentRecord,
+            getField: getField,
+            getFieldValue: getFieldValue
         };
 
         function get(recordDefinitionId)
@@ -41,6 +43,20 @@
         {
             currentRecords[recordDefinitionId] = recordRepository.get(recordDefinitionId, recordId);
             return currentRecords[recordDefinitionId];
+        }
+
+        function getField(recordDefinitionId, fieldDefinitionId)
+        {
+            var record = get(recordDefinitionId);
+            return _(record.recordFields)
+                .find(function(field) {return field.fieldDefinitionId === fieldDefinitionId;});
+        }
+
+        function getFieldValue(recordDefinitionId, fieldDefinitionId, index)
+        {
+            var field = getField(recordDefinitionId, fieldDefinitionId);
+            return _(field.data.values)
+                .find(function(val){return val.index === index;});
         }
 
 
