@@ -80,7 +80,7 @@
                         'Weight loss',
                         'Abdominal pain'
                     ])]),
-                new pickListEntity.PickList(3, "ICD10", false, false, false, true, [
+                new pickListEntity.PickList(3, "Diagnoses", false, false, false, true, [
                     new pickListEntity.CategoryValue(1, "All", [
                         "Cholera due to Vibrio cholerae 01, biovar cholerae",
                         "Cholera due to Vibrio cholerae 01, biovar eltor",

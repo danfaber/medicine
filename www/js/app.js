@@ -22,7 +22,7 @@ angular.module('medicine', ['ionic','ngCordova'])
                 StatusBar.styleDefault();
             }
 
-            window.localStorage.clear();
+    /*        window.localStorage.clear();*/
 
 /*            window.localStorage.setItem("deviceready","ready at"+new Date());
             currentRecordDataService.hydrateCurrentRecords();*/
