@@ -108,7 +108,8 @@
                     {
                         recordDefinitionId: $scope.recordDefinition.id,
                         fieldDefinitionId: $scope.recordField.fieldDefinitionId,
-                        index: index
+                        index: index,
+                        categoryId: pickList.categories[0].id
                     }
                 );
 

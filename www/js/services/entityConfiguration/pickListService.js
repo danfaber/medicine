@@ -23,7 +23,6 @@
             ];
         }
 
-
         function loadPickLists()
         {
             pickLists = pickListRepository.getAll();
@@ -189,8 +188,32 @@
          }
 
 
+        function findByText(pickListId, text, categoryId)
+        {
+            if (!text) {return null;}
+            var loweredText = text.toLowerCase();
+
+            var pickList = getById(pickListId);
+            categoryId = tidy(categoryId);
+
+            return _(pickList.values).find(function(val){
+               return tidy(val.categoryId) == categoryId &&
+                      val.text.toLowerCase() == loweredText;
+            });
+        }
+
+        function tidy(value)
+        {
+            return !value ? 0 : value;
+        }
+
+
         function addNewValue(pickListId, text, categoryId)
         {
+            var existingValue = findByText(pickListId, text, categoryId);
+
+            if (existingValue) {return existingValue;}
+
             var pickList = getById(pickListId);
             var newValue = new pickListEntity.PickValue(text, categoryId);
             pickList.values.push(newValue);
@@ -202,11 +225,11 @@
             persistPickLists: persistPickLists,
             getById: getById,
             getCategory: getCategory,
-          //  getWordMatches: getWordMatches,
             wordMatches: wordMatches,
             valueMatches: valueMatches,
             incrementCount: incrementCount,
-            addNewValue: addNewValue
+            addNewValue: addNewValue,
+            findByText: findByText
         };
     }
 })();

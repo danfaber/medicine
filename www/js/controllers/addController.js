@@ -8,9 +8,11 @@
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         $scope.data = {};
         $scope.data.dirty = false;
+        $scope.data.isEdit = false;
 
         if ($stateParams.recordId)
         {
+            $scope.data.isEdit = true;
             var recordId = parseInt($stateParams.recordId);
             $scope.record = currentRecordService.setCurrentRecord(recordDefinitionId, recordId);
         }

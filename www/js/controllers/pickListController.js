@@ -3,7 +3,7 @@
 
     var app = angular.module("medicine");
 
-    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout, currentRecordService, $state) {
+    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout, currentRecordService, $state, $ionicPopup) {
 
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         var fieldDefinitionId = parseInt($stateParams.fieldDefinitionId);
@@ -124,9 +124,23 @@
 
         $scope.addNewValue = function()
         {
-            var text = cleanSpaces($scope.data.inputText);
-            var newValue = pickListService.addNewValue(pickListId, text, categoryId);
-            $scope.selectValue(newValue);
+            var cleanedText = cleanSpaces($scope.data.inputText);
+
+            var confirmAddValue = $ionicPopup.confirm({
+                title: 'Add New Value',
+                template: '<div>Are you sure you want to add:</div><div><strong>'+cleanedText+'</strong></div>'
+            });
+
+            confirmAddValue.then(function (result) {
+                if (result) {
+                    var newValue = pickListService.addNewValue(pickListId, cleanedText, categoryId);
+                    $scope.selectValue(newValue);
+                }
+                else
+                {
+                    $scope.clearInputText();
+                }
+            });
         };
 
         function selectSearchBox()
