@@ -1,9 +1,9 @@
 (function(){
     'use strict';
 
-    angular.module("medicine").factory("pickListService", ["pickListEntity", "pickListRepository", pickListService]);
+    angular.module("medicine").factory("pickListService", ["pickListEntity", "pickListRepository", "utilitiesService", pickListService]);
 
-    function pickListService(pickListEntity, pickListRepository){
+    function pickListService(pickListEntity, pickListRepository, utilitiesService){
 
         var pickLists = [];
         var maximumWordMatches = 8;
@@ -101,23 +101,9 @@
             return wordMatches;
         }
 
-/*        function partialMatches(pickListValue, requiredWords, partialWord, partialWordLength)
-        {
-            var searchTextMatches = _(pickListValue.words).filter(function(word){
-                if (requiredWords.indexOf(word) > -1) {return false;}
-                return word.substring(0, partialWordLength) === partialWord;
-            });
-        }*/
-
-
         function valueMatches(pickListId, searchTerms, categoryId)
         {
-            var isEmptySearch = !searchTerms.partialWord && !searchTerms.completeWords.length;
-
-            if (isEmptySearch) {return [];}
-
             var pickList = getById(pickListId);
-
             var valueMatches = [];
             var value;
             var isNotInFilteredCategory;
@@ -142,7 +128,7 @@
                 if (valueMatches.length >= maximumValueMatches) {break;}
             }
 
-            return valueMatches;
+            return _(valueMatches).sortBy(function(val){return val.text;});
         }
 
         function doesNotMatchPartialWord(pickListValue, requiredWords, partialWord, partialWordLength)
@@ -181,33 +167,26 @@
             return false;
         }
 
-        function phraseMatches(pickListId, searchTerms, categoryId)
+        function incrementCount(pickListId, value)
         {
-
-/*            * loop through all possible values for this pick list
-            * discard those that don't have an exact match on a given word
-            * then discard if they don't start with the simi word
-            *
-            * */
-
-            var isEmptySearch = !searchTerms || !searchTerms.partialWord || !searchTerms.completeWords;
-
-            if (isEmptySearch) {return [];}
-
+            value.count ++;
 
             var pickList = getById(pickListId);
-            var value;
+            var currentIndex = pickList.values.indexOf(value);
 
-            var valueMatches = [];
-
-            for (var i = 0; i < pickList.values.length; i++)
+            for (var i = currentIndex; i > 0; i--)
             {
-                value = pickList.values[i];
-
+                if (pickList.values[i-1].count >= value.count)
+                {
+                    break;
+                }
             }
 
+            if (i < currentIndex)
+            {
+                utilitiesService.moveItemsInArray(pickList.values,currentIndex, i);
+            }
          }
-
 
         return {
             loadPickLists: loadPickLists,
@@ -216,7 +195,8 @@
             getCategory: getCategory,
           //  getWordMatches: getWordMatches,
             wordMatches: wordMatches,
-            valueMatches: valueMatches
+            valueMatches: valueMatches,
+            incrementCount: incrementCount
         };
     }
 })();

@@ -1,4 +1,6 @@
 (function(){
+    'use strict';
+
     var app = angular.module("medicine");
 
     app.controller("pickListCategoryController", function($scope, $stateParams, recordDefinitions, $ionicNavBarDelegate, pickListService, currentRecordService, $state) {

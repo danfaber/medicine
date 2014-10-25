@@ -1,7 +1,7 @@
 <ion-view title="{{pickList.name}} {{category ? ' - ' + category.name : ''}}">
 
     <ion-nav-buttons side="right">
-        <button class="button button-icon icon ion-ios7-plus-outline">
+        <button class="button button-icon icon ion-ios7-plus-outline" ng-show="pickList.isAbleToAddNewValues">
         </button>
     </ion-nav-buttons>
 

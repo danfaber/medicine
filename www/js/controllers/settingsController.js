@@ -1,4 +1,6 @@
 (function(){
+    'use strict';
+
     var app = angular.module("medicine");
 
     app.controller("settingsController", function($scope, settingsDataService) {

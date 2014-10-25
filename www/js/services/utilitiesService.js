@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
 
     var app = angular.module("medicine");
 
@@ -14,9 +15,16 @@
            }
        };
 
+        function moveItemsInArray(array, from, to)
+        {
+            var itemToMove = array.splice(from, 1)[0];
+            array.splice(to, 0, itemToMove);
+        }
+
 
        return {
-           removeFromArray: removeFromArray
+           removeFromArray: removeFromArray,
+           moveItemsInArray: moveItemsInArray
        }
     });
 

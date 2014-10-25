@@ -9,13 +9,6 @@
         var fieldDefinitionId = parseInt($stateParams.fieldDefinitionId);
         var index = parseInt($stateParams.index);
         var categoryId = ($stateParams.categoryId) ? parseInt($stateParams.categoryId) : null;
-
-        $scope.data = {
-            inputText: "",
-            wordMatches: [],
-            valueMatches: []
-        };
-
         var pickListId = recordDefinitions.getFieldDefinition(recordDefinitionId, fieldDefinitionId).pickListId;
 
         $scope.pickList = pickListService.getById(pickListId);
@@ -24,6 +17,14 @@
         {
             $scope.category = pickListService.getCategory(pickListId, categoryId);
         }
+
+        $scope.data = {
+            inputText: "",
+            wordMatches: [],
+            valueMatches: []
+        };
+
+        $scope.data.valueMatches = pickListService.valueMatches(pickListId, parseSearchText(),categoryId);
 
         $scope.inputTextChanged = function()
         {
@@ -52,7 +53,7 @@
         {
             $scope.data.inputText = "";
             $scope.data.wordMatches = [];
-            $scope.data.valueMatches = [];
+            $scope.data.valueMatches = pickListService.valueMatches(pickListId, parseSearchText(), categoryId);
             selectSearchBox();
         };
 
@@ -77,7 +78,7 @@
 
             var lastSpaceIndex = inputText.indexOf(" ");
 
-            var isLastCharacterSpace = lastSpaceIndex == (inputText.length -1);
+            var isLastCharacterSpace = lastSpaceIndex == (inputText.length -1) && inputText.length > 0;
 
             if (isLastCharacterSpace)
             {
@@ -106,7 +107,9 @@
             var fieldValue = _(field.data.values)
                 .find(function(val) {return val.index == index;});
 
-            fieldValue.value = value;
+            fieldValue.value = value.text;
+
+            pickListService.incrementCount(pickListId, value);
 
             $state.go('app.add', {recordDefinitionId: recordDefinitionId} );
 

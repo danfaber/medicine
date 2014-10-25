@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
 
     angular.module("medicine").factory("date_Type", ["$filter", date_Type]);
 

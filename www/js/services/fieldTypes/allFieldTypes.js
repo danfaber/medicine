@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
 
     angular.module("medicine").factory("allFieldTypes", ['barcodeType', 'booleanType', 'date_Type', 'longTextType', 'shortTextType', 'pickListType', allFieldTypes]);
 
