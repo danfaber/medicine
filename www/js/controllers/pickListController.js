@@ -76,7 +76,7 @@
         {
             var inputText = $scope.data.inputText;
 
-            var lastSpaceIndex = inputText.indexOf(" ");
+            var lastSpaceIndex = inputText.lastIndexOf(" ");
 
             var isLastCharacterSpace = lastSpaceIndex == (inputText.length -1) && inputText.length > 0;
 
@@ -126,22 +126,34 @@
         {
             var cleanedText = cleanSpaces($scope.data.inputText);
 
-            var confirmAddValue = $ionicPopup.confirm({
-                title: 'Add New Value',
-                template: '<div>Are you sure you want to add:</div><div><strong>'+cleanedText+'</strong></div>'
-            });
+            if ($scope.pickList.promptBeforeAdd)
+            {
+                var confirmAddValue = $ionicPopup.confirm({
+                    title: 'Add New Value',
+                    template: '<div>Are you sure you want to add:</div><div><strong>'+cleanedText+'</strong></div>'
+                });
 
-            confirmAddValue.then(function (result) {
-                if (result) {
-                    var newValue = pickListService.addNewValue(pickListId, cleanedText, categoryId);
-                    $scope.selectValue(newValue);
-                }
-                else
-                {
-                    $scope.clearInputText();
-                }
-            });
+                confirmAddValue.then(function (result) {
+                    if (result) {
+                        addValue(cleanedText);
+                    }
+                    else
+                    {
+                        $scope.clearInputText();
+                    }
+                });
+            }
+            else
+            {
+                addValue(cleanedText);
+            }
         };
+
+        function addValue(cleanedText)
+        {
+            var newValue = pickListService.addNewValue(pickListId, cleanedText, categoryId);
+            $scope.selectValue(newValue);
+        }
 
         function selectSearchBox()
         {

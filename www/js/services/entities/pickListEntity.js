@@ -5,13 +5,14 @@
 
     function pickListEntity(pickValueSplitter){
 
-        function PickList(id, name, isAbleToAddNewValues, showCategoriesAsTabs, isWordSearchFirst, categoryValues)
+        function PickList(id, name, isAbleToAddNewValues, promptBeforeAdd, showCategoriesAsTabs, isWordSearchFirst, categoryValues)
         {
             var that = this;
 
             that.id = id;
             that.name = name;
             that.isAbleToAddNewValues = isAbleToAddNewValues;
+            that.promptBeforeAdd = promptBeforeAdd;
             that.showCategoriesAsTabs = showCategoriesAsTabs;
             that.isWordSearchFirst = isWordSearchFirst;
 

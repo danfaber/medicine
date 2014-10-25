@@ -12,10 +12,10 @@
         function getDefaultPickLists()
         {
             return [
-                new pickListEntity.PickList(1, "Referral Reason", true, false, false, [
+                new pickListEntity.PickList(1, "Referral Reason", true, false, false, false, [
                     new pickListEntity.CategoryValue(1,"All",[])
                 ]),
-                new pickListEntity.PickList(2, "Presentation", true, false, false, [
+                new pickListEntity.PickList(2, "Presentation", true, true, false, false, [
                     new pickListEntity.CategoryValue(1,"All",[
                         'Acute back pain',
                         'Abdominal Mass, Hepatomegaly, or splenomegaly',
@@ -80,7 +80,7 @@
                         'Weight loss',
                         'Abdominal pain'
                     ])]),
-                new pickListEntity.PickList(3, "ICD10", false, false, true, [
+                new pickListEntity.PickList(3, "ICD10", false, false, false, true, [
                     new pickListEntity.CategoryValue(1, "All", [
                         "Cholera due to Vibrio cholerae 01, biovar cholerae",
                         "Cholera due to Vibrio cholerae 01, biovar eltor",
@@ -12540,7 +12540,7 @@
                 if (valueMatches.length >= maximumValueMatches) {break;}
             }
 
-            return _(valueMatches).sortBy(function(val){return val.text;});
+            return _(valueMatches).sortBy(function(val){return val.text.toLowerCase();});
         }
 
         function doesNotMatchPartialWord(pickListValue, requiredWords, partialWord, partialWordLength)
