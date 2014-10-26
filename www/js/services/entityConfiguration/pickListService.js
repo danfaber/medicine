@@ -14,6 +14,51 @@
                 new pickListEntity.PickList(1, "Referral Reason", true, false, false, false, [
                     new pickListEntity.CategoryValue(1,"All",[])
                 ]),
+
+                new pickListEntity.PickList(4, "Referral source", true, false, false, false, [
+                    new pickListEntity.CategoryValue(1,"All",[])
+                ]),
+
+                new pickListEntity.PickList(5, "New / Follow-up", false, false, false, false, [
+                    new pickListEntity.CategoryValue(1,"All",['New', 'Follow-up'])
+                ]),
+
+                new pickListEntity.PickList(6, "GIM Procedures",true, true, true, false, [
+                    new pickListEntity.CategoryValue(1,"Aspiration, drainage, and biopsy",[
+                        'Ascitic drain',
+                        'Ascitic tap',
+                        'Bone marrow aspirate',
+                        'Fine needle aspirate',
+                        'Joint aspiration',
+                        'Lumbar puncture',
+                        'Pleural drain',
+                        'Pleural tap'
+                    ]),
+                    new pickListEntity.CategoryValue(2, "Emergency", [
+                        'CPR',
+                        'DCCV cardioversion',
+                        'Non-invasive ventilation',
+                        'Pacing - Percutaneous',
+                        'Pacing - Temporary Transvenous Wire',
+                        'Pericardial drainage'
+                    ]),
+                    new pickListEntity.CategoryValue(3, "Lines / Vascular access", [
+                        'Arterial line',
+                        'Central line',
+                        'Pulmonary Artery Catheter',
+                        'VasCath'
+                    ]),
+                    new pickListEntity.CategoryValue(4, "Other", [])
+                ]),
+
+                new pickListEntity.PickList(7, "Indication", false, false, false, false, [
+                    new pickListEntity.CategoryValue(1,"All",[])
+                ]),
+
+                new pickListEntity.PickList(8, "Complications", false, false, false, false, [
+                    new pickListEntity.CategoryValue(1,"All",[])
+                ]),
+
                 new pickListEntity.PickList(2, "Presentation", true, true, false, false, [
                     new pickListEntity.CategoryValue(1,"All",[
                         'Acute back pain',
