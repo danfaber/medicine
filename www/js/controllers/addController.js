@@ -3,7 +3,7 @@
 
     angular.module("medicine").controller("addController", addController);
 
-    function addController($scope, $stateParams, currentRecordService, $state, $ionicPopup, recordEntity, $ionicNavBarDelegate)
+    function addController($scope, $stateParams, currentRecordService, $state, $ionicPopup, recordEntity, $ionicNavBarDelegate, pickListService, pickListRepository)
     {
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         $scope.data = {};
@@ -25,8 +25,26 @@
         $scope.saveRecord = function()
         {
             currentRecordService.save(recordDefinitionId);
+
+            if (typeof(Worker) !== "undefined")
+            {
+                var worker = new Worker("js/WebWorkers/pickListSaveWorker.js");
+                worker.postMessage(pickListService.getAll());
+                worker.onmessage = onPickListSerialized;
+            }
+            else
+            {
+                var pickListJson = angular.toJson(pickListService.getAll());
+                pickListRepository.saveAll(pickListJson);
+            }
             $state.go('app.recordDefinitions');
         };
+
+        function onPickListSerialized(e)
+        {
+            var pickListJson = e.data;
+            pickListRepository.saveAll(pickListJson);
+        }
 
         $scope.$on("backButtonClicked", function () {
 

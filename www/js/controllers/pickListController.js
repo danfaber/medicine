@@ -114,7 +114,6 @@
             currentRecordService.get(recordDefinitionId).isDirty = true;
 
             $state.go('app.add', {recordDefinitionId: recordDefinitionId} );
-
         };
 
         $scope.$on("backButtonClicked", function () {

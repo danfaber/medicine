@@ -24,7 +24,9 @@
                 withFieldDefinition(3, "date", 3, false, false, allFieldTypes.date),
                 withFieldDefinition(4, "boolean",4, true, false, allFieldTypes.boolean),
                 withFieldDefinition(5, "comments", 5, false, false, allFieldTypes.longText)*/
-            ])
+            ]),
+
+            addRecordDefinition()
         ];
 
 

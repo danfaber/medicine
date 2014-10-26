@@ -39,9 +39,9 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, pi
     document.addEventListener('pause', function() {
 /*        window.localStorage.setItem("pause","paused at"+new Date());
         currentRecordDataService.persistCurrentRecords();*/
-
-        pickListService.persistPickLists();
+        
         currentRecordService.persistCurrentRecords();
+
     });
 
 /*    document.addEventListener('resume', function() {

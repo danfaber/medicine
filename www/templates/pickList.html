@@ -1,4 +1,4 @@
-<ion-view title="{{pickList.name}} {{category ? ' - ' + category.name : ''}}">
+<ion-view title="{{pickList.name}} {{pickList.categories.length > 1 ? ' - ' + category.name : ''}}">
 
     <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-ios7-plus-outline" ng-show="pickList.isAbleToAddNewValues && data.inputText.length > 2" ng-click="addNewValue()">

@@ -72,7 +72,7 @@
         {
             $cordovaBarcodeScanner.scan().then(function(imageData) {
                 //success
-                $scope.value.value = imageData.text;
+                $scope.recordField.data.values[0].value = imageData.text;
                 currentRecordService.get($scope.recordDefinition.id).isDirty = true;
             }, function(error) {
 

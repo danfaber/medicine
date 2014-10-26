@@ -8,7 +8,7 @@
         var pickLists = [];
         var maximumWordMatches = 8;
         var maximumValueMatches = 25;
-        
+
         function getDefaultPickLists()
         {
             return [
@@ -12438,18 +12438,41 @@
 
         function loadPickLists()
         {
-            pickLists = pickListRepository.getAll();
+            if (pickLists.length > 0) {return;}
 
-            if (pickLists.length === 0)
+            if (!pickListRepository.havePicksListsEverBeenSaved())
             {
                 pickLists = getDefaultPickLists();
+                return;
+            }
+
+            var pickListJson = pickListRepository.getAllAsJson();
+
+            if (typeof(Worker) !== "undefined")
+            {
+                var worker = new Worker("js/WebWorkers/pickListLoadWorker.js");
+                worker.postMessage(pickListJson);
+                worker.onmessage = onPickListDeserialised;
+            }
+            else
+            {
+                pickLists = JSON.parse(pickListJson);
             }
         }
-        
-        function persistPickLists()
+
+        function onPickListDeserialised(e)
         {
-            pickListRepository.saveAll(pickLists);
+            pickLists = e.data;
         }
+
+/*        function persistPickLists(pickListJson)
+        {
+            if (!pickListJson)
+            {
+                pickListJson = angular.toJson(pickLists);
+            }
+            pickListRepository.saveAll(pickListJson);
+        }*/
         
         function getById(pickListId)
         {
@@ -12633,16 +12656,22 @@
             return newValue;
         }
 
+        function getAll()
+        {
+            return pickLists;
+        }
+
         return {
             loadPickLists: loadPickLists,
-            persistPickLists: persistPickLists,
+/*            persistPickLists: persistPickLists,*/
             getById: getById,
             getCategory: getCategory,
             wordMatches: wordMatches,
             valueMatches: valueMatches,
             incrementCount: incrementCount,
             addNewValue: addNewValue,
-            findByText: findByText
+            findByText: findByText,
+            getAll: getAll
         };
     }
 })();
