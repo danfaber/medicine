@@ -3,7 +3,7 @@
 
     var app = angular.module("medicine");
 
-    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout, currentRecordService, $state, $ionicPopup) {
+    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout, currentRecordService, $state, $ionicPopup, maximumPickListMatchesToDisplay) {
 
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         var fieldDefinitionId = parseInt($stateParams.fieldDefinitionId);
@@ -21,7 +21,8 @@
         $scope.data = {
             inputText: "",
             wordMatches: [],
-            valueMatches: []
+            valueMatches: [],
+            maximumPickListMatchesToDisplay: maximumPickListMatchesToDisplay
         };
 
         $scope.data.valueMatches = pickListService.valueMatches(pickListId, parseSearchText(),categoryId);

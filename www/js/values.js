@@ -14,6 +14,8 @@
         "pickList": 8
       });
 
+    app.value('maximumPickListMatchesToDisplay',25);
+
 /*
     app.value('fieldType',{
         "freeText":1,

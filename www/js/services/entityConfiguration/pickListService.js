@@ -1,13 +1,12 @@
 (function(){
     'use strict';
 
-    angular.module("medicine").factory("pickListService", ["pickListEntity", "pickListRepository", "utilitiesService", pickListService]);
+    angular.module("medicine").factory("pickListService", ["pickListEntity", "pickListRepository", "utilitiesService","maximumPickListMatchesToDisplay", pickListService]);
 
-    function pickListService(pickListEntity, pickListRepository, utilitiesService){
+    function pickListService(pickListEntity, pickListRepository, utilitiesService, maximumPickListMatchesToDisplay){
 
         var pickLists = [];
         var maximumWordMatches = 8;
-        var maximumValueMatches = 25;
 
         function getDefaultPickLists()
         {
@@ -12560,7 +12559,7 @@
                 if (doesNotMatchPartialWord(value, requiredWordsLowered, partialWord, partialWordLength)) { continue; }
 
                 valueMatches.push(value);
-                if (valueMatches.length >= maximumValueMatches) {break;}
+                if (valueMatches.length >= maximumPickListMatchesToDisplay) {break;}
             }
 
             return _(valueMatches).sortBy(function(val){return val.text.toLowerCase();});
