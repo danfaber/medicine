@@ -50,6 +50,7 @@
         {
             var proceduresByCategory = _.chain(records)
                 .map(function(record){return _(record.recordFields).find(function(field){return field.fieldDefinition.pickListId === 6;})})
+                .filter(function(field){return field;})
                 .map(function(field) {return _.chain(field.data.values).filter(function(val){return val.value;}).map(function(value){return value.value;}).value()})
                 .flatten(true)
                 .groupBy(function(val) {return val.categoryId;})
@@ -65,10 +66,13 @@
         function getPresentations()
         {
             var presentations = _.chain(records)
-                .map(function(record) {return _(record.recordFields).find(function(field) {return field.fieldDefinition.pickListId === 2; }) })
+                .map(function(record) {return _(record.recordFields).find(function(field) {return field.fieldDefinition.pickListId === 2; })})
+                .filter(function(field){return field;})
+                .map(function(field){return _.chain(field.data.values).filter(function(val){return val.value;}).map(function(value){return value.value.text;}).value()})
+                .flatten(true)
                 .value();
 
-            return presentations;
+            return _(presentations).countBy(function(presentation){return presentation;});
         }
 
         
