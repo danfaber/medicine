@@ -16,17 +16,10 @@
 
     app.value('maximumPickListMatchesToDisplay',25);
 
-/*
-    app.value('fieldType',{
-        "freeText":1,
-        "date": 2,
-        "pickList": 3,
-        "autoComplete": 4,
-        "barcode": 5,
-        "boolean": 6
-    });
-*/
+    app.value('recordPrefix', 'R_');
 
-    app.value('currentRecordPrefix','C');
+    app.value('earliestDate', new Date(2014,10,1));
+
+   // app.value('currentRecordPrefix','C');
 
 })();

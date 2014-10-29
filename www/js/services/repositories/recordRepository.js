@@ -1,10 +1,9 @@
 (function(){
     'use strict';
-    angular.module("medicine").factory("recordRepository",['$window', 'recordDefinitions', 'recordEntity', recordRepository]);
+    angular.module("medicine").factory("recordRepository",['$window', 'recordDefinitions', 'recordEntity', 'recordPrefix', recordRepository]);
 
-    function recordRepository($window, recordDefinitions, recordEntity){
+    function recordRepository($window, recordDefinitions, recordEntity, recordPrefix){
 
-        var recordPrefix = "R_";
         var currentRecordPrefix = "CR_";
 
         return {
