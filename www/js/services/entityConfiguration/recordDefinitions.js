@@ -1,9 +1,9 @@
 (function(){
     'use strict';
 
-    angular.module("medicine").factory("recordDefinitions",['recordDefinitionEntity', 'fieldDefinitionEntity', 'pickListService', 'allFieldTypes' , recordDefinitions]);
+    angular.module("medicine").factory("recordDefinitions",['recordDefinitionEntity', 'fieldDefinitionEntity', 'allFieldTypes' , recordDefinitions]);
 
-    function recordDefinitions(recordDefinitionEntity, fieldDefinitionEntity, pickListService, allFieldTypes){
+    function recordDefinitions(recordDefinitionEntity, fieldDefinitionEntity, allFieldTypes){
 
         var recordDefinitions = [
 
@@ -17,13 +17,6 @@
                 withFieldDefinition(6, "Diagnoses", 6, false, true, allFieldTypes.pickList, 3),
                 withFieldDefinition(7, "Notes", 7, false, false, allFieldTypes.longText),
                 withFieldDefinition(8, "Set Flag", 8, true, false, allFieldTypes.boolean)
-/*                withFieldDefinition(6, "barcode", 0, false, false, allFieldTypes.barcode),
-                withFieldDefinition(1, "free text", 1, true, true, allFieldTypes.shortText),
-                withFieldDefinition(2, "complications", 2, true, true, allFieldTypes.pickList, 1 ),
-                withFieldDefinition(7, "location", 3, false, false, allFieldTypes.pickList, 2),
-                withFieldDefinition(3, "date", 3, false, false, allFieldTypes.date),
-                withFieldDefinition(4, "boolean",4, true, false, allFieldTypes.boolean),
-                withFieldDefinition(5, "comments", 5, false, false, allFieldTypes.longText)*/
             ]),
 
             addRecordDefinition(2, "Ward referrals", 2, [
@@ -64,6 +57,30 @@
             ])
         ];
 
+        function getCreatedDate(record)
+        {
+            var fieldDefinitionId;
+
+            switch (record.recordDefinitionId)
+            {
+                case 1:
+                    fieldDefinitionId = 2;
+                    break;
+                case 2:
+                    fieldDefinitionId = 2;
+                    break;
+                case 3:
+                    fieldDefinitionId = 2;
+                    break;
+                case 4:
+                    fieldDefinitionId = 2;
+                    break;
+            }
+
+            var createdField = _(record.recordFields).find(function(field) {return field.fieldDefinitionId === fieldDefinitionId;});
+            return createdField.values[0].value;
+        }
+
 
         function addRecordDefinition(id, name, sortOrder, fieldDefinitions)
         {
@@ -101,7 +118,8 @@
         return {
             all: all,
             get: get,
-            getFieldDefinition: getFieldDefinition
+            getFieldDefinition: getFieldDefinition,
+            getCreatedDate: getCreatedDate
         };
     }
 })();

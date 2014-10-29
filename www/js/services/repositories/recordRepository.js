@@ -1,10 +1,11 @@
 (function(){
     'use strict';
-    angular.module("medicine").factory("recordRepository",['$window', 'recordDefinitions', 'recordEntity', 'recordPrefix', recordRepository]);
+    angular.module("medicine").factory("recordRepository",['$window', 'recordDefinitions', 'recordEntity', 'recordPrefix', 'earliestDate', recordRepository]);
 
-    function recordRepository($window, recordDefinitions, recordEntity, recordPrefix){
+    function recordRepository($window, recordDefinitions, recordEntity, recordPrefix, earliestDate){
 
         var currentRecordPrefix = "CR_";
+        var datePrefix = "I_Date_";
 
         return {
             save:save,
@@ -12,7 +13,9 @@
             deleteCurrentRecord: deleteCurrentRecord,
             get: getRecordById,
             all: getAllRecords,
-            persistCurrentRecord: persistCurrentRecord
+            persistCurrentRecord: persistCurrentRecord,
+            getByStorageKey: getRecordByStorageKey,
+            getRecordsByCreatedDate: getRecordsByCreatedDate
         };
 
         function save(record)
@@ -23,11 +26,11 @@
             {
                 record.id = getRecordId(record.recordDefinitionId);
                 record.createdDateTime = currentDateTime;
+                indexRecordCreatedDate(record);
             } else
             {
                 record.modifiedDateTime = currentDateTime;
             }
-
 
             delete record.recordDefinition;
             delete record.isDirty;
@@ -42,9 +45,28 @@
             $window.localStorage.setItem(key, recordJson);
         }
 
+        function indexRecordCreatedDate(record)
+        {
+            var createdDate = recordDefinitions.getCreatedDate(record);
+            var storageKey = datePrefix+createdDate.getTime();
+            var existingRecordsJson = $window.localStorage.getItem(storageKey);
+
+            var existingIds = existingRecordsJson ? JSON.parse(existingRecordsJson) : [];
+            var recordKey = indexKey(record.recordDefinitionId, record.id);
+            existingIds.push(recordKey);
+
+            var newRecordsJson = JSON.stringify(existingIds);
+            $window.localStorage.setItem(storageKey, newRecordsJson);
+        }
+
         function getRecordKey(recordDefinitionId, recordId)
         {
-            return recordPrefix + recordDefinitionId + "_" + recordId;
+            return recordPrefix + indexKey(recordDefinitionId, recordId);
+        }
+
+        function indexKey(recordDefinitionId, recordId)
+        {
+            return recordDefinitionId + "_" + recordId;
         }
 
         function getRecordId(recordDefinitionId)
@@ -100,6 +122,11 @@
         function getRecordById(recordDefinitionId, recordId)
         {
             var key = getRecordKey(recordDefinitionId,recordId);
+            return getRecordByStorageKey(key);
+        }
+
+        function getRecordByStorageKey(storageKey)
+        {
             var recordJson = $window.localStorage.getItem(key);
             if (!recordJson) {return;}
 
@@ -126,6 +153,38 @@
             var key = currentRecordPrefix + recordDefinitionId;
             var recordJson = angular.toJson(record);
             $window.localStorage.setItem(key, recordJson);
+        }
+
+        function getRecordsByCreatedDate(fromDate, toDate)
+        {
+            var recordIds = [];
+            var dailyRecordIds = [];
+            var dailyJson;
+            var dailyKey;
+
+            var isValidFromDate = fromDate && fromDate >= earliestDate;
+            var firstDate = isValidFromDate ? fromDate : earliestDate;
+
+            var today = new Date().setHours(0,0,0,0);
+            var isValidToDate = toDate && toDate <= today;
+            var lastDate = isValidToDate ? toDate : today;
+
+            var loopDate;
+
+            do {
+                dailyKey = datePrefix + firstDate.getTime().toString();
+                dailyJson = $window.localStorage.getItem(dailyKey);
+                if (dailyJson)
+                {
+                    dailyRecordIds = JSON.parse(dailyJson);
+                    Array.prototype.push.apply(recordIds, dailyRecordIds);
+                }
+
+                firstDate.setDate(firstDate.getDate() + 1);
+
+            } while(firstDate <= lastDate);
+
+            return recordIds;
         }
     }
 })();

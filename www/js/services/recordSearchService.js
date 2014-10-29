@@ -1,31 +1,13 @@
 (function(){
     'use strict';
 
-    var app = angular.module("medicine");
+    angular.module("medicine").factory("recordSearchService",['recordRepository', recordSearchService]);
 
-    app.factory("recordSearchService", function(){
-
+    function recordSearchService(recordRepository)
+    {
         return {
             SearchDefinition: SearchDefinition
-
         };
-
-
-
-
-
-        function getRecords(searchDefinition)
-        {
-            /* does some filtering logic */
-
-            var fromDate = searchDefinition.fromDate ? searchDefinition.fromDate : new Date(2014,10,1);
-
-            var today = new Date().setHours(0,0,0,0);
-            var toDate = searchDefinition.toDate ? searchDefinition.toDate : today;
-
-
-        }
-
 
         function SearchDefinition(fromDate, toDate, followUpOnly, filterWords)
         {
@@ -35,11 +17,15 @@
             this.filterWords = filterWords;
         }
 
+        function getRecords(searchDefinition)
+        {
+            /* add more filtering logic here in due course*/
 
+            var dateMatchRecordIds = recordRepository.getRecordsByCreatedDate(searchDefinition.fromDate, searchDefinition.toDate);
 
-    });
-
-
+            return _(dateMatchRecordIds).map(function(id) {return recordRepository.getByStorageKey(id);})
+        }
+    }
 
 })();
 

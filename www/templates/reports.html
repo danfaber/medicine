@@ -1,0 +1,23 @@
+<ion-view title="Reports">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+
+        <ul class="list">
+            <label class="item item-input">
+                <span class="input-label">Start Date</span>
+                <input type="date" ng-model="data.fromDate">
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">To Date</span>
+                <input type="date" ng-model="data.toDate">
+            </label>
+        </ul>
+        <div class="padding">
+            <button ng-click="generateReport()" class="button button-block button-positive">Generate Report</button>
+        </div>
+
+    </ion-content>
+</ion-view>

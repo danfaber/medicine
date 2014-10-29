@@ -1,8 +1,9 @@
+/*
 (function(){
     'use strict';
-    angular.module("medicine").factory("recordIndexRepository",['$window', 'recordPrefix', 'earliestDate', recordIndexRepository]);
+    angular.module("medicine").factory("recordIndexRepository",['$window', 'earliestDate', recordIndexRepository]);
 
-    function recordIndexRepository($window, recordPrefix, earliestDate){
+    function recordIndexRepository($window, earliestDate){
 
         var datePrefix = "I_Date_";
 
@@ -18,13 +19,13 @@
             var dailyKey;
 
             var firstDate = fromDate ? fromDate : earliestDate;
-            var lastDate = toDate ? new Date().setHours(0,0,0,0);
+            var lastDate = toDate ? toDate : new Date().setHours(0,0,0,0);
 
             var loopDate;
 
             do {
                 dailyKey = datePrefix + firstDate.getTime().toString();
-                dailyJson = window.localStorage.getItem(dailyKey);
+                dailyJson = $window.localStorage.getItem(dailyKey);
                 if (dailyJson)
                 {
                     dailyRecordIds = JSON.parse(dailyJson);
@@ -33,10 +34,11 @@
 
                 firstDate.setDate(firstDate.getDate() + 1);
 
-            } while(firstDate <= lastDate)
+            } while(firstDate <= lastDate);
 
             return recordIds;
         }
     }
 })();
 
+*/
