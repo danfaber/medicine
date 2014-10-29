@@ -40,7 +40,7 @@
             });
 
             var recordJson = angular.toJson(record);
-            var key = getRecordKey(record.recordDefinitionId, record.id);
+            var key = recordPrefix + indexKey(record.recordDefinitionId, record.id);
 
             $window.localStorage.setItem(key, recordJson);
         }
@@ -48,7 +48,7 @@
         function indexRecordCreatedDate(record)
         {
             var createdDate = recordDefinitions.getCreatedDate(record);
-            var storageKey = datePrefix+createdDate.getTime();
+            var storageKey = datePrefix+createdDate;
             var existingRecordsJson = $window.localStorage.getItem(storageKey);
 
             var existingIds = existingRecordsJson ? JSON.parse(existingRecordsJson) : [];
@@ -59,10 +59,6 @@
             $window.localStorage.setItem(storageKey, newRecordsJson);
         }
 
-        function getRecordKey(recordDefinitionId, recordId)
-        {
-            return recordPrefix + indexKey(recordDefinitionId, recordId);
-        }
 
         function indexKey(recordDefinitionId, recordId)
         {
@@ -121,12 +117,13 @@
 
         function getRecordById(recordDefinitionId, recordId)
         {
-            var key = getRecordKey(recordDefinitionId,recordId);
+            var key = indexKey(recordDefinitionId, recordId);
             return getRecordByStorageKey(key);
         }
 
         function getRecordByStorageKey(storageKey)
         {
+            var key = recordPrefix + storageKey;
             var recordJson = $window.localStorage.getItem(key);
             if (!recordJson) {return;}
 
@@ -168,8 +165,6 @@
             var today = new Date().setHours(0,0,0,0);
             var isValidToDate = toDate && toDate <= today;
             var lastDate = isValidToDate ? toDate : today;
-
-            var loopDate;
 
             do {
                 dailyKey = datePrefix + firstDate.getTime().toString();

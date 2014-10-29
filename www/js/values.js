@@ -18,7 +18,7 @@
 
     app.value('recordPrefix', 'R_');
 
-    app.value('earliestDate', new Date(2014,10,1));
+    app.value('earliestDate', new Date(2014,9,1));
 
    // app.value('currentRecordPrefix','C');
 

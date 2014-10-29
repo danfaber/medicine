@@ -6,7 +6,8 @@
     function recordSearchService(recordRepository)
     {
         return {
-            SearchDefinition: SearchDefinition
+            SearchDefinition: SearchDefinition,
+            getRecords: getRecords
         };
 
         function SearchDefinition(fromDate, toDate, followUpOnly, filterWords)

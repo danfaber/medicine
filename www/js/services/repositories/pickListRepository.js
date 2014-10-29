@@ -8,22 +8,10 @@
         var pickListsEverSavedKey = 'HavePickListsEverBeenSaved';
 
         return {
-         /*   getSavedPickList: getSavedPickList*/
-    /*        getAll: getAll,*/
             saveAll: saveAll,
             havePicksListsEverBeenSaved: havePicksListsEverBeenSaved,
             getAllAsJson: getAllAsJson
         };
-
-
-/*        function getAll()
-        {
-            var pickListJson = $window.localStorage.getItem(pickListPrefix);
-
-            if (!pickListJson) {return [];}
-
-            return JSON.parse(pickListJson);
-        }*/
 
         function getAllAsJson()
         {
@@ -39,8 +27,6 @@
             $window.localStorage.setItem(pickListPrefix, pickListJson);
             $window.localStorage.setItem(pickListsEverSavedKey,'true');
         }
-
-
     }
 
 })();

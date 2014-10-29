@@ -20,6 +20,11 @@
             <li class="item">
                 <button ng-click="clearStorage()" class="button">Clear Storage</button>
             </li>
+            <label class="item item-input">
+                <span class="input-label">Name</span>
+                <input type="text" ng-model="data.userName" ng-change="saveUserName()" placeholder="Name displayed on reports">
+            </label>
+
         </ul>
 
 

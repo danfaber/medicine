@@ -1,3 +1,8 @@
+/*
+* CHANGE THIS TO THE SETTINGS REPOSITORY COZ MORE SENSIBLE
+* TODO DAN
+* */
+
 (function(){
     'use strict';
 
