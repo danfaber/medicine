@@ -108,7 +108,7 @@
             var fieldValue = _(field.data.values)
                 .find(function(val) {return val.index == index;});
 
-            fieldValue.value = value.text;
+            fieldValue.value = {text: value.text, categoryId: value.categoryId};
 
             pickListService.incrementCount(pickListId, value);
 

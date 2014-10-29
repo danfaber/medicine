@@ -12,16 +12,6 @@
 
         $scope.generateReport = function()
         {
-            $http.get("templates/reportTemplate.html").success(function(tpl){
-   /*             var html = tpl;
-                var data = { "test": "New Value" };
-                var output = Plates.bind(html, data);*/
-
-
-            });
-
-         //   var x = $templateCache.get("templates/reportTemplate.html");
-
 
             var fromDateTicks = Date.parse($scope.data.fromDate);
             var fromDate = fromDateTicks ? new Date(fromDateTicks) : null;
@@ -31,7 +21,22 @@
 
             var searchDefinition = new recordSearchService.SearchDefinition(fromDate, toDate, false, []);
 
-            reportService.generateReport(searchDefinition);
+            var viewModel = reportService.generateReport(searchDefinition);
+
+
+            $http.get("templates/reportTemplate.html").success(function(template){
+
+                var compiledTemplate = Handlebars.compile(template);
+
+                var report = compiledTemplate(viewModel);
+
+
+            });
+
+         //   var x = $templateCache.get("templates/reportTemplate.html");
+
+
+
         }
     });
 

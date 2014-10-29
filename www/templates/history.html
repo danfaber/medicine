@@ -24,7 +24,7 @@
                           <div ng-repeat="field in record.displayFields">
                               <div style="font-weight: bold;" class="positive">{{field.name}}</div>
                               <div ng-repeat="value in field.values" class="item-text-wrap" style="margin-bottom: 7px;">
-                                  {{value.value}}
+                                  {{value.value.text ? value.value.text : value.value}}
                               </div>
                           </div>
                       </div>

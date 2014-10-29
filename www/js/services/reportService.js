@@ -1,10 +1,11 @@
 (function(){
     'use strict';
 
-    angular.module("medicine").factory("reportService",['recordSearchService', reportService]);
+    angular.module("medicine").factory("reportService",['recordSearchService', 'settingsRepository', '$filter', reportService]);
 
-    function reportService(recordSearchService){
+    function reportService(recordSearchService, settingsRepository, $filter){
 
+        var records;
 
         return {
             generateReport:generateReport
@@ -14,8 +15,61 @@
 
         function generateReport(searchDefinition)
         {
-            var records = recordSearchService.getRecords(searchDefinition);
+            records = recordSearchService.getRecords(searchDefinition);
+            var vm = {};
 
+            vm.userName = settingsRepository.getUserName();
+            vm.totalEncounters = records.length;
+            vm.fromDate = $filter('date')(searchDefinition.fromDate,'longDate');
+            vm.toDate = $filter('date')(searchDefinition.toDate,'longDate');
+
+            vm.numberOfClinicalEncounters = countByRecordDefinitionId(3);
+            vm.numberOfWardReferrals = countByRecordDefinitionId(2);
+            vm.numberOfTake = countByRecordDefinitionId(1);
+            vm.numberOfProcedures = countByRecordDefinitionId(4);
+
+
+            vm.proceduresByCategory = getProcedures();
+
+
+
+
+
+
+
+            return vm;
+
+
+        }
+
+        function countByRecordDefinitionId(recordDefinitionId)
+        {
+            return _(records)
+                .filter(function(record){return record.recordDefinitionId === recordDefinitionId;})
+                .length;
+        }
+
+        function getProcedures()
+        {
+            var proceduresByCategory = _.chain(records)
+                .filter(function(record) {return record.recordDefinitionId === 4; })
+                .map(function(record) {return _(record.recordFields).find(function(field){return field.fieldDefinitionId === 3;})})
+                .map(function(field) {return _(field.data.values).map(function(value) {return value.value;})})
+                .flatten(true)
+                .groupBy(function(val) {return val.categoryId;})
+                .value();
+
+            var procedureCount = _(proceduresByCategory)
+                .map(function(items,categoryId){return {
+                        categoryId: categoryId,
+                        procedures: _(items).countBy(function(proc){return proc.text;})}
+                });
+
+            return procedureCount;
+
+
+
+          //  var x = _(procedures).countBy(function(procedure){return procedure;});
 
 
 

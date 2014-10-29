@@ -1,8 +1,8 @@
 (function(){
     'use strict';
-    angular.module("medicine").factory("recordRepository",['$window', 'recordDefinitions', 'recordEntity', 'recordPrefix', 'earliestDate', recordRepository]);
+    angular.module("medicine").factory("recordRepository",['$window', 'recordDefinitions', 'recordEntity', 'recordPrefix', recordRepository]);
 
-    function recordRepository($window, recordDefinitions, recordEntity, recordPrefix, earliestDate){
+    function recordRepository($window, recordDefinitions, recordEntity, recordPrefix){
 
         var currentRecordPrefix = "CR_";
         var datePrefix = "I_Date_";
@@ -154,6 +154,7 @@
 
         function getRecordsByCreatedDate(fromDate, toDate)
         {
+            var earliestDate = new Date(2014,9,1);
             var recordIds = [];
             var dailyRecordIds = [];
             var dailyJson;

@@ -42,7 +42,7 @@
                 withFieldDefinition(8, "Set Flag", 8, true, false, allFieldTypes.boolean)
             ]),
 
-            addRecordDefinition(4, "GIM Procedures", 4, [
+            addRecordDefinition(4, "Procedures", 4, [
                 withFieldDefinition(1, "Patient Hospital Number", 1, false, false, allFieldTypes.barcode),
                 withFieldDefinition(2, "Date", 2, false, false, allFieldTypes.date),
                 withFieldDefinition(3, "Procedure", 3, false, true, allFieldTypes.pickList, 6),
@@ -81,6 +81,8 @@
             var dateText = createdField.data.values[0].value;
             return Date.parse(dateText);
         }
+
+
 
 
         function addRecordDefinition(id, name, sortOrder, fieldDefinitions)

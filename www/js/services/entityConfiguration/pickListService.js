@@ -23,7 +23,7 @@
                     new pickListEntity.CategoryValue(1,"All",['New', 'Follow-up'])
                 ]),
 
-                new pickListEntity.PickList(6, "GIM Procedures",true, true, true, false, [
+                new pickListEntity.PickList(6, "Procedures",true, true, true, false, [
                     new pickListEntity.CategoryValue(1,"Aspiration, drainage, and biopsy",[
                         'Ascitic drain',
                         'Ascitic tap',
@@ -48,7 +48,7 @@
                         'Pulmonary Artery Catheter',
                         'VasCath'
                     ]),
-                    new pickListEntity.CategoryValue(4, "Other", [])
+                    new pickListEntity.CategoryValue(4, "Specialist procedures", [])
                 ]),
 
                 new pickListEntity.PickList(7, "Indication", false, false, false, false, [
