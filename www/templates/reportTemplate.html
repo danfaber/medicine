@@ -1,1 +1,27 @@
-<div id="test">Old Value</div>
+<h2>Summary of clinical activity - {{userName}}</h2>
+<h5>{{fromDate}} = {{toDate}}</h5>
+
+<ul>
+    <li>{{totalEncounters}} clinical encounters have been recorded, which includes: </li>
+    <li>{{numberOfClinicalEncounters}} clinic patients.  Of whom, {{numberOfClinicalReferrals}} were new referrals
+        and {{numberOfClinicalFollowUps}} were follow-up patients.</li>
+    <li>{{numberOfWardReferrals}} ward referrals.</li>
+    <li>{{numberOfTake}} patients on the acute medical take.</li>
+    <li>{{numberOfProcedures}} general medical procedures.</li>
+</ul>
+
+<h4>The following presentations have been seen across all clinical encounters</h4>
+<table>
+    <tr>
+        <th>Presentations</th>
+        <th>Frequency</th>
+    </tr>
+    {{#presentations}}
+        <tr>
+            <td>name</td>
+            <td>frequency</td>
+        </tr>
+    {{/presentations}}
+
+</table>
+

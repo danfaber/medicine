@@ -13,9 +13,11 @@
         $scope.generateReport = function()
         {
             $http.get("templates/reportTemplate.html").success(function(tpl){
-                var html = tpl;
+   /*             var html = tpl;
                 var data = { "test": "New Value" };
-                var output = Plates.bind(html, data);
+                var output = Plates.bind(html, data);*/
+
+
             });
 
          //   var x = $templateCache.get("templates/reportTemplate.html");
