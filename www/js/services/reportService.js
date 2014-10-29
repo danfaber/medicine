@@ -1,11 +1,12 @@
 (function(){
     'use strict';
 
-    angular.module("medicine").factory("reportService",['recordSearchService', 'settingsRepository', '$filter', reportService]);
+    angular.module("medicine").factory("reportService",['recordSearchService', 'settingsRepository', '$filter', 'pickListService', reportService]);
 
-    function reportService(recordSearchService, settingsRepository, $filter){
+    function reportService(recordSearchService, settingsRepository, $filter, pickListService){
 
         var records;
+        var procedurePickListId = 6;
 
         return {
             generateReport:generateReport
@@ -61,7 +62,7 @@
 
             var procedureCount = _(proceduresByCategory)
                 .map(function(items,categoryId){return {
-                        categoryId: categoryId,
+                        category: pickListService.getCategory(procedurePickListId, parseInt(categoryId)).name,
                         procedures: _(items).countBy(function(proc){return proc.text;})}
                 });
 

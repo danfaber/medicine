@@ -12707,7 +12707,6 @@
 
         return {
             loadPickLists: loadPickLists,
-/*            persistPickLists: persistPickLists,*/
             getById: getById,
             getCategory: getCategory,
             wordMatches: wordMatches,

@@ -18,8 +18,12 @@
     </tr>
 
     {{#proceduresByCategory}}
-        {{categoryId}}
-    hello
+        {{category}}
+        {{#each procedures}}
+            Key: {{@key}}   Value: {{this}}
+        {{/each}}
+
+
 
     {{/proceduresByCategory}}
 
