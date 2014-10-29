@@ -29,18 +29,14 @@
             vm.numberOfTake = countByRecordDefinitionId(1);
             vm.numberOfProcedures = countByRecordDefinitionId(4);
 
-
             vm.proceduresByCategory = getProcedures();
 
-
-
+            vm.presentations = getPresentations();
 
 
 
 
             return vm;
-
-
         }
 
         function countByRecordDefinitionId(recordDefinitionId)
@@ -53,27 +49,26 @@
         function getProcedures()
         {
             var proceduresByCategory = _.chain(records)
-                .filter(function(record) {return record.recordDefinitionId === 4; })
-                .map(function(record) {return _(record.recordFields).find(function(field){return field.fieldDefinitionId === 3;})})
-                .map(function(field) {return _(field.data.values).map(function(value) {return value.value;})})
+                .map(function(record){return _(record.recordFields).find(function(field){return field.fieldDefinition.pickListId === 6;})})
+                .map(function(field) {return _.chain(field.data.values).filter(function(val){return val.value;}).map(function(value){return value.value;}).value()})
                 .flatten(true)
                 .groupBy(function(val) {return val.categoryId;})
                 .value();
 
-            var procedureCount = _(proceduresByCategory)
+            return _(proceduresByCategory)
                 .map(function(items,categoryId){return {
                         category: pickListService.getCategory(procedurePickListId, parseInt(categoryId)).name,
                         procedures: _(items).countBy(function(proc){return proc.text;})}
                 });
+        }
 
-            return procedureCount;
+        function getPresentations()
+        {
+            var presentations = _.chain(records)
+                .map(function(record) {return _(record.recordFields).find(function(field) {return field.fieldDefinition.pickListId === 2; }) })
+                .value();
 
-
-
-          //  var x = _(procedures).countBy(function(procedure){return procedure;});
-
-
-
+            return presentations;
         }
 
         

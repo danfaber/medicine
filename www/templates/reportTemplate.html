@@ -18,14 +18,18 @@
     </tr>
 
     {{#proceduresByCategory}}
-        {{category}}
+        <tr>
+            <td>{{category}}</td>
+            <td></td>
+        </tr>
+
         {{#each procedures}}
-            Key: {{@key}}   Value: {{this}}
+            <tr>
+                <td>{{@key}}</td>
+                <td>{{this}}</td>
+            </tr>
         {{/each}}
 
-
-
     {{/proceduresByCategory}}
-
 
 </table>
