@@ -30,7 +30,10 @@
             vm.toDate = $filter('date')(searchDefinition.toDate,'longDate');
 
             vm.numberOfClinicalEncounters = countByRecordDefinitionId(3);
-            vm.numberOfClinicalFollowUps = numberOfFollowUpClinics();
+            vm.numberOfClinicalFollowUps = numberOfClinicType("Follow-up");
+            vm.numberOfClinicalNewReferrals = numberOfClinicType("New");
+            vm.numberOfClinicalNonClassified = vm.numberOfClinicalEncounters - vm.numberOfClinicalFollowUps - vm.numberOfClinicalNewReferrals;
+
             vm.numberOfWardReferrals = countByRecordDefinitionId(2);
             vm.numberOfTake = countByRecordDefinitionId(1);
             vm.numberOfProcedures = countByRecordDefinitionId(4);
@@ -51,21 +54,21 @@
                 .length;
         }
 
-        function numberOfFollowUpClinics()
+        function numberOfClinicType(type)
         {
             return _.chain(records)
                 .filter(function(record){return record.recordDefinitionId === 3;})
-                .filter(function(record){return isFollowUp(record);})
+                .filter(function(record){return isOfType(record,type);})
                 .value()
                 .length;
         }
 
-        function isFollowUp(record)
+        function isOfType(record, type)
         {
             return _(record.recordFields)
                 .some(function(field){
                     return field.fieldDefinition.pickListId === 5 &&
-                    _(field.data.values).some(function(val) {return val.value.text === "Follow-up";})}
+                    _(field.data.values).some(function(val) {return val.value.text === type;})}
             );
         }
 

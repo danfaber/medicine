@@ -78,8 +78,8 @@
             }
 
             var createdField = _(record.recordFields).find(function(field) {return field.fieldDefinitionId === fieldDefinitionId;});
-            var dateText = createdField.data.values[0].value;
-            return Date.parse(dateText);
+            return createdField.data.values[0].value;
+          /*  return Date.parse(dateText);*/
         }
 
 

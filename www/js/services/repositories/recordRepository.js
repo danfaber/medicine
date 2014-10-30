@@ -1,8 +1,8 @@
 (function(){
     'use strict';
-    angular.module("medicine").factory("recordRepository",['$window', 'recordDefinitions', 'recordEntity', 'recordPrefix', recordRepository]);
+    angular.module("medicine").factory("recordRepository",['$window', 'recordDefinitions', 'recordEntity', 'recordPrefix','utilitiesService', recordRepository]);
 
-    function recordRepository($window, recordDefinitions, recordEntity, recordPrefix){
+    function recordRepository($window, recordDefinitions, recordEntity, recordPrefix, utilitiesService){
 
         var currentRecordPrefix = "CR_";
         var datePrefix = "I_Date_";
@@ -47,8 +47,8 @@
 
         function indexRecordCreatedDate(record)
         {
-            var createdDate = recordDefinitions.getCreatedDate(record);
-            var storageKey = datePrefix+createdDate;
+            var createdDateText = recordDefinitions.getCreatedDate(record);
+            var storageKey = datePrefix+createdDateText;
             var existingRecordsJson = $window.localStorage.getItem(storageKey);
 
             var existingIds = existingRecordsJson ? JSON.parse(existingRecordsJson) : [];
@@ -152,9 +152,47 @@
             $window.localStorage.setItem(key, recordJson);
         }
 
-        function getRecordsByCreatedDate(fromDate, toDate)
+        function getRecordsByCreatedDate(fromDateString, toDateString)
         {
-            var earliestDate = new Date(2014,9,1);
+            var earliestDate = moment("2014-10-01");
+            var fromDate = (!fromDateString || moment(fromDateString).isBefore(earliestDate))
+                ? earliestDate
+                : moment(fromDateString);
+
+            var toDate = (!toDateString || moment(toDateString).isAfter(moment()))
+                ? moment().get('date')
+                : moment(toDateString);
+
+            var numberOfDays = toDate.diff(fromDate, 'days');
+            var loopDateString;
+
+            for (var i = 0; i < numberOfDays; i++)
+            {
+                loopDateString = 
+            }
+
+
+
+/*
+            if (!fromDateString ||)
+
+            var fromDate = moment(fromDateString);
+            var toDate = moment(toDateString);
+            var earliestDate = moment("2014-10-01");
+
+            if (fromDate.isBefore(earliestDate))
+            {
+                fromDate = earliestDate;
+            }
+*/
+
+
+
+
+
+
+
+ /*           var earliestDate = new Date(2014,9,1);
             var recordIds = [];
             var dailyRecordIds = [];
             var dailyJson;
@@ -167,7 +205,31 @@
             var isValidToDate = toDate && toDate <= today;
             var lastDate = isValidToDate ? toDate : today;
 
-            do {
+            var numberOfDays = utilitiesService.dateDiffInDays(firstDate, lastDate);
+            var loopDate;
+            var loopDateTimeString;
+            var loopIsoDate;*/
+
+            for (var i = 0; i<numberOfDays; i++)
+            {
+                loopDate = addDays(firstDate, i);
+                var x = moment(loopDate)
+
+
+                loopDateTimeString = loopDate.toISOString();
+                loopIsoDate = loopDateTimeString.substring(0,4);
+                dailyKey = datePrefix + loopIsoDate;
+                dailyJson = $window.localStorage.getItem(dailyKey);
+                if (dailyJson)
+                {
+                    dailyRecordIds = JSON.parse(dailyJson);
+                    Array.prototype.push.apply(recordIds, dailyRecordIds);
+                }
+
+            }
+
+
+/*            do {
                 dailyKey = datePrefix + firstDate.getTime().toString();
                 dailyJson = $window.localStorage.getItem(dailyKey);
                 if (dailyJson)
@@ -178,9 +240,15 @@
 
                 firstDate.setDate(firstDate.getDate() + 1);
 
-            } while(firstDate <= lastDate);
+            } while(firstDate <= lastDate);*/
 
             return recordIds;
+        }
+
+        function addDays(date, days) {
+            var result = new Date(date);
+            result.setDate(date.getDate() + days);
+            return result;
         }
     }
 })();

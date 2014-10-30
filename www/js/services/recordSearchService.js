@@ -22,6 +22,9 @@
         {
             /* add more filtering logic here in due course*/
 
+/*            var fromDate = new Date(searchDefinition.fromDate);
+            var toDate = new Date(searchDefinition.toDate);*/
+
             var dateMatchRecordIds = recordRepository.getRecordsByCreatedDate(searchDefinition.fromDate, searchDefinition.toDate);
 
             return _(dateMatchRecordIds).map(function(id) {return recordRepository.getByStorageKey(id);})
