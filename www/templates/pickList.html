@@ -1,4 +1,4 @@
-<ion-view title="{{pickList.name}} {{pickList.categories.length > 1 ? ' - ' + category.name : ''}}">
+<ion-view title="{{pickList.name}}">
 
     <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-ios7-plus-outline" ng-show="pickList.isAbleToAddNewValues && data.inputText.length > 2" ng-click="addNewValue()">
@@ -6,7 +6,7 @@
     </ion-nav-buttons>
 
     <ion-content class="has-header">
-        <div class="bar bar-header" style="padding-top: 6px; padding-bottom: 4px;">
+        <div class="bar bar-header" style="padding-top: 6px; padding-bottom: 4px;" ng-show="{{data.showAddSearchBar}}">
             <div class="item item-input-inset" style="padding: 0; width: 100%; border: none; height: 100%;">
                 <div class="item-input-wrapper" style="height: 33px;">
                     <input ng-model="data.inputText" ng-change="inputTextChanged()" ng-trim="false" type="text" placeholder="Search{{pickList.isAbleToAddNewValues ? ' or Add':''}}" id="inputText">
@@ -21,7 +21,7 @@
             </li>
         </div>
 
-        <div class="list list-insert" style="top:53px; margin-right: 10px; margin-left: 10px;" ng-show="data.valueMatches.length > 0">
+        <div class="list list-insert" ng-style="data.topStyle" style="margin-right: 10px; margin-left: 10px;" ng-show="data.valueMatches.length > 0">
             <div ng-repeat="value in data.valueMatches" class="item item-text-wrap" ng-click="selectValue(value)">
                 {{value.text}}
             </div>

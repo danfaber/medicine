@@ -22,8 +22,11 @@
             inputText: "",
             wordMatches: [],
             valueMatches: [],
-            maximumPickListMatchesToDisplay: maximumPickListMatchesToDisplay
+            maximumPickListMatchesToDisplay: maximumPickListMatchesToDisplay,
+            showAddSearchBar: $scope.pickList.isAbleToAddNewValues || $scope.pickList.values.length > 7
         };
+        
+        $scope.data.topStyle = {top: $scope.data.showAddSearchBar ? '53px' : '13px'};
 
         $scope.data.valueMatches = pickListService.valueMatches(pickListId, parseSearchText(),categoryId);
 
