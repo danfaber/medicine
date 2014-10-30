@@ -34,6 +34,8 @@
 
             vm.presentations = getPresentations();
 
+            vm.diagnoses = getDiagnoses();
+
             return vm;
         }
 
@@ -89,6 +91,35 @@
                 .value();
 
             return _(presentations).countBy(function(presentation){return presentation;});
+        }
+
+
+        function getDiagnoses()
+        {
+            var diagnosisPickListId = 3;
+
+            var diag = _.chain(records)
+                .map(function(record){return _(record.recordFields).find(function(field){return field.fieldDefinition.pickListId === diagnosisPickListId; })})
+                .filter(function(field){return field;})
+                .map(function(field){return field.data.values})
+                .flatten(true)
+                .filter(function(val){return val.value;})
+                .map(function(val) {return val.value;})
+                .groupBy(function(val){return val.categoryId; })
+                .map(function(values, categoryId){return {
+                    category: pickListService.getCategory(diagnosisPickListId, parseInt(categoryId)).name,
+                    total: values.length,
+                    detail: _(values).countBy(function(val){return val.text;})
+                } })
+                .value();
+
+/*            var x = _.chain(records)
+            .map(function(record){return _(record.recordFields).find(function(field){return field.fieldDefinition.pickListId === 3; })})
+            .value();*/
+
+
+            return diag;
+
         }
 
         
