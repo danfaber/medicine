@@ -25,6 +25,7 @@
             vm.toDate = $filter('date')(searchDefinition.toDate,'longDate');
 
             vm.numberOfClinicalEncounters = countByRecordDefinitionId(3);
+            vm.numberOfClinicalFollowUps = numberOfFollowUpClinics();
             vm.numberOfWardReferrals = countByRecordDefinitionId(2);
             vm.numberOfTake = countByRecordDefinitionId(1);
             vm.numberOfProcedures = countByRecordDefinitionId(4);
@@ -32,9 +33,6 @@
             vm.proceduresByCategory = getProcedures();
 
             vm.presentations = getPresentations();
-
-
-
 
             return vm;
         }
@@ -44,6 +42,24 @@
             return _(records)
                 .filter(function(record){return record.recordDefinitionId === recordDefinitionId;})
                 .length;
+        }
+
+        function numberOfFollowUpClinics()
+        {
+            return _.chain(records)
+                .filter(function(record){return record.recordDefinitionId === 3;})
+                .filter(function(record){return isFollowUp(record);})
+                .value()
+                .length;
+        }
+
+        function isFollowUp(record)
+        {
+            return _(record.recordFields)
+                .some(function(field){
+                    return field.fieldDefinition.pickListId === 5 &&
+                    _(field.data.values).some(function(val) {return val.value.text === "Follow-up";})}
+            );
         }
 
         function getProcedures()
