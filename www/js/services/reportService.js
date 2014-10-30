@@ -8,14 +8,19 @@
         var records;
         var procedurePickListId = 6;
 
+        Handlebars.registerHelper('setIndex', function(value){
+            this.index = Number(value);
+        });
+
         return {
             generateReport:generateReport
 
         };
 
-
         function generateReport(searchDefinition)
         {
+
+
             records = recordSearchService.getRecords(searchDefinition);
             var vm = {};
 
@@ -34,7 +39,7 @@
 
             vm.presentations = getPresentations();
 
-            vm.diagnoses = getDiagnoses();
+            vm.diagnosesByCategory = getDiagnoses();
 
             return vm;
         }

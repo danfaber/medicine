@@ -18,6 +18,16 @@
         {
             background-color: #FFFDE0;
         }
+
+        .diagnosisDetail
+        {
+            color: #777777;
+            background-color : #f0f0f0;
+        }
+        .extraLeftPadding
+        {
+            padding-left: 30px !important;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +71,35 @@
 
 </table>
 </div>
+</br>
+<h5>Medical diagnoses spanned the following systems</h5>
+    <div class="panel panel-default">
+        <table class="table table-bordered">
+            <tr class="tableHeading">
+                <td style="width: 80%">System / diagnoses</td>
+                <td style="width: 20%">Frequency</td>
+            </tr>
+
+            {{#each diagnosesByCategory}}
+                {{setIndex @index}}
+                <tr class="diagnosisCategory" data-categoryIndex="{{@index}}">
+                    <td>{{this.category}}</td>
+                    <td>{{this.total}}</td>
+                </tr>
+
+                {{#each this.detail}}
+                    <tr class="diagnosisDetail" data-parentIndex="{{../index}}">
+                        <td class="extraLeftPadding">{{@key}}</td>
+                        <td>{{this}}</td>
+                    </tr>
+                {{/each}}
+
+            {{/each}}
+
+
+        </table>
+    </div>
+
 
 </br>
 <h5>The physician has performed the following procedures:</h5>
@@ -70,7 +109,7 @@
 
     <tr class="tableHeading">
         <td style="width:80%">Procedures</td>
-        <td style="width:80%">Frequency</td>
+        <td style="width:20%">Frequency</td>
     </tr>
 
         {{#proceduresByCategory}}
