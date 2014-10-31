@@ -165,10 +165,22 @@
 
             var numberOfDays = toDate.diff(fromDate, 'days');
             var loopDateString;
+            var dailyKey;
+            var dailyJson;
+            var dailyRecordIds;
+            var recordIds = [];
 
-            for (var i = 0; i < numberOfDays; i++)
+            for (var i = 0; i <= numberOfDays; i++)
             {
-                loopDateString = 
+                loopDateString = fromDate.format('YYYY-MM-DD');
+                dailyKey = datePrefix + loopDateString;
+                dailyJson = $window.localStorage.getItem(dailyKey);
+                if (dailyJson)
+                {
+                    dailyRecordIds = JSON.parse(dailyJson);
+                    Array.prototype.push.apply(recordIds, dailyRecordIds);
+                }
+                fromDate.add(1, 'days');
             }
 
 
@@ -210,7 +222,7 @@
             var loopDateTimeString;
             var loopIsoDate;*/
 
-            for (var i = 0; i<numberOfDays; i++)
+/*            for (var i = 0; i<numberOfDays; i++)
             {
                 loopDate = addDays(firstDate, i);
                 var x = moment(loopDate)
@@ -226,7 +238,7 @@
                     Array.prototype.push.apply(recordIds, dailyRecordIds);
                 }
 
-            }
+            }*/
 
 
 /*            do {
@@ -245,11 +257,11 @@
             return recordIds;
         }
 
-        function addDays(date, days) {
+    /*    function addDays(date, days) {
             var result = new Date(date);
             result.setDate(date.getDate() + days);
             return result;
-        }
+        }*/
     }
 })();
 
