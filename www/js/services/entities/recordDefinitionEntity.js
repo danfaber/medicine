@@ -5,11 +5,12 @@
 
     function recordDefinitionEntity(recordEntity){
 
-        function RecordDefinition(id, name, sortOrder, fieldDefinitions)
+        function RecordDefinition(id, name, sortOrder, colour, fieldDefinitions)
         {
             this.id = id;
             this.name = name;
             this.sortOrder = sortOrder;
+            this.colour = colour;
             this.fieldDefinitions = fieldDefinitions;
         }
 

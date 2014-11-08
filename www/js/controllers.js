@@ -1,7 +1,7 @@
 
 var app = angular.module('medicine');
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, pickListService, currentRecordService) {
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, pickListService, currentRecordService, $state) {
 
 /*  // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -33,7 +33,20 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, pi
 
 
   $scope.globalData = {
-      isSideMenuEnabled: true
+      isSideMenuEnabled: true,
+      currentRecordDefinition: null
+  };
+
+  $scope.getRecordDefinitionColour = function()
+  {
+      return $scope.globalData.currentRecordDefinition ? $scope.globalData.currentRecordDefinition.colour : "#555555";
+  };
+
+  $scope.selectRecordDefinition = function(recordDefinition)
+  {
+      $scope.globalData.currentRecordDefinition = recordDefinition;
+      $state.go('app.add',{recordDefinitionId:recordDefinition.id});
+//#/app/add?recordDefinitionId={{recordDefinitions[0].id}}
   };
 
 

@@ -7,7 +7,7 @@
 
         var recordDefinitions = [
 
-            addRecordDefinition(1, "On-take", 1, [
+            addRecordDefinition(1, "On-take", 1, "#00A0B0", [
 
                 withFieldDefinition(1,"Patient Hospital Number", 1, false, false, allFieldTypes.barcode),
                 withFieldDefinition(2,"Date seen", 2, false, false, allFieldTypes.date),
@@ -19,7 +19,7 @@
                 withFieldDefinition(8, "Set Flag", 8, true, false, allFieldTypes.boolean)
             ]),
 
-            addRecordDefinition(2, "Ward referrals", 2, [
+            addRecordDefinition(2, "Ward referrals", 2, "#6A4A3C", [
                 withFieldDefinition(1, "Patient Hospital Number", 1, false, false, allFieldTypes.barcode),
                 withFieldDefinition(2, "Date referred", 2, false, false, allFieldTypes.date),
                 withFieldDefinition(3, "Location", 3, false, false, allFieldTypes.pickList, 9),
@@ -31,7 +31,7 @@
                 withFieldDefinition(9, "Set Flag", 9, true, false, allFieldTypes.boolean)
             ]),
 
-            addRecordDefinition(3, "Clinic", 3, [
+            addRecordDefinition(3, "Clinic", 3, "#CC333F", [
                 withFieldDefinition(1, "Patient Hospital Number", 1, false, false, allFieldTypes.barcode),
                 withFieldDefinition(2, "Date", 2, false, false, allFieldTypes.date),
                 withFieldDefinition(3, "New / Follow-up", 3, false, false, allFieldTypes.pickList, 5),
@@ -42,7 +42,7 @@
                 withFieldDefinition(8, "Set Flag", 8, true, false, allFieldTypes.boolean)
             ]),
 
-            addRecordDefinition(4, "Procedures", 4, [
+            addRecordDefinition(4, "Procedures", 4, "#EB6841", [
                 withFieldDefinition(1, "Patient Hospital Number", 1, false, false, allFieldTypes.barcode),
                 withFieldDefinition(2, "Date", 2, false, false, allFieldTypes.date),
                 withFieldDefinition(3, "Procedure", 3, false, true, allFieldTypes.pickList, 6),
@@ -85,9 +85,9 @@
 
 
 
-        function addRecordDefinition(id, name, sortOrder, fieldDefinitions)
+        function addRecordDefinition(id, name, sortOrder, colour, fieldDefinitions)
         {
-            return new recordDefinitionEntity.RecordDefinition(id, name, sortOrder, fieldDefinitions);
+            return new recordDefinitionEntity.RecordDefinition(id, name, sortOrder, colour, fieldDefinitions);
         }
 
         function withFieldDefinition(id, name, sortOrder, isToggled, isMultiSelect, fieldType, pickListId, autoCompleteId)
