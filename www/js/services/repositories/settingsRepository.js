@@ -6,10 +6,13 @@
     function settingsRepository($window){
 
         var userNameKey = "DoctorName";
+        var passCodeKey = "PassCode";
 
         return {
             getUserName: getUserName,
-            setUserName: setUserName
+            setUserName: setUserName,
+            getPassCode: getPassCode,
+            savePassCode: savePassCode
         };
 
         function getUserName()
@@ -21,6 +24,18 @@
         {
             $window.localStorage.setItem(userNameKey, name);
         }
+
+        function getPassCode()
+        {
+            var code = $window.localStorage.getItem(passCodeKey);
+            return code === undefined || code === null ? null : parseInt(code);
+        }
+
+        function savePassCode(passCode)
+        {
+            $window.localStorage.setItem(passCodeKey, passCode.toString());
+        }
+
     }
 
 })();
