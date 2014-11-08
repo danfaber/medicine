@@ -1,7 +1,7 @@
 <ion-view title="{{pickList.name}}">
 
     <ion-nav-buttons side="right">
-        <button class="button button-icon icon ion-ios7-plus-outline" ng-show="pickList.isAbleToAddNewValues && data.inputText.length > 2" ng-click="addNewValue()">
+        <button class="button button-icon icon ion-ios7-plus-outline" ng-show="pickList.isAbleToAddNewValues && isLongEnoughToAddNewValue()" ng-click="addNewValue()">
         </button>
     </ion-nav-buttons>
 
@@ -9,7 +9,7 @@
         <div class="bar bar-header" style="padding-top: 6px; padding-bottom: 4px;" ng-show="{{data.showAddSearchBar}}">
             <div class="item item-input-inset" style="padding: 0; width: 100%; border: none; height: 100%;">
                 <div class="item-input-wrapper" style="height: 33px;">
-                    <input ng-model="data.inputText" ng-change="inputTextChanged()" ng-trim="false" type="text" placeholder="Search{{pickList.isAbleToAddNewValues ? ' or Add':''}}" id="inputText">
+                    <input ng-model="data.inputText" ng-change="inputTextChanged()" ng-keypress="inputKeyPress($event)" ng-trim="false" type="text" placeholder="Search{{pickList.isAbleToAddNewValues ? ' or Add':''}}" id="inputText">
                     <i class="icon ion-close-round" ng-click="clearInputText()" style="padding: 0 11px;"></i>
                 </div>
             </div>

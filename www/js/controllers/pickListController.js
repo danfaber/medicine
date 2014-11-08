@@ -47,6 +47,14 @@
             }
         };
 
+        $scope.inputKeyPress = function($event)
+        {
+            if ($event.keyCode == 13 && $scope.isLongEnoughToAddNewValue() && $scope.pickList.isAbleToAddNewValues)
+            {
+                $scope.addNewValue();
+            }
+        };
+
         function cleanSpaces(text)
         {
             var cleaned = text.replace(/\s{2,}/g, " ");
@@ -68,6 +76,11 @@
             $scope.data.inputText = inputText.substring(0, lastSpaceIndex + 1) + word + " ";
             $scope.inputTextChanged();
             selectSearchBox();
+        };
+
+        $scope.isLongEnoughToAddNewValue = function()
+        {
+            return $scope.data.inputText.length > 2
         };
 
         function parseAsCompleteWords(text)
