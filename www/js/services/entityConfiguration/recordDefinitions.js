@@ -11,7 +11,7 @@
 
                 withFieldDefinition(1,"Patient Hospital Number", 1, false, false, allFieldTypes.barcode),
                 withFieldDefinition(2,"Date seen", 2, false, false, allFieldTypes.date),
-                withFieldDefinition(3, "Location", 3, false, false, allFieldTypes.shortText),
+                withFieldDefinition(3, "Location", 3, false, false, allFieldTypes.pickList, 9),
                 withFieldDefinition(4, "Reason for referral", 4, false, false, allFieldTypes.pickList, 1),
                 withFieldDefinition(5, "Presentation", 5, false, true, allFieldTypes.pickList, 2),
                 withFieldDefinition(6, "Diagnoses", 6, false, true, allFieldTypes.pickList, 3),
@@ -22,7 +22,7 @@
             addRecordDefinition(2, "Ward referrals", 2, [
                 withFieldDefinition(1, "Patient Hospital Number", 1, false, false, allFieldTypes.barcode),
                 withFieldDefinition(2, "Date referred", 2, false, false, allFieldTypes.date),
-                withFieldDefinition(3, "Location", 3, false, false, allFieldTypes.shortText),
+                withFieldDefinition(3, "Location", 3, false, false, allFieldTypes.pickList, 9),
                 withFieldDefinition(4, "Referral source", 4, false, false, allFieldTypes.pickList, 4),
                 withFieldDefinition(5, "Reason for referral", 5, false, false, allFieldTypes.pickList, 1),
                 withFieldDefinition(6, "Presentation", 6, false, true, allFieldTypes.pickList, 2),

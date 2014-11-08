@@ -3,14 +3,13 @@
 
     var app = angular.module("medicine");
 
-    app.controller("passCodeController", function($scope, settingsRepository, $state) {
+    app.controller("passCodeController", function($scope, settingsRepository, $state, $cordovaToast, $window) {
 
         var savedPassCode =  settingsRepository.getPassCode();
+        var passCodeEnteredToBeConfirmed = null;
 
         $scope.globalData.isSideMenuEnabled = false;
-        $scope.data = {
-            passCodeEnteredToBeConfirmed: null
-        };
+        $scope.data = {};
 
         resetPassCode();
 
@@ -18,7 +17,7 @@
         {
             var isEntered = $scope.data.numbers[index] !== null;
 
-            return isEntered ? "icon ion-record balanced" : "icon ion-ios7-circle-outline";
+            return isEntered ? "circle pinEntered" : "circle pinEmpty";
         };
 
         $scope.pressedNumber = function(number)
@@ -45,27 +44,30 @@
                     }
                     else
                     {
-                        resetPassCode();
+                        resetPassCodeWithDelay("Pincode incorrect. Please try again.")
                     }
                 }
                 else
                 {
-                    if ($scope.data.passCodeEnteredToBeConfirmed === null)
+                    if (passCodeEnteredToBeConfirmed === null)
                     {
-                        $scope.data.passCodeEnteredToBeConfirmed = keyedNumber;
-                        resetPassCode();
+                        passCodeEnteredToBeConfirmed = keyedNumber;
+                        resetPassCodeWithDelay("Please Confirm Pincode");
                     }
                     else
                     {
-                        if (keyedNumber === $scope.data.passCodeEnteredToBeConfirmed)
+                        if (keyedNumber === passCodeEnteredToBeConfirmed)
                         {
                             settingsRepository.savePassCode(keyedNumber);
                             enterMainApplication();
                         }
                         else
                         {
-                            $scope.data.passCodeEnteredToBeConfirmed = null;
-                            resetPassCode();
+                            passCodeEnteredToBeConfirmed = null;
+                            resetPassCodeWithDelay("Pincodes do not match. Please try again.");
+
+ /*                           resetPassCode();
+                            $cordovaToast.show("Pincodes do not match, please try again.","long", "bottom");*/
                         }
                     }
                 }
@@ -94,7 +96,8 @@
         {
             if (savedPassCode !== null) {return "Enter Your Pincode";}
 
-            return "Create Pincode";
+            return passCodeEnteredToBeConfirmed == null ? "Create Pincode" : "Confirm Pincode";
+
         };
 
 
@@ -102,6 +105,15 @@
         {
             var stringNumber = _($scope.data.numbers).reduce(function(memo, item){return memo + item.toString();},"");
             return parseInt(stringNumber);
+        }
+
+        function resetPassCodeWithDelay(message)
+        {
+            $window.setTimeout(function(){
+                resetPassCode();
+                $scope.$apply();
+                $cordovaToast.show(message,"short", "bottom");
+            },200);
         }
 
         function resetPassCode()

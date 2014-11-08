@@ -1,3 +1,14 @@
+<style>
+    .arrowIcon
+    {
+        font-size: 20px;
+        color: #999999;
+        margin-top: 7px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+</style>
+
 <ion-view title="History">
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
@@ -8,7 +19,10 @@
           <ion-slide ng-repeat="recordDefinition in recordDefinitions" active-slide="recordDefinition">
 
               <div class="bar bar-stable" style="position: relative;">
+                  <i class="icon ion-chevron-left arrowIcon"></i>
                   <h2 class="title"> {{recordDefinition.name}}</h2>
+                  <div style="width: 100%;"></div>
+                  <i class="icon ion-chevron-right arrowIcon"></i>
               </div>
 
               <ion-content class="has-header">
