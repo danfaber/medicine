@@ -1,12 +1,73 @@
+
+
+
+
 <ion-view title="Incident Type" hide-back-button="true">
-  <ion-nav-buttons side="left">
+<!--  <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
+  </ion-nav-buttons>-->
   <ion-content class="has-header">
-    <ion-list>
+<!--    <ion-list>
       <ion-item ng-repeat="recordDefinition in recordDefinitions" href="#/app/add?recordDefinitionId={{recordDefinition.id}}">
         {{recordDefinition.name}}
       </ion-item>
-    </ion-list>
+    </ion-list>-->
+
+
+<!--    <div class="row gallery">
+        <a class="col-50" ng-repeat="recordDefinition in recordDefinitions" href="#/app/add?recordDefinitionId={{recordDefinition.id}}">
+            {{recordDefinition.name}}
+        </a>
+    </div>-->
+
+      <div class="row tileRow">
+          <a class="col col-50" ng-href="#/app/add?recordDefinitionId={{recordDefinitions[0].id}}">
+          {{recordDefinitions[0].name}}
+          </a>
+
+          <a class="col col-50" ng-href="#/app/add?recordDefinitionId={{recordDefinitions[1].id}}">
+              {{recordDefinitions[1].name}}
+          </a>
+      </div>
+
+      <div class="row tileRow">
+          <a class="col col-50" ng-href="#/app/add?recordDefinitionId={{recordDefinitions[2].id}}">
+              {{recordDefinitions[2].name}}
+          </a>
+
+          <a class="col col-50" ng-href="#/app/add?recordDefinitionId={{recordDefinitions[3].id}}">
+              {{recordDefinitions[3].name}}
+          </a>
+      </div>
+
+
   </ion-content>
 </ion-view>
+
+<style>
+    .tileRow a{
+        padding: 50px 20px;
+        text-align: center;
+        text-decoration: none;
+        color: #444;
+        background-color: aquamarine;
+        border: white 4px solid;
+    }
+</style>
+
+
+<!--
+<style>
+    .gallery {
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+    .gallery a{
+        padding: 50px 20px;
+        text-align: center;
+        background-color: aquamarine;
+        border: 3px solid #ffffff;
+        text-decoration: none;
+        color: #444;
+    }
+</style>-->
