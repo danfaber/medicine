@@ -3,7 +3,7 @@
 
     angular.module("medicine").controller("addController", addController);
 
-    function addController($scope, $stateParams, currentRecordService, $state, $ionicPopup, recordEntity, $ionicNavBarDelegate, pickListService, pickListRepository)
+    function addController($scope, $stateParams, currentRecordService, $state, $ionicPopup, recordEntity, pickListService, pickListRepository)
     {
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         $scope.data = {};
@@ -21,6 +21,12 @@
             $scope.record = currentRecordService.get(recordDefinitionId);
         }
 
+
+
+        $scope.isBackButtonHidden = function()
+        {
+            return $scope.record.isDirty;
+        };
 
         $scope.saveRecord = function()
         {
@@ -46,7 +52,24 @@
             pickListRepository.saveAll(pickListJson);
         }
 
-        $scope.$on("backButtonClicked", function () {
+        $scope.cancelEdit = function()
+        {
+            var confirmBackPopup = $ionicPopup.confirm({
+                title: 'Cancel Record',
+                template: 'Are you sure you want to cancel this record without saving?'
+            });
+
+            confirmBackPopup.then(function (result) {
+                if (result) {
+                    currentRecordService.remove($scope.record.recordDefinitionId);
+                    $state.go('app.recordDefinitions');
+                }
+            });
+
+        };
+
+/* KEEP THIS LOGIC BUT GOES ELSEWHERE
+       $scope.$on("backButtonClicked", function () {
 
             if (!$scope.record.isDirty)
             {
@@ -64,13 +87,13 @@
                     clearCurrentRecordAndNavigateBack();
                 }
             })
-        });
+        });*/
 
-        function clearCurrentRecordAndNavigateBack()
+/*        function clearCurrentRecordAndNavigateBack()
         {
             currentRecordService.remove($scope.record.recordDefinitionId);
             $ionicNavBarDelegate.back();
-        }
+        }*/
     }
 
 

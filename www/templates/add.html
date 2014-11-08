@@ -1,9 +1,12 @@
-<ion-view title="{{data.isEdit ? 'Edit' : 'New'}} {{record.recordDefinition.name}}">
+<ion-view title="{{data.isEdit ? 'Edit' : 'New'}} {{record.recordDefinition.name}}" hide-back-button="isBackButtonHidden()">
 
     <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-ios7-checkmark-outline"
                 ng-click="saveRecord()" ng-show="record.isDirty">
         </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios7-close-outline" ng-show="record.isDirty" ng-click="cancelEdit()"></button>
     </ion-nav-buttons>
 
     <ion-content class="has-header">

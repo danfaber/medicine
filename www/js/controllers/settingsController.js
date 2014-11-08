@@ -3,10 +3,10 @@
 
     var app = angular.module("medicine");
 
-    app.controller("settingsController", function($scope, settingsDataService, pickListService, settingsRepository) {
+    app.controller("settingsController", function($scope, pickListService, settingsRepository) {
         $scope.data = {};
 
-        $scope.data.isBarcodeScannerEnabled = settingsDataService.getBarcodeScannerEnabled();
+        $scope.data.isBarcodeScannerEnabled = settingsRepository.getBarcodeScannerEnabled();
         $scope.data.userName = settingsRepository.getUserName();
 
         $scope.saveUserName = function()
@@ -16,13 +16,13 @@
 
         $scope.changeBarcodeScanner = function()
         {
-            settingsDataService.setBarcodeScannerEnabled($scope.data.isBarcodeScannerEnabled);
+            settingsRepository.setBarcodeScannerEnabled($scope.data.isBarcodeScannerEnabled);
         };
 
-        $scope.simulateStop = function()
+/*        $scope.simulateStop = function()
         {
             pickListService.persistPickLists();
-        };
+        };*/
 
         $scope.clearStorage = function()
         {

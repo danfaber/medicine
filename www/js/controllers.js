@@ -37,9 +37,9 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, pi
   };
 
 
-  $scope.backButtonClicked = function(){
+/*  $scope.backButtonClicked = function(){
       $rootScope.$broadcast("backButtonClicked",{});
-  };
+  };*/
 
     document.addEventListener('pause', function() {
 /*        window.localStorage.setItem("pause","paused at"+new Date());

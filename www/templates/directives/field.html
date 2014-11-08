@@ -12,7 +12,7 @@
                 </label>
             </div>
             <div class="col col-20" style="padding: 0;">
-                <a class="button button-icon icon ion-plus-circled" style="min-height: 42px; float: right;"
+                <a class="button button-icon icon ion-plus-circled" style="min-height: 42px; float: right; color: #5B8C58"
                    ng-if="recordField.fieldDefinition.isMultiSelect && (!recordField.fieldDefinition.isToggled || recordField.data.isChecked)" style="padding:0;"
                    ng-click="addNewValue()"></a>
             </div>
@@ -34,7 +34,7 @@
 
                 <div ng-switch-when="barcode" class='item item-input item-icon-right'>
                     <input ng-model='value.value' type='text' ng-change='makeDirty()'>
-                    <i ng-click='openBarcodeReader()' class='icon ion-ios7-barcode'></i>
+                    <i ng-show="isBarcodeEnabled()" ng-click='openBarcodeReader()' class='icon ion-ios7-barcode'></i>
                 </div>
 
                 <div ng-switch-when="pickList" ng-click="openPickList(value.index)" class="item item-text-wrap">{{value.value && value.value.text ? value.value.text : '(Please Select)'}}</div>

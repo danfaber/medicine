@@ -3,6 +3,7 @@
 * TODO DAN
 * */
 
+/*
 (function(){
     'use strict';
 
@@ -29,3 +30,4 @@
     }]);
 
 })();
+*/

@@ -15,7 +15,7 @@
             }
         }]);
 
-    var controller = function($scope, $timeout, $cordovaBarcodeScanner, $state, pickListService, currentRecordService)
+    var controller = function($scope, $timeout, $cordovaBarcodeScanner, $state, pickListService, currentRecordService, settingsRepository)
     {
         $scope.changeToggle = function()
         {
@@ -68,6 +68,7 @@
         $scope.makeDirty = function()
         {
             currentRecordService.get($scope.recordDefinition.id).isDirty = true;
+          /*  $ionicNavBarDelegate.showBackButton(false);*/
            // $scope.recordDefinition.isDirty = true;
         };
 
@@ -80,6 +81,11 @@
             }, function(error) {
 
             });
+        };
+
+        $scope.isBarcodeEnabled = function()
+        {
+            return settingsRepository.getBarcodeScannerEnabled();
         };
 
         $scope.openPickList = function(index)

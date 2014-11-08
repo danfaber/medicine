@@ -7,12 +7,16 @@
 
         var userNameKey = "DoctorName";
         var passCodeKey = "PassCode";
+        var barcodeScannerKey = "barcodeScanner";
+
 
         return {
             getUserName: getUserName,
             setUserName: setUserName,
             getPassCode: getPassCode,
-            savePassCode: savePassCode
+            savePassCode: savePassCode,
+            setBarcodeScannerEnabled: setBarcodeScannerEnabled,
+            getBarcodeScannerEnabled: getBarcodeScannerEnabled
         };
 
         function getUserName()
@@ -34,6 +38,16 @@
         function savePassCode(passCode)
         {
             $window.localStorage.setItem(passCodeKey, passCode.toString());
+        }
+
+        function setBarcodeScannerEnabled(isEnabled){
+            $window.localStorage.setItem(barcodeScannerKey, isEnabled.toString());
+        }
+
+        function getBarcodeScannerEnabled()
+        {
+            var isEnabled = $window.localStorage.getItem(barcodeScannerKey);
+            return isEnabled == undefined || isEnabled == null || isEnabled.toLowerCase() === "true";
         }
 
     }
