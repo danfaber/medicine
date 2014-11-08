@@ -77,8 +77,10 @@
 
         function enterMainApplication()
         {
-            $scope.globalData.isSideMenuEnabled = true;
-            $state.go('app.recordDefinitions');
+            $window.setTimeout(function(){
+                $scope.globalData.isSideMenuEnabled = true;
+                $state.go('app.recordDefinitions');
+            }, 1);
         }
 
         $scope.back = function()

@@ -151,6 +151,16 @@ angular.module('medicine', ['ionic','ngCordova'])
           }
       })
 
+      .state('app.help', {
+          url: "/help",
+          views: {
+              'menuContent': {
+                  templateUrl: "templates/help.html",
+                  controller: 'helpController'
+              }
+          }
+      })
+
         .state('app.passCode', {
             url: "/passCode",
             views: {

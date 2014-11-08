@@ -52,6 +52,11 @@ ion-nav-bar button, ion-nav-bar h1, ion-nav-bar i, #historyHeader h2, #historyHe
     background-color: #CC333F;
 }
 
+.redFont
+{
+    color: #CC333F;
+}
+
 /*
 
  #closeIcon
