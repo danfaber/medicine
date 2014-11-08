@@ -108,10 +108,17 @@
             var field = _(currentRecord.recordFields)
                 .find(function(field) {return field.fieldDefinitionId === fieldDefinitionId;});
 
+            var isSameValueAlreadySelectedForDifferentIndex = _.chain(field.data.values)
+                .filter(function(val){return val.index != index;})
+                .some(function(val){return val.value.text == value.text && val.value.categoryId == value.categoryId;})
+                .value();
+
             var fieldValue = _(field.data.values)
                 .find(function(val) {return val.index == index;});
 
-            fieldValue.value = {text: value.text, categoryId: value.categoryId};
+            var newTextValue = isSameValueAlreadySelectedForDifferentIndex ? null : value.text;
+
+            fieldValue.value = {text: newTextValue, categoryId: value.categoryId};
 
             pickListService.incrementCount(pickListId, value);
 

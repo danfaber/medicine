@@ -35,8 +35,11 @@
 
         $scope.addNewValue = function()
         {
-      /*      $scope.dirty = true;
-*/
+            var isAlreadyEmptyValue = _($scope.recordField.data.values)
+                .some(function(val){return !val.value;});
+
+            if (isAlreadyEmptyValue) {return;}
+
             $scope.makeDirty();
 
             $scope.recordField.data.values.push(
