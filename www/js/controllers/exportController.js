@@ -8,6 +8,8 @@
 
     app.controller("exportController", function($scope) {
 
+        $scope.globalData.currentRecordDefinition = null;
+
         $scope.exportData = function()
         {
             window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);

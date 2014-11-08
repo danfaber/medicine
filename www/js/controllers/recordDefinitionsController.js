@@ -7,6 +7,8 @@
     function recordDefinitionsController($scope, recordDefinitions)
     {
         $scope.recordDefinitions = recordDefinitions.all();
+
+        $scope.globalData.currentRecordDefinition = null;
     }
 
 })();

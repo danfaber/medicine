@@ -7,7 +7,6 @@
     {
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         $scope.data = {};
-/*        $scope.data.dirty = false;*/
         $scope.data.isEdit = false;
 
         if ($stateParams.recordId)
@@ -21,7 +20,7 @@
             $scope.record = currentRecordService.get(recordDefinitionId);
         }
 
-
+        $scope.globalData.currentRecordDefinition = $scope.record.recordDefinition;
 
         $scope.isBackButtonHidden = function()
         {

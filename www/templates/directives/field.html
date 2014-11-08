@@ -3,7 +3,7 @@
     <div class="item" style="background-color: #f5f5f5; padding-top: 0; padding-bottom: 0; padding-right: 6px;">
 
         <div class="row" style="padding: 0; height: 43px;">
-            <div class="col col-60" style="padding:13px 0 0 0;">
+            <div class="col col-60" ng-style="{'padding':'13px 0 0 0', 'color':'{{recordDefinition.colour}}'}">
                 {{recordField.fieldDefinition.name}}
             </div>
             <div class="col col-20" style="padding: 0">
@@ -12,7 +12,7 @@
                 </label>
             </div>
             <div class="col col-20" style="padding: 0;">
-                <a class="button button-icon icon ion-plus-circled" style="min-height: 42px; float: right; color: #EDC951;"
+                <a class="button button-icon icon ion-plus-circled" style="min-height: 42px; float: right;"
                    ng-if="recordField.fieldDefinition.isMultiSelect && (!recordField.fieldDefinition.isToggled || recordField.data.isChecked)" style="padding:0;"
                    ng-click="addNewValue()"></a>
             </div>

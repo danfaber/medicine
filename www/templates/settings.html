@@ -5,6 +5,12 @@
     <ion-content class="has-header">
 
         <ul class="list">
+
+            <label class="item item-input">
+                <span class="input-label">Name</span>
+                <input type="text" ng-model="data.userName" ng-change="saveUserName()" placeholder="Name displayed on reports">
+            </label>
+
             <li class="item item-toggle">
                 Barcode Scanner
                 <label class="toggle">
@@ -14,22 +20,13 @@
                     </div>
                 </label>
             </li>
-<!--            <li class="item">
-                <button ng-click="simulateStop()" class="button">Stop</button>
-            </li>-->
-            <li class="item">
-                <button ng-click="clearStorage()" class="button">Clear Storage</button>
-            </li>
-            <label class="item item-input">
-                <span class="input-label">Name</span>
-                <input type="text" ng-model="data.userName" ng-change="saveUserName()" placeholder="Name displayed on reports">
-            </label>
 
         </ul>
 
-
-
-
-
     </ion-content>
+
+    <div class="bar bar-footer">
+        <button class="button button-clear" style="width: 100px;" ng-click="clearStorage()"></button>
+    </div>
+
 </ion-view>

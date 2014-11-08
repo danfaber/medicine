@@ -8,8 +8,8 @@
                 templateUrl: "templates/directives/field.html",
                 scope: {
                     recordField: "=",
-                    recordDefinition: "="
-  /*                  dirty: "="*/
+                    recordDefinition: "=",
+                    fieldColour: "="
                 },
                 controller: controller
             }

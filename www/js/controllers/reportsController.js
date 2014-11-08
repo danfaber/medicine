@@ -5,6 +5,8 @@
 
     app.controller("reportsController", function($scope, $filter, recordSearchService, reportService, $http, utilitiesService) {
 
+        $scope.globalData.currentRecordDefinition = null;
+
         $scope.data = {
             fromDate:null,
             toDate: $filter('date')(new Date().setHours(0,0,0,0),'yyyy-MM-dd')

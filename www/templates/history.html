@@ -8,11 +8,11 @@
       <ion-slide-box does-continue="true" show-pager="false">
           <ion-slide ng-repeat="recordDefinition in recordDefinitions" active-slide="recordDefinition">
 
-              <div class="bar bar-stable" style="position: relative;">
-                  <i class="icon ion-chevron-left arrowIcon"></i>
+              <div id="historyHeader" class="bar bar-stable" ng-style="{'position':'relative','background-color':'{{recordDefinition.colour}}'}">
+                  <i class="icon ion-chevron-left arrowIcon" ng-click="previousRecordDefinition()"></i>
                   <h2 class="title"> {{recordDefinition.name}}</h2>
                   <div style="width: 100%;"></div>
-                  <i class="icon ion-chevron-right arrowIcon"></i>
+                  <i class="icon ion-chevron-right arrowIcon" ng-click="nextRecordDefinition()"></i>
               </div>
 
               <ion-content class="has-header">
@@ -26,7 +26,7 @@
                       </div>
                       <div class="item stable-bg" style="padding-bottom: 9px;">
                           <div ng-repeat="field in record.displayFields">
-                              <div style="font-weight: bold;" class="positive">{{field.name}}</div>
+                              <div ng-style="{'color':'{{recordDefinition.colour}}'}">{{field.name}}</div>
                               <div ng-repeat="value in field.values" class="item-text-wrap" style="margin-bottom: 7px;">
                                   {{value.value.text ? value.value.text : value.value}}
                               </div>

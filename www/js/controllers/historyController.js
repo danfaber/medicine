@@ -3,12 +3,13 @@
 
     var app = angular.module("medicine");
 
-    app.controller("historyController", function($scope, recordDefinitions, recordRepository, recordEntity) {
+    app.controller("historyController", function($scope, recordDefinitions, recordRepository, recordEntity, $ionicSlideBoxDelegate) {
 
         $scope.recordDefinitions = _(recordDefinitions.all())
             .map(function(recordDefinition) {return {
                 id: recordDefinition.id,
                 name: recordDefinition.name,
+                colour: recordDefinition.colour,
                 records: recordRepository.all(recordDefinition.id)
             }});
 
@@ -18,11 +19,24 @@
            });
         });
 
+        $scope.globalData.currentRecordDefinition = null;
 
-/*        $scope.isFieldToDisplay = function(recordField)
+        $scope.previousRecordDefinition = function()
         {
-            return recordFieldEntity.isDisplayedInSummaryView(recordField);
-        };*/
+            $ionicSlideBoxDelegate.previous();
+        };
+
+        $scope.nextRecordDefinition = function()
+        {
+            $ionicSlideBoxDelegate.next();
+        };
+
+
+
+        /*        $scope.isFieldToDisplay = function(recordField)
+                {
+                    return recordFieldEntity.isDisplayedInSummaryView(recordField);
+                };*/
 
 
 /*        $scope.data = {};

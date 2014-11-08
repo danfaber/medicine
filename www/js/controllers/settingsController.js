@@ -3,7 +3,9 @@
 
     var app = angular.module("medicine");
 
-    app.controller("settingsController", function($scope, pickListService, settingsRepository) {
+    app.controller("settingsController", function($scope, pickListService, settingsRepository, $ionicPopup, $cordovaToast) {
+
+        $scope.globalData.currentRecordDefinition = null;
         $scope.data = {};
 
         $scope.data.isBarcodeScannerEnabled = settingsRepository.getBarcodeScannerEnabled();
@@ -26,7 +28,18 @@
 
         $scope.clearStorage = function()
         {
-          window.localStorage.clear();
+            var popup = $ionicPopup.confirm({
+                title: 'Warning! This will delete ALL data!',
+                template: 'Are you sure you want to delete all records and settings?'
+            });
+
+            popup.then(function (result) {
+                if (result) {
+                    window.localStorage.clear();
+                    $cordovaToast.show("Data Deleted","short", "bottom");
+                }
+            });
+
         };
 
     });

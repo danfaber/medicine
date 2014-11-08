@@ -1,0 +1,58 @@
+@font-face {
+	font-family: "Flaticon";
+	src: url("flaticon.eot");
+	src: url("flaticon.eot#iefix") format("embedded-opentype"),
+	url("flaticon.woff") format("woff"),
+	url("flaticon.ttf") format("truetype"),
+	url("flaticon.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+	font-family: Flaticon;
+        font-size: 60px;
+font-style: normal;
+/*margin-left: 20px;*/
+}.flaticon-emergency7:before {
+	content: "\e000";
+}
+.flaticon-first1:before {
+	content: "\e001";
+}
+.flaticon-first21:before {
+	content: "\e002";
+}
+.flaticon-heart27:before {
+	content: "\e003";
+}
+.flaticon-hospital3:before {
+	content: "\e004";
+}
+.flaticon-lungs4:before {
+	content: "\e005";
+}
+.flaticon-md:before {
+	content: "\e006";
+}
+.flaticon-medical50:before {
+	content: "\e007";
+}
+.flaticon-medical55:before {
+	content: "\e008";
+}
+.flaticon-medical9:before {
+	content: "\e009";
+}
+.flaticon-pill:before {
+	content: "\e00a";
+}
+.flaticon-pulse1:before {
+	content: "\e00b";
+}
+.flaticon-stethoscope11:before {
+	content: "\e00c";
+}
+.flaticon-xray2:before {
+	content: "\e00d";
+}

@@ -42,12 +42,12 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, pi
       return $scope.globalData.currentRecordDefinition ? $scope.globalData.currentRecordDefinition.colour : "#555555";
   };
 
-  $scope.selectRecordDefinition = function(recordDefinition)
+/*  $scope.selectRecordDefinition = function(recordDefinition)
   {
       $scope.globalData.currentRecordDefinition = recordDefinition;
       $state.go('app.add',{recordDefinitionId:recordDefinition.id});
 //#/app/add?recordDefinitionId={{recordDefinitions[0].id}}
-  };
+  };*/
 
 
 /*  $scope.backButtonClicked = function(){

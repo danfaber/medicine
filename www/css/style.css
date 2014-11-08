@@ -2,14 +2,24 @@
     height: 100%;
 }
 
+#recordDefinitionTiles .tileRow
+{
+    height: 170px;
+}
+
 #recordDefinitionTiles .tileRow a{
-    padding: 60px 20px;
     text-align: center;
     text-decoration: none;
     color: #ffffff;
     border: white 4px solid;
-    font-size: 16px;
+    font-size: 20px;
 }
+
+#recordDefinitionTiles .tileRow a div{
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
 
 #historyPage .arrowIcon
 {
@@ -20,13 +30,27 @@
     margin-right: 10px;
 }
 
-h1 {
-    color: #ffffff;
+#historyPage h2
+{
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 
+ion-nav-bar button, ion-nav-bar h1, ion-nav-bar i, #historyHeader h2, #historyHeader i
+{
+    color: #ffffff !important;
+}
 
+.customYellowBackground
+{
+    background-color: #EDC951;
+}
 
+.popup-buttons .button.button-positive
+{
+    background-color: #CC333F;
+}
 
 /*
 
