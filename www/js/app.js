@@ -149,10 +149,20 @@ angular.module('medicine', ['ionic','ngCordova'])
                   controller: 'reviewController'
               }
           }
-      });
+      })
+
+        .state('app.passCode', {
+            url: "/passCode",
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/passCode.html",
+                    controller: 'passCodeController'
+                }
+            }
+        });
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/recordDefinitions');
+  $urlRouterProvider.otherwise('/app/passCode');
 });
 

@@ -32,6 +32,11 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, pi
   };*/
 
 
+  $scope.globalData = {
+      isSideMenuEnabled: true
+  };
+
+
   $scope.backButtonClicked = function(){
       $rootScope.$broadcast("backButtonClicked",{});
   };
