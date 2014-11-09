@@ -8,6 +8,7 @@
         var userNameKey = "DoctorName";
         var passCodeKey = "PassCode";
         var barcodeScannerKey = "barcodeScanner";
+        var userEmailAddressKey = "UserEmailAddress";
 
 
         return {
@@ -16,18 +17,47 @@
             getPassCode: getPassCode,
             savePassCode: savePassCode,
             setBarcodeScannerEnabled: setBarcodeScannerEnabled,
-            getBarcodeScannerEnabled: getBarcodeScannerEnabled
+            getBarcodeScannerEnabled: getBarcodeScannerEnabled,
+            getUserEmailAddress: getUserEmailAddress,
+            setUserEmailAddress: setUserEmailAddress
         };
 
         function getUserName()
         {
-            return $window.localStorage.getItem(userNameKey);
+            return getValue(userNameKey);
         }
 
         function setUserName(name)
         {
-            $window.localStorage.setItem(userNameKey, name);
+            setValue(userNameKey, name);
         }
+
+        function getUserEmailAddress()
+        {
+            return getValue(userEmailAddressKey);
+        }
+
+        function setUserEmailAddress(email)
+        {
+            setValue(userEmailAddressKey, email);
+        }
+
+
+        function getValue(key)
+        {
+            var value =  $window.localStorage.getItem(key);
+            return value ? value : "";
+        }
+
+        function setValue(key, value)
+        {
+            if (value === null || value === undefined) {
+                value = "";
+            }
+            
+            $window.localStorage.setItem(key, value);
+        }
+
 
         function getPassCode()
         {

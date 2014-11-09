@@ -9,12 +9,8 @@
         $scope.data = {};
 
         $scope.data.isBarcodeScannerEnabled = settingsRepository.getBarcodeScannerEnabled();
-        $scope.data.userName = settingsRepository.getUserName();
 
-        $scope.saveUserName = function()
-        {
-            settingsRepository.setUserName($scope.data.userName);
-        };
+
 
         $scope.changeBarcodeScanner = function()
         {

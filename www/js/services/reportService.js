@@ -19,8 +19,6 @@
 
         function generateReport(searchDefinition)
         {
-
-
             records = recordSearchService.getRecords(searchDefinition);
             var vm = {};
 

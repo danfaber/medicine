@@ -6,13 +6,19 @@
     var currentDateTime;
     var applicationName = "Log Book";
 
-    app.controller("exportController", function($scope) {
+    app.controller("exportController", function($scope, fileService) {
 
         $scope.globalData.currentRecordDefinition = null;
 
         $scope.exportData = function()
         {
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+
+            currentDateTime = new Date();
+
+            fileService.generateFile(applicationName,true,"html","<h1>body</h1>",emailFile, function(){});
+
+
+/*            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
 
             var fileSystem;
             var fileEntry;
@@ -37,7 +43,7 @@
                 writer.write("<h1>Hello Louit!</h1><div>Just need to put data from the system in here which shouldn't be too hard :)</div><div>Gonna try to get that done tomorrow.</div><div>D</div>");
             }
 
-            function fail(error) {}
+            function fail(error) {}*/
         };
 
         function emailFile(url)

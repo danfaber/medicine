@@ -4,20 +4,40 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
 
-        <ul class="list">
-            <label class="item item-input">
-                <span class="input-label">Start Date</span>
-                <input type="date" ng-model="data.fromDate">
-            </label>
+        <form novalidate name="reportForm">
 
-            <label class="item item-input">
-                <span class="input-label">To Date</span>
-                <input type="date" ng-model="data.toDate">
-            </label>
-        </ul>
-        <div class="padding">
-            <button ng-click="generateReport()" class="button button-block button-positive">Generate Report</button>
-        </div>
+            <ul class="list">
+
+                <label class="item item-input">
+                    <span class="input-label">Name</span>
+                    <input type="text" name="userName" required ng-model="data.userName" ng-change="saveUserName()" placeholder="Name displayed on reports">
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">Email</span>
+                    <input type="email" name="emailAddress" required ng-model="data.emailAddress" ng-change="saveEmailAddress()" placeholder="Address to email report to">
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">Start Date</span>
+                    <input type="date" ng-model="data.fromDate">
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">To Date</span>
+                    <input type="date" ng-model="data.toDate">
+                </label>
+            </ul>
+
+            <div ng-show="reportForm.userName.$error.required && reportForm.userName.$dirty" class="padding-left redFont">Please enter your name to be displayed on the report.</div>
+            <div ng-show="reportForm.emailAddress.$error.required && reportForm.emailAddress.$dirty" class="padding-left redFont">Please enter the email address to send your report to.</div>
+            <div ng-show="reportForm.emailAddress.$invalid && reportForm.emailAddress.$dirty && !reportForm.emailAddress.$error.required" class="padding-left redFont">Invalid email address.</div>
+
+            <div class="padding">
+                <button ng-disabled="reportForm.$invalid"  ng-click="generateReport()" class="button button-block button-positive">Generate Report</button>
+            </div>
+
+        </form>
 
     </ion-content>
 </ion-view>

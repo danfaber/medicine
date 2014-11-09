@@ -17,7 +17,7 @@
         {
             var isEntered = $scope.data.numbers[index] !== null;
 
-            return isEntered ? "flaticon-hospital16 pinEntered" : "flaticon-hospital16 pinEmpty";
+            return isEntered ? "flaticon-hospital16 daylightFont" : "flaticon-hospital16 greyFont";
         };
 
         $scope.pressedNumber = function(number)
