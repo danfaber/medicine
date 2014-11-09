@@ -54,7 +54,7 @@
             if (value === null || value === undefined) {
                 value = "";
             }
-            
+
             $window.localStorage.setItem(key, value);
         }
 

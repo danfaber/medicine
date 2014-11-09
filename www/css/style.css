@@ -68,9 +68,19 @@ ion-nav-bar button, ion-nav-bar h1, ion-nav-bar i, #historyHeader h2, #historyHe
     color: #EDC951;
 }
 
+.daylightBackground
+{
+    background-color: #EDC951;
+}
+
 .greyFont
 {
     color: #555555;
+}
+
+.paleGreyFont
+{
+    color: #aaaaaa;
 }
 
 
