@@ -17,7 +17,7 @@
         {
             var isEntered = $scope.data.numbers[index] !== null;
 
-            return isEntered ? "circle pinEntered" : "circle pinEmpty";
+            return isEntered ? "flaticon-hospital16 pinEntered" : "flaticon-hospital16 pinEmpty";
         };
 
         $scope.pressedNumber = function(number)

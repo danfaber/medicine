@@ -26,33 +26,36 @@ font-style: normal;
 .flaticon-heart27:before {
 	content: "\e003";
 }
-.flaticon-hospital3:before {
+.flaticon-hospital16:before {
 	content: "\e004";
 }
-.flaticon-lungs4:before {
+.flaticon-hospital3:before {
 	content: "\e005";
 }
-.flaticon-md:before {
+.flaticon-lungs4:before {
 	content: "\e006";
 }
-.flaticon-medical50:before {
+.flaticon-md:before {
 	content: "\e007";
 }
-.flaticon-medical55:before {
+.flaticon-medical50:before {
 	content: "\e008";
 }
-.flaticon-medical9:before {
+.flaticon-medical55:before {
 	content: "\e009";
 }
-.flaticon-pill:before {
+.flaticon-medical9:before {
 	content: "\e00a";
 }
-.flaticon-pulse1:before {
+.flaticon-pill:before {
 	content: "\e00b";
 }
-.flaticon-stethoscope11:before {
+.flaticon-pulse1:before {
 	content: "\e00c";
 }
-.flaticon-xray2:before {
+.flaticon-stethoscope11:before {
 	content: "\e00d";
+}
+.flaticon-xray2:before {
+	content: "\e00e";
 }
