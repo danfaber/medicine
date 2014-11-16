@@ -23,32 +23,26 @@
                     new pickListEntity.CategoryValue(1,"All",['New', 'Follow-up'])
                 ]),
 
-                new pickListEntity.PickList(6, "Procedures",false, true, false, false, [
-                    new pickListEntity.CategoryValue(1,"Aspiration, drainage, and biopsy",[
+                new pickListEntity.PickList(6, "Procedures", true, true, false, false, [
+                    new pickListEntity.CategoryValue(1,"All",[
                         'Ascitic drain',
                         'Ascitic tap',
-                        'Bone marrow aspirate',
                         'Fine needle aspirate',
                         'Joint aspiration',
                         'Lumbar puncture',
                         'Pleural drain',
-                        'Pleural tap'
-                    ]),
-                    new pickListEntity.CategoryValue(2, "Emergency", [
+                        'Pleural tap',
                         'CPR',
                         'DCCV cardioversion',
                         'Non-invasive ventilation',
                         'Pacing - Percutaneous',
                         'Pacing - Temporary Transvenous Wire',
-                        'Pericardial drainage'
-                    ]),
-                    new pickListEntity.CategoryValue(3, "Lines / Vascular access", [
+                        'Pericardial drainage',
                         'Arterial line',
                         'Central line',
                         'Pulmonary Artery Catheter',
                         'VasCath'
-                    ]),
-                    new pickListEntity.CategoryValue(4, "Specialist procedures", [])
+                    ])
                 ]),
 
                 new pickListEntity.PickList(7, "Indication", true, false, false, false, [
@@ -7335,6 +7329,7 @@
             var numberOfRequiredWords = requiredWordsLowered.length;
             var partialWord = searchTerms.partialWord ? searchTerms.partialWord.toLowerCase() : "";
             var partialWordLength = partialWord.length;
+            var valuesToShow = pickList.isWordSearchFirst ? maximumPickListMatchesToDisplay : Number.MAX_VALUE;
 
             for (var i = 0; i < pickList.values.length; i++)
             {
@@ -7349,7 +7344,7 @@
                 if (doesNotMatchPartialWord(value, requiredWordsLowered, partialWord, partialWordLength)) { continue; }
 
                 valueMatches.push(value);
-                if (valueMatches.length >= maximumPickListMatchesToDisplay) {break;}
+                if (valueMatches.length >= valuesToShow) {break;}
             }
 
             return _(valueMatches).sortBy(function(val){return val.text.toLowerCase();});

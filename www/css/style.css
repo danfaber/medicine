@@ -57,11 +57,20 @@ ion-nav-bar button, ion-nav-bar h1, ion-nav-bar i, #historyHeader h2, #historyHe
     color: #CC333F;
 }
 
+.redBackground
+{
+    background: #CC333F;
+}
+
 .ufoFont
 {
     color: #00A0B0;
 }
 
+.paleGreyBackground
+{
+    background-color: #eeeeee;
+}
 
 .daylightFont
 {
@@ -80,7 +89,7 @@ ion-nav-bar button, ion-nav-bar h1, ion-nav-bar i, #historyHeader h2, #historyHe
 
 .paleGreyFont
 {
-    color: #aaaaaa;
+    color: #ccc;
 }
 
 
