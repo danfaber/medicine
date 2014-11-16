@@ -174,7 +174,11 @@
 
         function addValue(cleanedText)
         {
-            var newValue = pickListService.addNewValue(pickListId, cleanedText, categoryId);
+            /* TODO add screen to check what this will be */
+            var newValueCategoryId = categoryId !== null ? categoryId
+                : $scope.pickList.categories[0];
+
+            var newValue = pickListService.addNewValue(pickListId, cleanedText, newValueCategoryId);
             $scope.selectValue(newValue);
         }
 

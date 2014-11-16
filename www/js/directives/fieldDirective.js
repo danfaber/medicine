@@ -74,13 +74,18 @@
 
         $scope.openBarcodeReader = function()
         {
+/*            value.value = "12345";
+            currentRecordService.get($scope.recordDefinition.id).isDirty = true;*/
+
             $cordovaBarcodeScanner.scan().then(function(imageData) {
                 //success
-                $scope.recordField.data.values[0].value = imageData.text;
-                currentRecordService.get($scope.recordDefinition.id).isDirty = true;
-            }, function(error) {
+                $scope.$apply(function(){
+                    $scope.recordField.data.values[0].value = imageData.text;
+                    currentRecordService.get($scope.recordDefinition.id).isDirty = true;
+                });
+         }, function(error) {
 
-            });
+        });
         };
 
         $scope.isBarcodeEnabled = function()
