@@ -21,31 +21,25 @@
         {
             records = recordSearchService.getRecords(searchDefinition);
             var vm = {};
-
             vm.userName = settingsRepository.getUserName();
             vm.totalEncounters = records.length;
             vm.fromDate = $filter('date')(searchDefinition.fromDate,'longDate');
             vm.toDate = $filter('date')(searchDefinition.toDate,'longDate');
-
             vm.numberOfClinicalEncounters = countByRecordDefinitionId(3);
             vm.numberOfClinicalFollowUps = numberOfClinicType("Follow-up");
             vm.numberOfClinicalNewReferrals = numberOfClinicType("New");
             vm.numberOfClinicalNonClassified = vm.numberOfClinicalEncounters - vm.numberOfClinicalFollowUps - vm.numberOfClinicalNewReferrals;
-
             vm.numberOfWardReferrals = countByRecordDefinitionId(2);
             vm.numberOfTake = countByRecordDefinitionId(1);
             vm.numberOfProcedures = countByRecordDefinitionId(4);
-
             vm.proceduresByCategory = getProcedures();
-
             vm.presentations = getPresentations();
-
             vm.diagnosesByCategory = getDiagnoses();
 
             return vm;
         }
 
-        function countByRecordDefinitionId(recordDefinitionId)
+         function countByRecordDefinitionId(recordDefinitionId)
         {
             return _(records)
                 .filter(function(record){return record.recordDefinitionId === recordDefinitionId;})
@@ -77,7 +71,9 @@
                 .filter(function(field){return field;})
                 .map(function(field) {return _.chain(field.data.values).filter(function(val){return val.value;}).map(function(value){return value.value;}).value()})
                 .flatten(true)
-                .groupBy(function(val) {return val.categoryId;})
+
+                /* TODO temp hack remove check below*/
+                .groupBy(function(val) {return _.isObject(val.categoryId) ? val.categoryId.id :  val.categoryId;})
                 .value();
 
             return _(proceduresByCategory)
@@ -123,12 +119,9 @@
             .map(function(record){return _(record.recordFields).find(function(field){return field.fieldDefinition.pickListId === 3; })})
             .value();*/
 
-
             return diag;
 
         }
-
-        
 
     }
 

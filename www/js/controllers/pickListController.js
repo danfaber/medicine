@@ -176,7 +176,7 @@
         {
             /* TODO add screen to check what this will be */
             var newValueCategoryId = categoryId !== null ? categoryId
-                : $scope.pickList.categories[0];
+                : $scope.pickList.categories[0].id;
 
             var newValue = pickListService.addNewValue(pickListId, cleanedText, newValueCategoryId);
             $scope.selectValue(newValue);

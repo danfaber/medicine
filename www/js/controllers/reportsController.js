@@ -31,16 +31,24 @@
 
             var viewModel = reportService.generateReport(searchDefinition);
 
-
             $http.get("templates/reportTemplate.html").success(function(template){
 
-                var compiledTemplate = Handlebars.compile(template);
+                $http.get("templates/bootstrapAsText.txt").success(function(bootstrap){
 
-                var reportHtml = compiledTemplate(viewModel);
+                    $http.get("templates/jqueryAsText.txt").success(function(jquery){
 
-                var reportName = $scope.data.userName + " Log Book";
+                        var compiledTemplate = Handlebars.compile(template);
 
-                fileService.generateFile(reportName, true, "html", reportHtml, emailReport, onError);
+                        var reportHtml = compiledTemplate(viewModel);
+
+                        var htmlWithStylesAndJavascript = bootstrap + reportHtml + jquery;
+
+                        var reportName = $scope.data.userName + " Log Book";
+
+                        fileService.generateFile(reportName, true, "html", htmlWithStylesAndJavascript, emailReport, onError);
+                    })
+                });
+
             });
         };
 
