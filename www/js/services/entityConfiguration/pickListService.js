@@ -7357,6 +7357,10 @@
         function valueMatches(pickListId, searchTerms, categoryId)
         {
             var pickList = getById(pickListId);
+            var isEmptyWordSearch = searchTerms.completeWords.length === 0 && !searchTerms.partialWord && pickList.isWordSearchFirst;
+
+            if (isEmptyWordSearch) {return pickListRepository.getMostRecentValues(pickListId);}
+
             var valueMatches = [];
             var value;
             var isNotInFilteredCategory;
@@ -7470,7 +7474,7 @@
             if (existingValue) {return existingValue;}
 
             var pickList = getById(pickListId);
-            var words = pickValueSplitter.splitSentence("text");
+            var words = pickValueSplitter.splitSentence(text);
             var newValue = new pickListEntity.PickValue(categoryId, text, words);
             pickList.values.push(newValue);
             pickListRepository.saveAddedValue(pickListId, newValue);

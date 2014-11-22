@@ -3,7 +3,7 @@
 
     var app = angular.module("medicine");
 
-    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout, currentRecordService, $state, $ionicPopup, maximumPickListMatchesToDisplay, utilitiesService) {
+    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout, currentRecordService, $state, $ionicPopup, maximumPickListMatchesToDisplay, utilitiesService, pickListRepository) {
 
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         var fieldDefinitionId = parseInt($stateParams.fieldDefinitionId);
@@ -136,6 +136,8 @@
             pickListService.incrementCount(pickListId, value);
 
             currentRecordService.get(recordDefinitionId).isDirty = true;
+
+            pickListRepository.setRecentPickListValue(pickListId, value);
 
             $state.go('app.add', {recordDefinitionId: recordDefinitionId} );
         };
