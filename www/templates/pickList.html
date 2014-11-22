@@ -22,7 +22,7 @@
         </div>
 
         <div class="list list-insert" ng-style="data.topStyle" style="margin-right: 10px; margin-left: 10px;" ng-show="data.valueMatches.length > 0">
-            <div ng-repeat="value in data.valueMatches" class="item item-text-wrap" ng-click="selectValue(value)">
+            <div ng-repeat="value in data.valueMatches" class="item item-text-wrap" ng-click="selectValue(value)" on-hold="longPressValue(value)">
                 {{value.text}}
             </div>
             <div class="item item-text-wrap dark-bg" ng-show="data.valueMatches.length >= data.maximumPickListMatchesToDisplay" style="color: #ffffff;">

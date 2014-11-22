@@ -57,7 +57,7 @@
                     new pickListEntity.CategoryValue(1,"All",[])
                 ]),
 
-                new pickListEntity.PickList(2, "Presentation", true, true, false, false, [
+                new pickListEntity.PickList(2, "Symptoms", true, true, false, false, [
                     new pickListEntity.CategoryValue(1,"All",[
                         'Acute back pain',
                         'Abdominal Mass, Hepatomegaly, or splenomegaly',

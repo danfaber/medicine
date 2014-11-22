@@ -172,6 +172,13 @@
             }
         };
 
+        $scope.longPressValue = function(value)
+        {
+            alert("hi");
+            /* need to make this delete things*/
+
+        };
+
         function addValue(cleanedText)
         {
             /* TODO add screen to check what this will be */

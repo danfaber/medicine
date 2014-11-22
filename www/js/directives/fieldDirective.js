@@ -19,9 +19,7 @@
     {
         $scope.changeToggle = function()
         {
-
             $scope.makeDirty();
-      /*      $scope.dirty = true;*/
 
             if ($scope.recordField.fieldDefinition.fieldType.name === "boolean") { return; }
 
@@ -51,6 +49,18 @@
             );
         };
 
+        $scope.showPlusIcon = function()
+        {
+            if (!$scope.recordField.fieldDefinition.isMultiSelect) { return false; }
+
+            var isAnyEmptyValues = _($scope.recordField.data.values)
+                .some(function(val) { return !val.value;});
+
+            if (isAnyEmptyValues) {return false;}
+
+            return !$scope.recordField.fieldDefinition.isToggled || $scope.recordField.data.isChecked
+        };
+
 
         $scope.setFocus = function($event)
         {
@@ -68,15 +78,10 @@
         $scope.makeDirty = function()
         {
             currentRecordService.get($scope.recordDefinition.id).isDirty = true;
-          /*  $ionicNavBarDelegate.showBackButton(false);*/
-           // $scope.recordDefinition.isDirty = true;
         };
 
         $scope.openBarcodeReader = function()
         {
-/*            value.value = "12345";
-            currentRecordService.get($scope.recordDefinition.id).isDirty = true;*/
-
             $cordovaBarcodeScanner.scan().then(function(imageData) {
                 //success
                 $scope.$apply(function(){
@@ -99,12 +104,6 @@
 
             var pickList = pickListService.getById(pickListId);
 
-
-/*            var selectedValue = _($scope.recordField.data.values)
-                .find(function(val) {return val.index == index;});
-
-            var isAlreadySelected = !!selectedValue.value;*/
-
             var showCategories = pickList.showCategoriesAsTabs && pickList.categories.length > 1;
 
             if (showCategories)
@@ -126,11 +125,7 @@
                         /*categoryId: pickList.categories[0].id*/
                     }
                 );
-
-                ///pickList?recordDefinitionId&fieldDefinitionId&index&categoryId
             }
-
-           // $state.go('app.add', {recordDefinitionId: recordDefinitionId} );
         };
 
 

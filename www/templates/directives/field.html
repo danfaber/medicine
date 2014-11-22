@@ -13,7 +13,7 @@
             </div>
             <div class="col col-20" style="padding: 0;">
                 <a class="button button-icon icon ion-plus-circled" style="min-height: 42px; float: right;"
-                   ng-if="recordField.fieldDefinition.isMultiSelect && (!recordField.fieldDefinition.isToggled || recordField.data.isChecked)" style="padding:0;"
+                   ng-if="showPlusIcon()" style="padding:0;"
                    ng-click="addNewValue()"></a>
             </div>
         </div>
@@ -44,78 +44,5 @@
         </div>
     </div>
 </div>
-
-<!--
-<div class="item item-input item-stacked-label" style="height: 50px;">
-    <div style="display: inline-block; padding:10px; position: relative; bottom: 10px;">{{recordField.fieldDefinition.name}}</div>
-
-    <label class="checkbox" ng-show="recordField.fieldDefinition.isToggled" >
-        <input type="checkbox" ng-model="recordField.data.isChecked" style="padding: 0; " ng-change="changeToggle()">
-    </label>
-
-    <a class="button button-icon icon ion-plus-circled"
-       ng-show="recordField.fieldDefinition.isMultiSelect && (!recordField.fieldDefinition.isToggled || recordField.data.isChecked)"
-       style="position: relative; bottom: 9px; padding: 0 7px;"
-       ng-click="addNewValue()"></a>
-
-</div>
--->
-
-
-
-<!--
-<div class="row">
-
-    <div class="col col-80">
-        <div class="item item-input item-stacked-label">
-
-            <div ng-switch="recordField.fieldDefinition.fieldType.name">
-
-                <short-text ng-switch-when="shortText"></short-text>
-                <long-text ng-switch-when="longText"></long-text>
-                <date ng-switch-when="date"></date>
-                <boolean ng-switch-when="boolean"></boolean>
-            </div>
--->
-
-
-
-<!--            <div ng-click="setFocus($event)">{{recordField.fieldDefinition.name}}</div>
-
-            <ul>
-                <li ng-repeat="value in recordField.data.values">
-                    <div ng-switch="recordField.fieldDefinition.fieldType.name">
-                        <short-text ng-switch-when="shortText" value="value"></short-text>
-                        <date ng-switch-when="date" value="value"></date>
-                        <boolean ng-switch-when="boolean" value="value"></boolean>
-                        <long-text ng-switch-when="longText" value="value"></long-text>
-                        <short-text ng-switch-when="barcode" value="value"></short-text>
-                        <pick-list ng-switch-when="pickList" value="value" record-definition-id="{{recordDefinition.id}}"
-                                   field-definition-id="{{recordField.fieldDefinition.id}}" index="{{$index}}"></pick-list>
-                    </div>
-                </li>
-            </ul>-->
-<!--
-        </div>
-
-    </div>
-
-    <div class="col" style="position: relative">
-        <label class="checkbox" ng-show="recordField.fieldDefinition.isToggled" >
-            <input type="checkbox" ng-model="recordField.data.isChecked" ng-change="changeToggle()">
-        </label>
-
-        <a class="button button-icon icon ion-plus-circled"
-           ng-show="recordField.fieldDefinition.isMultiSelect && (!recordField.fieldDefinition.isToggled || recordField.data.isChecked)"
-           style="position: absolute; bottom: 0; left: 5px;"
-           ng-click="addNewValue()"></a>
-
-        <a class="icon button button-icon ion-ios7-barcode"
-           ng-show="recordField.fieldDefinition.name == 'barcode'"></a>
-    </div>
-
-</div>
--->
-
 
 

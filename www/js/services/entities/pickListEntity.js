@@ -43,9 +43,6 @@
         {
             this.id = id;
             this.name = name;
-/*            this.values = values;
-            this.valueCount = values.length;*/
-          /*  this.allWords = getUniqueWords(values);*/
         }
 
         function PickValue(text, categoryId)
