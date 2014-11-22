@@ -3,7 +3,7 @@
 
     var app = angular.module("medicine");
 
-    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout, currentRecordService, $state, $ionicPopup, maximumPickListMatchesToDisplay) {
+    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout, currentRecordService, $state, $ionicPopup, maximumPickListMatchesToDisplay, utilitiesService) {
 
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         var fieldDefinitionId = parseInt($stateParams.fieldDefinitionId);
@@ -174,9 +174,18 @@
 
         $scope.longPressValue = function(value)
         {
-            alert("hi");
-            /* need to make this delete things*/
-
+            var confirmPopup = $ionicPopup.confirm({
+                title: 'Delete Value',
+                template: 'Are you sure you want to permanently delete:</br><strong>'+ value.text + '</strong>?'
+            });
+            confirmPopup.then(function(result) {
+                if(result) {
+                    utilitiesService.removeFromArray($scope.data.valueMatches, function(val) {
+                        return val.text === value.text && val.categoryId === value.categoryId;
+                    });
+                    pickListService.deleteValue(pickListId, value);
+                }
+            });
         };
 
         function addValue(cleanedText)

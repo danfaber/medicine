@@ -7229,7 +7229,7 @@
                         "Amyloidosis of skin",
                         "Other specified disorders of skin and subcutaneous tissue in diseases classified elsewhere"
                     ])*/
-                ]
+                ];
                 //)];
 
     /* now we need to add whatever is new*/
@@ -7240,7 +7240,17 @@
             _(newValues).each(function(value){
                pickList.values.push(value);
             });
+
+            var toDeleteValues = pickListRepository.getDeletedValues(pickList.id);
+
+            utilitiesService.removeFromArray(pickList.values, function(value) {
+                return _(toDeleteValues).some(function(toDelete){return value.categoryId === toDelete.categoryId && value.text === toDelete.text; })
+            });
+
         });
+
+
+
 
 
 
@@ -7467,6 +7477,16 @@
             return newValue;
         }
 
+        function deleteValue(pickListId, pickListValue)
+        {
+            pickListRepository.removeValue(pickListId, pickListValue);
+
+            var pickList = getById(pickListId);
+            utilitiesService.removeFromArray(pickList.values, function(val) {
+                return val.text === pickListValue.text && val.categoryId === pickListValue.categoryId;
+            });
+        }
+
         function getAll()
         {
             return pickLists;
@@ -7481,7 +7501,8 @@
             incrementCount: incrementCount,
             addNewValue: addNewValue,
             findByText: findByText,
-            getAll: getAll
+            getAll: getAll,
+            deleteValue: deleteValue
         };
     }
 })();

@@ -7,13 +7,16 @@
         var pickListPrefix = 'PickLists';
         var pickListsEverSavedKey = 'HavePickListsEverBeenSaved';
         var pickListAddedPrefix = 'PickListAdded_';
+        var pickListDeletePrefix = 'PickListDeleted_';
 
         return {
             saveAll: saveAll,
             havePicksListsEverBeenSaved: havePicksListsEverBeenSaved,
             getAllAsJson: getAllAsJson,
             saveAddedValue: saveAddedValue,
-            getNewValues: getNewValues
+            getNewValues: getNewValues,
+            removeValue: removeValue,
+            getDeletedValues: getDeletedValues
         };
 
         function getAllAsJson()
@@ -52,6 +55,28 @@
             var newValueJson = $window.localStorage.getItem(key);
 
             return newValueJson ? JSON.parse(newValueJson) : [];
+        }
+
+        function removeValue(pickListId, pickListValue)
+        {
+            var key = pickListDeletePrefix + pickListId;
+
+            var existingDeletedValuesJson = $window.localStorage.getItem(key);
+
+            var existingDeletedValues = existingDeletedValuesJson ? JSON.parse(existingDeletedValuesJson) : [];
+
+            existingDeletedValues.push(pickListValue);
+
+            var newDeletedValuesJson = angular.toJson(existingDeletedValues);
+
+            $window.localStorage.setItem(key, newDeletedValuesJson);
+        }
+
+        function getDeletedValues(pickListId)
+        {
+            var key = pickListDeletePrefix + pickListId;
+            var deletedValuesJson = $window.localStorage.getItem(key);
+            return deletedValuesJson ? JSON.parse(deletedValuesJson) : [];
         }
     }
 
