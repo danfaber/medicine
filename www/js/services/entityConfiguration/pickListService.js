@@ -1,127 +1,140 @@
 (function(){
     'use strict';
 
-    angular.module("medicine").factory("pickListService", ["pickListEntity", "pickListRepository", "utilitiesService","maximumPickListMatchesToDisplay", pickListService]);
+    angular.module("medicine").factory("pickListService", ["pickListEntity", "pickListRepository", "utilitiesService","maximumPickListMatchesToDisplay", "pickValueSplitter", pickListService]);
 
-    function pickListService(pickListEntity, pickListRepository, utilitiesService, maximumPickListMatchesToDisplay){
+    function pickListService(pickListEntity, pickListRepository, utilitiesService, maximumPickListMatchesToDisplay, pickValueSplitter){
 
-        var pickLists = [];
+
         var maximumWordMatches = 8;
 
-        function getDefaultPickLists()
+/*        function getDefaultPickLists()
         {
-            return [
-                new pickListEntity.PickList(1, "Referral Reason", true, false, false, false, [
-                    new pickListEntity.CategoryValue(1,"All",[])
-                ]),
+            return */
+        var pickLists =
+            [
+                 new pickListEntity.PickList(1, "Referral Reason", true, false, false, false,
+                        [new pickListEntity.Category(1,"All")],
+                        []
+                 ),
 
-                new pickListEntity.PickList(4, "Referral source", true, false, false, false, [
-                    new pickListEntity.CategoryValue(1,"All",[])
-                ]),
+                 new pickListEntity.PickList(4, "Referral source", true, false, false, false,
+                     [new pickListEntity.Category(1,"All")],
+                     []
+                 ),
 
-                new pickListEntity.PickList(5, "New / Follow-up", false, false, false, false, [
-                    new pickListEntity.CategoryValue(1,"All",['New', 'Follow-up'])
-                ]),
+                 new pickListEntity.PickList(5, "New / Follow-up", false, false, false, false,
+                     [new pickListEntity.Category(1,"All")],
+                     [
+                         new pickListEntity.PickValue(1, 'New', ['new']),
+                         new pickListEntity.PickValue(1, 'Follow-up', ['follow','up'])
+                     ]
+                 ),
 
-                new pickListEntity.PickList(6, "Procedures", true, true, false, false, [
-                    new pickListEntity.CategoryValue(1,"All",[
-                        'Ascitic drain',
-                        'Ascitic tap',
-                        'Fine needle aspirate',
-                        'Joint aspiration',
-                        'Lumbar puncture',
-                        'Pleural drain',
-                        'Pleural tap',
-                        'CPR',
-                        'DCCV cardioversion',
-                        'Non-invasive ventilation',
-                        'Pacing - Percutaneous',
-                        'Pacing - Temporary Transvenous Wire',
-                        'Pericardial drainage',
-                        'Arterial line',
-                        'Central line',
-                        'Pulmonary Artery Catheter',
-                        'VasCath'
-                    ])
-                ]),
+                new pickListEntity.PickList(6, "Procedures", true, true, false, false,
+                    [new pickListEntity.Category(1, "All")],
+                    [
+                        new pickListEntity.PickValue(1, 'Ascitic drain', ['ascitic','drain']),
+                        new pickListEntity.PickValue(1, 'Ascitic tap', ['ascitic','tap']),
+                        new pickListEntity.PickValue(1, 'Fine needle aspirate', ['fine','needle','aspirate']),
+                        new pickListEntity.PickValue(1, 'Joint aspiration', ['joint','aspiration']),
+                        new pickListEntity.PickValue(1, 'Lumbar puncture', ['lumbar','puncture']),
+                        new pickListEntity.PickValue(1, 'Pleural drain', ['pleural','drain']),
+                        new pickListEntity.PickValue(1, 'Pleural tap', ['pleural','tap']),
+                        new pickListEntity.PickValue(1, 'CPR', ['cpr']),
+                        new pickListEntity.PickValue(1, 'DCCV cardioversion', ['dccv','cardioversion']),
+                        new pickListEntity.PickValue(1, 'Non-invasive ventilation', ['non-invasive','ventilation']),
+                        new pickListEntity.PickValue(1, 'Pacing - Percutaneous', ['pacing','percutaneous']),
+                        new pickListEntity.PickValue(1, 'Arterial line', ['arterial','line']),
+                        new pickListEntity.PickValue(1, 'Central line', ['central','line']),
+                        new pickListEntity.PickValue(1, 'Pulmonary Artery Catheter', ['pulmonary','artery','catheter']),
+                        new pickListEntity.PickValue(1, 'VasCath', ['vascath'])
+                    ]
+                ),
 
-                new pickListEntity.PickList(7, "Indication", true, false, false, false, [
-                    new pickListEntity.CategoryValue(1,"All",[])
-                ]),
+                new pickListEntity.PickList(7, "Indication", true, false, false, false,
+                    [new pickListEntity.Category(1,"All")],
+                    []
+                ),
 
-                new pickListEntity.PickList(8, "Complications", true, false, false, false, [
-                    new pickListEntity.CategoryValue(1,"All",[])
-                ]),
+                new pickListEntity.PickList(8, "Complications", true, false, false, false,
+                    [new pickListEntity.CategoryValue(1,"All")],
+                    []
+                ),
 
-                new pickListEntity.PickList(9, "Location", true, false, false, false, [
-                    new pickListEntity.CategoryValue(1,"All",[])
-                ]),
+                new pickListEntity.PickList(9, "Location", true, false, false, false,
+                    [new pickListEntity.Category(1,"All")],
+                    []
+                ),
 
-                new pickListEntity.PickList(2, "Symptoms", true, true, false, false, [
-                    new pickListEntity.CategoryValue(1,"All",[
-                        'Acute back pain',
-                        'Abdominal Mass, Hepatomegaly, or splenomegaly',
-                        'Abnormal sensation (paraesthesia & numbness)',
-                        'Acute kidney injury',
-                        'Aggressive / Disturbed behaviour',
-                        'Alcohol / Substance Dependance',
-                        'Anxiety / Panic Disorder',
-                        'Blackout / collapse',
-                        'Breathlessness',
-                        'Bruising / Spontaneous bleeding',
-                        'Chest pain',
-                        'Chronic kidney disease',
-                        'Confusion (Acute/Delirium)',
-                        'Cough',
-                        'Dialysis',
-                        'Diarrhoea',
-                        'Dyspepsia',
-                        'Dysuria',
-                        'Falls',
-                        'Fever',
-                        'Fits / Seizure',
-                        'Genital Discharge / Ulceration',
-                        'Haematemesis / Malaena',
-                        'Haematuria',
-                        'Haemoptysis',
-                        'Head Injury',
-                        'Headache',
-                        'Hoarseness / stridor',
-                        'Hypothermia',
-                        'Immobility',
-                        'Incidental findings',
-                        'Involuntary Movements',
-                        'Jaundice',
-                        'Joint Swelling',
-                        'Limb pain / Swelling',
-                        'Loin Pain',
-                        'Lymphadenopathy',
-                        'Medical Problems / Complications following surgical procedures',
-                        'Medical Problems in Pregnancy',
-                        'Memory Loss (progressive)',
-                        'Micturition difficulties',
-                        'Neck pain',
-                        'Palliation / End of life care',
-                        'Palpitations',
-                        'Physical symptoms in absence of organic disease',
-                        'Poisoning',
-                        'Polydipsia',
-                        'Polyuria',
-                        'Pruritus',
-                        'Rash',
-                        'Rectal bleeding',
-                        'Skin / Mouth ulcers',
-                        'Speech disturbance',
-                        'Suicidal ideation',
-                        'Swallowing difficulties',
-                        'Syncope / Pre-syncope',
-                        'Unsteadiness / Balance disturbance',
-                        'Visual disturbance (diplopia, visual field deficit, or reduced acuity)',
-                        'Vomiting / Nausea',
-                        'Weakness / Paralysis',
-                        'Weight loss',
-                        'Abdominal pain'
-                    ])]),
+                new pickListEntity.PickList(2, "Symptoms", true, true, false, false,
+                    [new pickListEntity.Category(1,"All")],
+                    [
+                        new pickListEntity.PickValue(1,'Acute back pain',['acute','back','pain']),
+                        new pickListEntity.PickValue(1,'Abdominal Mass Hepatomegaly splenomegaly',['abdominal','mass','hepatomegaly','splenomegaly']),
+                        new pickListEntity.PickValue(1,'Abnormal sensation paraesthesia numbness',['abnormal','sensation','paraesthesia','numbness']),
+                        new pickListEntity.PickValue(1,'Acute kidney injury',['acute','kidney','injury']),
+                        new pickListEntity.PickValue(1,'Aggressive Disturbed behaviour',['aggressive','disturbed','behaviour']),
+                        new pickListEntity.PickValue(1,'Alcohol Substance Dependance',['alcohol','substance','dependance']),
+                        new pickListEntity.PickValue(1,'Anxiety Panic Disorder',['anxiety','panic','disorder']),
+                        new pickListEntity.PickValue(1,'Blackout collapse',['blackout','collapse']),
+                        new pickListEntity.PickValue(1,'Breathlessness',['breathlessness']),
+                        new pickListEntity.PickValue(1,'Bruising Spontaneous bleeding',['bruising','spontaneous','bleeding']),
+                        new pickListEntity.PickValue(1,'Chest pain',['chest','pain']),
+                        new pickListEntity.PickValue(1,'Chronic kidney disease',['chronic','kidney','disease']),
+                        new pickListEntity.PickValue(1,'Confusion AcuteDelirium',['confusion','acutedelirium']),
+                        new pickListEntity.PickValue(1,'Cough',['cough']),
+                        new pickListEntity.PickValue(1,'Dialysis',['dialysis']),
+                        new pickListEntity.PickValue(1,'Diarrhoea',['diarrhoea']),
+                        new pickListEntity.PickValue(1,'Dyspepsia',['dyspepsia']),
+                        new pickListEntity.PickValue(1,'Dysuria',['dysuria']),
+                        new pickListEntity.PickValue(1,'Falls',['falls']),
+                        new pickListEntity.PickValue(1,'Fever',['fever']),
+                        new pickListEntity.PickValue(1,'Fits Seizure',['fits','seizure']),
+                        new pickListEntity.PickValue(1,'Genital Discharge Ulceration',['genital','discharge','ulceration']),
+                        new pickListEntity.PickValue(1,'Haematemesis Malaena',['haematemesis','malaena']),
+                        new pickListEntity.PickValue(1,'Haematuria',['haematuria']),
+                        new pickListEntity.PickValue(1,'Haemoptysis',['haemoptysis']),
+                        new pickListEntity.PickValue(1,'Head Injury',['head','injury']),
+                        new pickListEntity.PickValue(1,'Headache',['headache']),
+                        new pickListEntity.PickValue(1,'Hoarseness stridor',['hoarseness','stridor']),
+                        new pickListEntity.PickValue(1,'Hypothermia',['hypothermia']),
+                        new pickListEntity.PickValue(1,'Immobility',['immobility']),
+                        new pickListEntity.PickValue(1,'Incidental findings',['incidental','findings']),
+                        new pickListEntity.PickValue(1,'Involuntary Movements',['involuntary','movements']),
+                        new pickListEntity.PickValue(1,'Jaundice',['jaundice']),
+                        new pickListEntity.PickValue(1,'Joint Swelling',['joint','swelling']),
+                        new pickListEntity.PickValue(1,'Limb pain Swelling',['limb','pain','swelling']),
+                        new pickListEntity.PickValue(1,'Loin Pain',['loin','pain']),
+                        new pickListEntity.PickValue(1,'Lymphadenopathy',['lymphadenopathy']),
+                        new pickListEntity.PickValue(1,'Medical Problems Complications following surgical procedures',['medical','problems','complications','following','surgical','procedures']),
+                        new pickListEntity.PickValue(1,'Medical Problems in Pregnancy',['medical','problems','in','pregnancy']),
+                        new pickListEntity.PickValue(1,'Memory Loss progressive',['memory','loss','progressive']),
+                        new pickListEntity.PickValue(1,'Micturition difficulties',['micturition','difficulties']),
+                        new pickListEntity.PickValue(1,'Neck pain',['neck','pain']),
+                        new pickListEntity.PickValue(1,'Palliation End life care',['palliation','end','life','care']),
+                        new pickListEntity.PickValue(1,'Palpitations',['palpitations']),
+                        new pickListEntity.PickValue(1,'Physical symptoms absence organic disease',['physical','symptoms','absence','organic','disease']),
+                        new pickListEntity.PickValue(1,'Poisoning',['poisoning']),
+                        new pickListEntity.PickValue(1,'Polydipsia',['polydipsia']),
+                        new pickListEntity.PickValue(1,'Polyuria',['polyuria']),
+                        new pickListEntity.PickValue(1,'Pruritus',['pruritus']),
+                        new pickListEntity.PickValue(1,'Rash',['rash']),
+                        new pickListEntity.PickValue(1,'Rectal bleeding',['rectal','bleeding']),
+                        new pickListEntity.PickValue(1,'Skin Mouth ulcers',['skin','mouth','ulcers']),
+                        new pickListEntity.PickValue(1,'Speech disturbance',['speech','disturbance']),
+                        new pickListEntity.PickValue(1,'Suicidal ideation',['suicidal','ideation']),
+                        new pickListEntity.PickValue(1,'Swallowing difficulties',['swallowing','difficulties']),
+                        new pickListEntity.PickValue(1,'Syncope Pre-syncope',['syncope','pre-syncope']),
+                        new pickListEntity.PickValue(1,'Unsteadiness Balance disturbance',['unsteadiness','balance','disturbance']),
+                        new pickListEntity.PickValue(1,'Visual disturbance diplopia visual field deficit reduced acuity',['visual','disturbance','diplopia','visual','field','deficit','reduced','acuity']),
+                        new pickListEntity.PickValue(1,'Vomiting Nausea',['vomiting','nausea']),
+                        new pickListEntity.PickValue(1,'Weakness Paralysis',['weakness','paralysis']),
+                        new pickListEntity.PickValue(1,'Weight loss',['weight','loss']),
+                        new pickListEntity.PickValue(1,'Abdominal pain',['abdominal','pain'])
+                    ]
+                    )
+/*
                 new pickListEntity.PickList(3, "Diagnoses", false, false, false, true, [
                     new pickListEntity.CategoryValue(1, "Respiratory diseases", [
                         "Lymphocyte function antigen-1 [LFA-1] defect",
@@ -7215,11 +7228,23 @@
                         "Disorder of skin and subcutaneous tissue, unspecified",
                         "Amyloidosis of skin",
                         "Other specified disorders of skin and subcutaneous tissue in diseases classified elsewhere"
-                    ])
-                ])];
-        }
+                    ])*/
+                ]
+                //)];
 
-        function loadPickLists()
+    /* now we need to add whatever is new*/
+
+        _(pickLists).each(function(pickList){
+           var newValues = pickListRepository.getNewValues(pickList.id);
+
+            _(newValues).each(function(value){
+               pickList.values.push(value);
+            });
+        });
+
+
+
+/*        function loadPickLists()
         {
             if (pickLists.length > 0) {return;}
 
@@ -7241,12 +7266,12 @@
             {
                 pickLists = JSON.parse(pickListJson);
             }
-        }
+        }*/
 
-        function onPickListDeserialised(e)
+/*        function onPickListDeserialised(e)
         {
             pickLists = e.data;
-        }
+        }*/
 
 /*        function persistPickLists(pickListJson)
         {
@@ -7435,8 +7460,10 @@
             if (existingValue) {return existingValue;}
 
             var pickList = getById(pickListId);
-            var newValue = new pickListEntity.PickValue(text, categoryId);
+            var words = pickValueSplitter.splitSentence("text");
+            var newValue = new pickListEntity.PickValue(categoryId, text, words);
             pickList.values.push(newValue);
+            pickListRepository.saveAddedValue(pickListId, newValue);
             return newValue;
         }
 
@@ -7446,7 +7473,7 @@
         }
 
         return {
-            loadPickLists: loadPickLists,
+          /*  loadPickLists: loadPickLists,*/
             getById: getById,
             getCategory: getCategory,
             wordMatches: wordMatches,

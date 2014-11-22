@@ -28,7 +28,7 @@ angular.module('medicine', ['ionic','ngCordova'])
             currentRecordDataService.hydrateCurrentRecords();*/
 
 
-            pickListService.loadPickLists();
+          //  pickListService.loadPickLists();
 
 
 /*            document.addEventListener('deviceready', function() {

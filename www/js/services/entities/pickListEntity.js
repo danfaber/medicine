@@ -5,7 +5,7 @@
 
     function pickListEntity(pickValueSplitter){
 
-        function PickList(id, name, isAbleToAddNewValues, promptBeforeAdd, showCategoriesAsTabs, isWordSearchFirst, categoryValues)
+        function PickList(id, name, isAbleToAddNewValues, promptBeforeAdd, showCategoriesAsTabs, isWordSearchFirst, categories, values)
         {
             var that = this;
 
@@ -16,7 +16,10 @@
             that.showCategoriesAsTabs = showCategoriesAsTabs;
             that.isWordSearchFirst = isWordSearchFirst;
 
-            that.categories = [];
+            that.categories = categories;
+            that.values = values;
+
+/*            that.categories = [];
             that.values = [];
 
             _(categoryValues).each(function(categoryValue){
@@ -28,7 +31,7 @@
                     that.values.push(new PickValue(val, categoryValue.id));
                 });
 
-            });
+            });*/
         }
 
         function CategoryValue(id, name, textValues)
@@ -45,18 +48,20 @@
             this.name = name;
         }
 
-        function PickValue(text, categoryId)
+        function PickValue(categoryId, text, words)
         {
             this.text = text;
             this.categoryId = categoryId;
             this.count = 0;
-            this.words = pickValueSplitter.splitSentence(text);
+           // this.words = pickValueSplitter.splitSentence(text);
+            this.words = words;
         }
 
         return {
             PickList: PickList,
             PickValue: PickValue,
-            CategoryValue: CategoryValue
+            CategoryValue: CategoryValue,
+            Category: Category
         };
     }
 })();
