@@ -1,0 +1,10 @@
+<ion-view title="Select Category">
+
+    <ion-content class="has-header">
+        <ion-list>
+            <ion-item ng-repeat="category in pickList.categories" ng-click="selectCategory(category)">
+                {{category.name}}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

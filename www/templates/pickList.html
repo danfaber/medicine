@@ -6,6 +6,7 @@
     </ion-nav-buttons>
 
     <ion-content class="has-header">
+
         <div class="bar bar-header" style="padding-top: 6px; padding-bottom: 4px;" ng-show="{{data.showAddSearchBar}}">
             <div class="item item-input-inset" style="padding: 0; width: 100%; border: none; height: 100%;">
                 <div class="item-input-wrapper" style="height: 33px;">
@@ -25,7 +26,7 @@
             <div ng-repeat="value in data.valueMatches" class="item item-text-wrap" ng-click="selectValue(value)" on-hold="longPressValue(value)">
                 {{value.text}}
             </div>
-            <div class="item item-text-wrap dark-bg" ng-show="data.valueMatches.length >= data.maximumPickListMatchesToDisplay" style="color: #ffffff;">
+            <div class="item item-text-wrap dark-bg" ng-show="data.pickList.isWordSearchFirst && data.valueMatches.length >= data.maximumPickListMatchesToDisplay" style="color: #ffffff;">
                 <div>Showing first {{data.maximumPickListMatchesToDisplay}} matches.</div>
                 <div>Refine search terms for more.</div>
             </div>

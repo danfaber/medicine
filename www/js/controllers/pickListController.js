@@ -3,7 +3,7 @@
 
     var app = angular.module("medicine");
 
-    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout, currentRecordService, $state, $ionicPopup, maximumPickListMatchesToDisplay, utilitiesService, pickListRepository) {
+    app.controller("pickListController", function($scope, $stateParams, pickListService, recordDefinitions,  $ionicNavBarDelegate, $timeout, currentRecordService, $state, $ionicPopup, maximumPickListMatchesToDisplay, utilitiesService, pickListRepository, $ionicPopover) {
 
         var recordDefinitionId = parseInt($stateParams.recordDefinitionId);
         var fieldDefinitionId = parseInt($stateParams.fieldDefinitionId);
@@ -116,7 +116,7 @@
 
         $scope.selectValue = function(value)
         {
-            var currentRecord = currentRecordService.get(recordDefinitionId);
+/*            var currentRecord = currentRecordService.get(recordDefinitionId);
 
             var field = _(currentRecord.recordFields)
                 .find(function(field) {return field.fieldDefinitionId === fieldDefinitionId;});
@@ -137,7 +137,9 @@
 
             currentRecordService.get(recordDefinitionId).isDirty = true;
 
-            pickListRepository.setRecentPickListValue(pickListId, value);
+            pickListRepository.setRecentPickListValue(pickListId, value);*/
+
+            pickListService.selectValue(recordDefinitionId, fieldDefinitionId, pickListId, index, value);
 
             $state.go('app.add', {recordDefinitionId: recordDefinitionId} );
         };
@@ -192,18 +194,30 @@
 
         function addValue(cleanedText)
         {
-            /* TODO add screen to check what this will be */
-            var newValueCategoryId = categoryId !== null ? categoryId
-                : $scope.pickList.categories[0].id;
+            var isMultiplePossibleCategories = categoryId === null && $scope.pickList.categories.length > 0;
 
-            var newValue = pickListService.addNewValue(pickListId, cleanedText, newValueCategoryId);
-            $scope.selectValue(newValue);
+            if (isMultiplePossibleCategories)
+            {
+                $state.go('app.newPickListValueCategory', {pickListId: pickListId, text: cleanedText, fieldDefinitionId: fieldDefinitionId, index: index, recordDefinitionId: recordDefinitionId} );
+            }
+            else
+            {
+                var newValueCategoryId = categoryId !== null ? categoryId
+                    : $scope.pickList.categories[0].id;
+
+                var newValue = pickListService.addNewValue(pickListId, cleanedText, newValueCategoryId);
+                $scope.selectValue(newValue);
+            }
+
         }
 
         function selectSearchBox()
         {
             $timeout(function(){document.getElementById("inputText").focus();},0);
         }
+
+
+
 
     });
 

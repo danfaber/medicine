@@ -1,9 +1,9 @@
 (function(){
     'use strict';
 
-    angular.module("medicine").factory("pickListService", ["pickListEntity", "pickListRepository", "utilitiesService","maximumPickListMatchesToDisplay", "pickValueSplitter", pickListService]);
+    angular.module("medicine").factory("pickListService", ["pickListEntity", "pickListRepository", "utilitiesService","maximumPickListMatchesToDisplay", "pickValueSplitter", "currentRecordService", pickListService]);
 
-    function pickListService(pickListEntity, pickListRepository, utilitiesService, maximumPickListMatchesToDisplay, pickValueSplitter){
+    function pickListService(pickListEntity, pickListRepository, utilitiesService, maximumPickListMatchesToDisplay, pickValueSplitter, currentRecordService){
 
 
         var maximumWordMatches = 8;
@@ -133,7 +133,38 @@
                         new pickListEntity.PickValue(1,'Weight loss',['weight','loss']),
                         new pickListEntity.PickValue(1,'Abdominal pain',['abdominal','pain'])
                     ]
-                    )
+                    ),
+
+                new pickListEntity.PickList(3, "Diagnoses", true, false, false, true,
+                    [
+                        new pickListEntity.Category(1,"Respiratory diseases"),
+                        new pickListEntity.Category(2,"Other diseases")
+                    ],
+                    [
+                        new pickListEntity.PickValue(1,'Palliation End life care',['palliation','end','life','care']),
+                        new pickListEntity.PickValue(1,'Palpitations',['palpitations']),
+                        new pickListEntity.PickValue(1,'Physical symptoms absence organic disease',['physical','symptoms','absence','organic','disease']),
+                        new pickListEntity.PickValue(1,'Poisoning',['poisoning']),
+                        new pickListEntity.PickValue(1,'Polydipsia',['polydipsia']),
+                        new pickListEntity.PickValue(1,'Polyuria',['polyuria']),
+                        new pickListEntity.PickValue(1,'Pruritus',['pruritus']),
+                        new pickListEntity.PickValue(1,'Rash',['rash']),
+                        new pickListEntity.PickValue(1,'Rectal bleeding',['rectal','bleeding']),
+                        new pickListEntity.PickValue(1,'Skin Mouth ulcers',['skin','mouth','ulcers']),
+                        new pickListEntity.PickValue(2,'Speech disturbance',['speech','disturbance']),
+                        new pickListEntity.PickValue(2,'Suicidal ideation',['suicidal','ideation']),
+                        new pickListEntity.PickValue(2,'Swallowing difficulties',['swallowing','difficulties']),
+                        new pickListEntity.PickValue(2,'Syncope Pre-syncope',['syncope','pre-syncope']),
+                        new pickListEntity.PickValue(2,'Unsteadiness Balance disturbance',['unsteadiness','balance','disturbance']),
+                        new pickListEntity.PickValue(2,'Visual disturbance diplopia visual field deficit reduced acuity',['visual','disturbance','diplopia','visual','field','deficit','reduced','acuity']),
+                        new pickListEntity.PickValue(2,'Vomiting Nausea',['vomiting','nausea']),
+                        new pickListEntity.PickValue(2,'Weakness Paralysis',['weakness','paralysis']),
+                        new pickListEntity.PickValue(2,'Weight loss',['weight','loss']),
+                        new pickListEntity.PickValue(2,'Abdominal pain',['abdominal','pain'])
+                    ])
+
+
+
 /*
                 new pickListEntity.PickList(3, "Diagnoses", false, false, false, true, [
                     new pickListEntity.CategoryValue(1, "Respiratory diseases", [
@@ -7496,6 +7527,32 @@
             return pickLists;
         }
 
+        function selectValue(recordDefinitionId, fieldDefinitionId, pickListId, index, value)
+        {
+            var currentRecord = currentRecordService.get(recordDefinitionId);
+
+            var field = _(currentRecord.recordFields)
+                .find(function(field) {return field.fieldDefinitionId === fieldDefinitionId;});
+
+            var isSameValueAlreadySelectedForDifferentIndex = _.chain(field.data.values)
+                .filter(function(val){return val.index != index;})
+                .some(function(val){return val.value.text == value.text && val.value.categoryId == value.categoryId;})
+                .value();
+
+            var fieldValue = _(field.data.values)
+                .find(function(val) {return val.index == index;});
+
+            var newTextValue = isSameValueAlreadySelectedForDifferentIndex ? null : value.text;
+
+            fieldValue.value = {text: newTextValue, categoryId: value.categoryId};
+
+            incrementCount(pickListId, value);
+
+            currentRecordService.get(recordDefinitionId).isDirty = true;
+
+            pickListRepository.setRecentPickListValue(pickListId, value);
+        }
+
         return {
           /*  loadPickLists: loadPickLists,*/
             getById: getById,
@@ -7506,7 +7563,8 @@
             addNewValue: addNewValue,
             findByText: findByText,
             getAll: getAll,
-            deleteValue: deleteValue
+            deleteValue: deleteValue,
+            selectValue: selectValue
         };
     }
 })();

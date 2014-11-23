@@ -14,9 +14,9 @@
                 withFieldDefinition(3, "Location", 3, false, false, allFieldTypes.pickList, 9),
                 withFieldDefinition(4, "Reason for referral", 4, false, false, allFieldTypes.pickList, 1),
                 withFieldDefinition(5, "Symptoms", 5, false, true, allFieldTypes.pickList, 2),
-            //    withFieldDefinition(6, "Diagnoses", 6, false, true, allFieldTypes.pickList, 3),
+                withFieldDefinition(6, "Diagnoses", 6, false, true, allFieldTypes.pickList, 3),
                 withFieldDefinition(7, "Notes", 7, false, false, allFieldTypes.longText),
-                withFieldDefinition(8, "Set Flag", 8, true, false, allFieldTypes.boolean)
+                withFieldDefinition(8, "Follow up", 8, true, false, allFieldTypes.boolean)
             ]),
 
             addRecordDefinition(2, "Ward referrals", 2, "#6A4A3C", [
@@ -26,9 +26,9 @@
                 withFieldDefinition(4, "Referral source", 4, false, false, allFieldTypes.pickList, 4),
                 withFieldDefinition(5, "Reason for referral", 5, false, false, allFieldTypes.pickList, 1),
                 withFieldDefinition(6, "Symptoms", 6, false, true, allFieldTypes.pickList, 2),
-         //       withFieldDefinition(7, "Diagnosis", 7, false, true, allFieldTypes.pickList, 3),
+                withFieldDefinition(7, "Diagnosis", 7, false, true, allFieldTypes.pickList, 3),
                 withFieldDefinition(8, "Notes", 8, false, false, allFieldTypes.longText),
-                withFieldDefinition(9, "Set Flag", 9, true, false, allFieldTypes.boolean)
+                withFieldDefinition(9, "Follow up", 9, true, false, allFieldTypes.boolean)
             ]),
 
             addRecordDefinition(3, "Clinic", 3, "#CC333F", [
@@ -37,9 +37,9 @@
                 withFieldDefinition(3, "New / Follow-up", 3, false, false, allFieldTypes.pickList, 5),
                 withFieldDefinition(4, "Reason for referral", 4, false, false, allFieldTypes.pickList, 1),
                 withFieldDefinition(5, "Symptoms", 5, false, true, allFieldTypes.pickList, 2),
-         //       withFieldDefinition(6, "Diagnoses", 6, false, true, allFieldTypes.pickList, 3),
+                withFieldDefinition(6, "Diagnoses", 6, false, true, allFieldTypes.pickList, 3),
                 withFieldDefinition(7, "Notes", 7, false, false, allFieldTypes.longText),
-                withFieldDefinition(8, "Set Flag", 8, true, false, allFieldTypes.boolean)
+                withFieldDefinition(8, "Follow up", 8, true, false, allFieldTypes.boolean)
             ]),
 
             addRecordDefinition(4, "Procedures", 4, "#EB6841", [
@@ -48,12 +48,12 @@
                 withFieldDefinition(3, "Procedure", 3, false, true, allFieldTypes.pickList, 6),
                 withFieldDefinition(4, "Indication", 4, false, false, allFieldTypes.pickList, 7),
                 withFieldDefinition(5, "Symptoms", 5, false, true, allFieldTypes.pickList, 2),
-          //      withFieldDefinition(6, "Diagnoses", 6, false, true, allFieldTypes.pickList, 3),
+                withFieldDefinition(6, "Diagnoses", 6, false, true, allFieldTypes.pickList, 3),
                 withFieldDefinition(7, "Findings", 7, true, false, allFieldTypes.longText),
                 withFieldDefinition(8, "Results", 8, true, false, allFieldTypes.longText),
                 withFieldDefinition(9, "Complications", 9, true, false, allFieldTypes.pickList, 8),
                 withFieldDefinition(10, "Notes", 10, false, false, allFieldTypes.longText),
-                withFieldDefinition(11, "Set Flag", 11, true, false, allFieldTypes.boolean)
+                withFieldDefinition(11, "Follow up", 11, true, false, allFieldTypes.boolean)
             ])
         ];
 
