@@ -8,9 +8,14 @@
 
         var maximumWordMatches = 8;
 
-/*        function getDefaultPickLists()
-        {
-            return */
+
+        var synonyms = [
+          ["heart", "cardiac"],
+          ["disease", "diseases"],
+          ["pain", "injury"]
+        ];
+
+
         var pickLists =
             [
                  new pickListEntity.PickList(1, "Referral Reason", true, false, false, false,
@@ -20,7 +25,22 @@
 
                  new pickListEntity.PickList(4, "Referral source", true, false, false, false,
                      [new pickListEntity.Category(1,"All")],
-                     []
+                     [
+                         new pickListEntity.PickValue(1, 'A&E', ['A&E']),
+                         new pickListEntity.PickValue(1, 'Acute medicine team', ['acute','medicine','team']),
+                         new pickListEntity.PickValue(1, 'Respiratory physicians', ['respiratory','physicians']),
+                         new pickListEntity.PickValue(1, 'Cardiologists', ['cardiologists']),
+                         new pickListEntity.PickValue(1, 'Gastroenterologists', ['gastroenterologists']),
+                         new pickListEntity.PickValue(1, 'Geriatricians ', ['geriatricians']),
+                         new pickListEntity.PickValue(1, 'Endocrinologists', ['endocrinologists']),
+                         new pickListEntity.PickValue(1, 'Neurologists', ['neurologists']),
+                         new pickListEntity.PickValue(1, 'Renal physicians', ['renal','physicians']),
+                         new pickListEntity.PickValue(1, 'Rheumatologists', ['rheumatologists']),
+                         new pickListEntity.PickValue(1, 'Psychiatrists', ['psychiatrists']),
+                         new pickListEntity.PickValue(1, 'Obstetricians and Gynaecologists', ['obstetricians','gynaecologists']),
+                         new pickListEntity.PickValue(1, 'General surgeons', ['general','surgeons']),
+                         new pickListEntity.PickValue(1, 'Intensive Care Team', ['intensive','care','team'])
+                     ]
                  ),
 
                  new pickListEntity.PickList(5, "New / Follow-up", false, false, false, false,
@@ -65,6 +85,14 @@
                 new pickListEntity.PickList(9, "Location", true, false, false, false,
                     [new pickListEntity.Category(1,"All")],
                     []
+                ),
+
+                new pickListEntity.PickList(10, "Gender", false, false, false, false,
+                    [new pickListEntity.Category(1,"All")],
+                    [
+                        new pickListEntity.PickValue(1,'Male',['male']),
+                        new pickListEntity.PickValue(1,'Female',['female'])
+                    ]
                 ),
 
                 new pickListEntity.PickList(2, "Symptoms", true, true, false, false,
@@ -141,8 +169,8 @@
                         new pickListEntity.Category(2,"Other diseases")
                     ],
                     [
-                        new pickListEntity.PickValue(1,'Palliation End life care',['palliation','end','life','care']),
-                        new pickListEntity.PickValue(1,'Palpitations',['palpitations']),
+                        new pickListEntity.PickValue(1,'heart attack',['heart','attack']),
+                        new pickListEntity.PickValue(1,'cardiac arrest',['cardiac','arrest']),
                         new pickListEntity.PickValue(1,'Physical symptoms absence organic disease',['physical','symptoms','absence','organic','disease']),
                         new pickListEntity.PickValue(1,'Poisoning',['poisoning']),
                         new pickListEntity.PickValue(1,'Polydipsia',['polydipsia']),
@@ -7345,6 +7373,10 @@
 
             var requiredWords = lowerCaseArray(searchTerms.completeWords);
 
+/*            var requiredSynonyms = _(requiredWords).map(function(word){
+                return synonymsForWord(word);
+            });*/
+
             var value;
             var wordMatches = [];
             var numberOfRequiredWords = requiredWords.length;
@@ -7425,13 +7457,21 @@
             if (!partialWord) { return false; }
 
             var word;
-            for(var i = 0; i < pickListValue.words.length; i++)
+            var requiredWordSynonyms = getSynonymnWords(pickListValue);
+            for(var i = 0; i < requiredWordSynonyms.length; i++)
+            {
+                word = requiredWordSynonyms[i];
+                if (requiredWords.indexOf(word) > -1) {continue;}
+
+                if (word.substring(0, partialWordLength) === partialWord) {return false;}
+            }
+/*            for(var i = 0; i < pickListValue.words.length; i++)
             {
                 word = pickListValue.words[i];
                 if (requiredWords.indexOf(word) > -1) {continue;}
 
                 if (word.substring(0, partialWordLength) === partialWord) {return false;}
-            }
+            }*/
             return true;
         }
 
@@ -7441,6 +7481,26 @@
             return _(items).map(function(item) {return item.toLowerCase();});
         }
 
+/*        function doesNotMatchRequiredWords(value, requiredSynonyms, numberOfWords)
+        {
+            var requiredSynonym;
+            var isNoMatchToGivenSynonym;
+            for (var i = 0; i < numberOfWords; i++)
+            {
+                requiredSynonym = requiredSynonyms[i];
+
+                isNoMatchToGivenSynonym = _(value.words)
+                    .intersection(requiredSynonym)
+                    .length === 0;
+
+                if (isNoMatchToGivenSynonym)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }*/
+
 
         function doesNotMatchRequiredWords(value, requiredWords, numberOfWords)
         {
@@ -7448,10 +7508,15 @@
             for (var i = 0; i < numberOfWords; i++)
             {
                 requiredWord = requiredWords[i];
-                if (value.words.indexOf(requiredWord) === -1)
+
+                if (getSynonymnWords(value).indexOf(requiredWord) === -1)
                 {
                     return true;
                 }
+/*                if (value.words.indexOf(requiredWord) === -1)
+                {
+                    return true;
+                }*/
             }
             return false;
         }
@@ -7553,6 +7618,48 @@
             pickListRepository.setRecentPickListValue(pickListId, value);
         }
 
+        /* todo finish off this function so can set empty value for pick list*/
+
+        function setAsNullValue(recordDefinitionId, fieldDefinitionId, index)
+        {
+            var currentRecord = currentRecordService.get(recordDefinitionId);
+
+            var field = _(currentRecord.recordFields)
+                .find(function(field) {return field.fieldDefinitionId === fieldDefinitionId;});
+
+            var fieldValue = _(field.data.values)
+                .find(function(val) {return val.index == index;});
+
+            fieldValue.value = null;
+
+
+        }
+
+
+        function getSynonymnWords(pickListValue)
+        {
+            var matchingCollections = _.chain(synonyms)
+                .filter(function(group) {return _(group).intersection(pickListValue.words).length >0;  })
+                .flatten(true)
+                .uniq()
+                .union(pickListValue.words)
+                .value();
+
+            return matchingCollections;
+        }
+
+
+        function synonymsForWord(word)
+        {
+            var synonyms = _.chain(synonyms)
+                .filter(function(group) {return _(group).some(function(wordInGroup) {return wordInGroup === word;});})
+                .flatten(true)
+                .uniq()
+                .value();
+
+            return (synonyms.length > 0) ? synonyms : [word];
+        }
+
         return {
           /*  loadPickLists: loadPickLists,*/
             getById: getById,
@@ -7564,7 +7671,8 @@
             findByText: findByText,
             getAll: getAll,
             deleteValue: deleteValue,
-            selectValue: selectValue
+            selectValue: selectValue,
+            setAsNullValue: setAsNullValue
         };
     }
 })();

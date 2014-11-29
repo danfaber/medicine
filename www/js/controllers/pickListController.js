@@ -192,9 +192,15 @@
             });
         };
 
+        $scope.setAsNullValue = function()
+        {
+            pickListService.setAsNullValue(recordDefinitionId, fieldDefinitionId, index);
+            $state.go('app.add', {recordDefinitionId: recordDefinitionId} );
+        };
+
         function addValue(cleanedText)
         {
-            var isMultiplePossibleCategories = categoryId === null && $scope.pickList.categories.length > 0;
+            var isMultiplePossibleCategories = categoryId === null && $scope.pickList.categories.length > 1;
 
             if (isMultiplePossibleCategories)
             {

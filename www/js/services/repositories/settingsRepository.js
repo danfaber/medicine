@@ -9,6 +9,7 @@
         var passCodeKey = "PassCode";
         var barcodeScannerKey = "barcodeScanner";
         var userEmailAddressKey = "UserEmailAddress";
+        var termsAndConditionsKey = "TermsAndConditions";
 
 
         return {
@@ -19,7 +20,9 @@
             setBarcodeScannerEnabled: setBarcodeScannerEnabled,
             getBarcodeScannerEnabled: getBarcodeScannerEnabled,
             getUserEmailAddress: getUserEmailAddress,
-            setUserEmailAddress: setUserEmailAddress
+            setUserEmailAddress: setUserEmailAddress,
+            isTermsAndConditionsAccepted: isTermsAndConditionsAccepted,
+            acceptTermsAndConditions: acceptTermsAndConditions
         };
 
         function getUserName()
@@ -78,6 +81,17 @@
         {
             var isEnabled = $window.localStorage.getItem(barcodeScannerKey);
             return isEnabled == undefined || isEnabled == null || isEnabled.toLowerCase() === "true";
+        }
+
+        function isTermsAndConditionsAccepted()
+        {
+            var isAccepted = $window.localStorage.getItem(termsAndConditionsKey);
+            return !!isAccepted;
+        }
+
+        function acceptTermsAndConditions()
+        {
+            $window.localStorage.setItem(termsAndConditionsKey, "true");
         }
 
     }

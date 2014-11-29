@@ -32,6 +32,10 @@
                     </textarea>
                 </div>
 
+                <div ng-switch-when="number" class="item item-input">
+                    <input type="number" ng-model="value.value" ng-change="makeDirty()">
+                </div>
+
                 <div ng-switch-when="barcode" class='item item-input item-icon-right'>
                     <input ng-model='value.value' type='text' ng-change='makeDirty()'>
                     <i ng-show="isBarcodeEnabled()" ng-click='openBarcodeReader()' class='icon ion-ios7-barcode'></i>

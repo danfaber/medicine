@@ -1,9 +1,9 @@
 (function(){
     'use strict';
 
-    angular.module("medicine").factory("allFieldTypes", ['barcodeType', 'booleanType', 'date_Type', 'longTextType', 'shortTextType', 'pickListType', allFieldTypes]);
+    angular.module("medicine").factory("allFieldTypes", ['barcodeType', 'booleanType', 'date_Type', 'longTextType', 'shortTextType', 'pickListType', 'numberType', allFieldTypes]);
 
-    function allFieldTypes(barcodeType, booleanType, date_Type, longTextType, shortTextType, pickListType){
+    function allFieldTypes(barcodeType, booleanType, date_Type, longTextType, shortTextType, pickListType, numberType){
 
         return {
             barcode: barcodeType,
@@ -11,7 +11,8 @@
             date: date_Type,
             longText: longTextType,
             shortText: shortTextType,
-            pickList: pickListType
+            pickList: pickListType,
+            number: numberType
         };
     }
 })();

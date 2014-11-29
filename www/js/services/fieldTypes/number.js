@@ -1,12 +1,12 @@
 (function(){
     'use strict';
 
-    angular.module("medicine").factory("pickListType", [pickListType]);
+    angular.module("medicine").factory("numberType", [numberType]);
 
-    function pickListType(){
+    function numberType(){
 
         var defaultValue = null;
-        var name = "pickList";
+        var name = "number";
 
         return {
             defaultValue: defaultValue,
@@ -14,3 +14,4 @@
         };
     }
 })();
+

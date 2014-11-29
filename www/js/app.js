@@ -131,6 +131,16 @@ angular.module('medicine', ['ionic','ngCordova'])
           }
       })
 
+      .state('app.termsAndConditions', {
+          url: "/termsAndConditions",
+          views: {
+              'menuContent' :{
+                  templateUrl: "templates/termsAndConditions.html",
+                  controller: "termsAndConditionsController"
+              }
+          }
+      })
+
       .state('app.reports', {
           url: "/reports",
           views: {

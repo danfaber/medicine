@@ -65,9 +65,6 @@
                         {
                             passCodeEnteredToBeConfirmed = null;
                             resetPassCodeWithDelay("Pincodes do not match. Please try again.");
-
- /*                           resetPassCode();
-                            $cordovaToast.show("Pincodes do not match, please try again.","long", "bottom");*/
                         }
                     }
                 }
@@ -78,9 +75,17 @@
         function enterMainApplication()
         {
             $window.setTimeout(function(){
-                $scope.globalData.isSideMenuEnabled = true;
-                $state.go('app.recordDefinitions');
-            }, 1);
+
+                if (settingsRepository.isTermsAndConditionsAccepted())
+                {
+                    $scope.globalData.isSideMenuEnabled = true;
+                    $state.go('app.recordDefinitions');
+                }
+                else
+                {
+                    $state.go('app.termsAndConditions');
+                }
+            }, 0);
         }
 
         $scope.back = function()
