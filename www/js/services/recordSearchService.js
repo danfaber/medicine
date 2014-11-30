@@ -10,22 +10,37 @@
             getRecords: getRecords
         };
 
-        function SearchDefinition(fromDate, toDate, followUpOnly, filterWords)
+        function SearchDefinition(fromDate, toDate, filterWords, followUpByDate)
         {
             this.fromDate = fromDate;
             this.toDate = toDate;
-            this.followUpOnly = followUpOnly;
             this.filterWords = filterWords;
+            this.followUpByDate = followUpByDate;
         }
 
         function getRecords(searchDefinition)
         {
             /* add more filtering logic here in due course*/
 
-/*            var fromDate = new Date(searchDefinition.fromDate);
-            var toDate = new Date(searchDefinition.toDate);*/
+            var dateMatchRecordIds;
+            var followUpByRecordIds;
 
-            var dateMatchRecordIds = recordRepository.getRecordsByCreatedDate(searchDefinition.fromDate, searchDefinition.toDate);
+            if (searchDefinition.fromDate && searchDefinition.toDate)
+            {
+                dateMatchRecordIds = recordRepository.getRecordsByCreatedDate(searchDefinition.fromDate, searchDefinition.toDate);
+            }
+
+            if (searchDefinition.followUpByDate)
+            {
+                followUpByRecordIds = recordRepository.getRecordsByFollowUpDate(searchDefinition.followUpByDate);
+            }
+            /*
+            * todo now need to check which these are to get the records
+            * will also need to introduce paging
+            * will also need to add word search on here with word indexing (but do after follow up stuff)
+            * 
+            * */
+
 
             return _(dateMatchRecordIds).map(function(id) {return recordRepository.getByStorageKey(id);})
         }

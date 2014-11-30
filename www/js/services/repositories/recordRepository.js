@@ -1,14 +1,13 @@
 (function(){
     'use strict';
-    angular.module("medicine").factory("recordRepository",['$window', 'recordDefinitions', 'recordEntity', 'recordPrefix','utilitiesService', recordRepository]);
+    angular.module("medicine").factory("recordRepository",['$window', 'recordDefinitions', 'recordEntity', 'recordPrefix','utilitiesService', 'earliestDate', recordRepository]);
 
-    function recordRepository($window, recordDefinitions, recordEntity, recordPrefix, utilitiesService){
+    function recordRepository($window, recordDefinitions, recordEntity, recordPrefix, utilitiesService, earliestDate){
 
         var currentRecordPrefix = "CR_";
         var createdDatePrefix = "I_CreatedDate_";
         var followUpDatePrefix = "I_FollowUp_";
         var earliestDate = moment("2014-10-01");
-
 
         return {
             save:save,
@@ -18,7 +17,8 @@
             all: getAllRecords,
             persistCurrentRecord: persistCurrentRecord,
             getByStorageKey: getRecordByStorageKey,
-            getRecordsByCreatedDate: getRecordsByCreatedDate
+            getRecordsByCreatedDate: getRecordsByCreatedDate,
+            getRecordsByFollowUpDate: getRecordsByFollowUpDate
         };
 
         function save(record)
@@ -44,13 +44,7 @@
             _(record.recordFields).each(function(field){
                 delete field.fieldDefinition;
                 delete field.data.previousValues;
-
-/*                _(field.data.values).each(function(val){
-                   delete val.previousValue;
-                });*/
             });
-
-
 
             var recordJson = angular.toJson(record);
             var key = recordPrefix + indexKey(record.recordDefinitionId, record.id);
@@ -186,18 +180,6 @@
 
             return record;
         }
-/*
-        function setPreviousValues(recordField)
-        {
-            recordField.data.previousValues = angular.copy(recordField.data.values);
-
-            _(recordField.data.values).each(function(val) {
-                var isReferenceType = _.isArray(val) || _.isObject(val);
-
-                val.previousValue = isReferenceType ? angular.copy(val.value) : val.value;
-            });
-        }*/
-
 
         function deleteCurrentRecord(recordDefinitionId)
         {
@@ -246,20 +228,15 @@
             return getRecordsBetweenDates(fromDateString, toDateString, createdDatePrefix);
         }
 
-        function getRecordsByFollowUpDate(fromDateString, toDateString)
+        function getRecordsByFollowUpDate(toDateString)
         {
-            return getRecordsBetweenDates(fromDateString, toDateString, followUpDatePrefix);
+            return getRecordsBetweenDates(earliestDate, toDateString, followUpDatePrefix);
         }
 
         function getRecordsBetweenDates(fromDateString, toDateString, indexPrefix)
         {
-            var fromDate = (!fromDateString || moment(fromDateString).isBefore(earliestDate))
-                ? earliestDate
-                : moment(fromDateString);
-
-            var toDate = (!toDateString || moment(toDateString).isAfter(moment()))
-                ? moment().get('date')
-                : moment(toDateString);
+            var fromDate = moment(fromDateString);
+            var toDate = moment(toDateString);
 
             var numberOfDays = toDate.diff(fromDate, 'days');
 
@@ -284,12 +261,6 @@
 
             return recordIds;
         }
-
-
-
-
-
-
     }
 })();
 

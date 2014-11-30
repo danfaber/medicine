@@ -5,8 +5,12 @@
 
     function barcodeType(){
 
-        var defaultValue = "";
         var name = "barcode";
+
+        function defaultValue()
+        {
+            return "";
+        }
 
         return {
             defaultValue: defaultValue,

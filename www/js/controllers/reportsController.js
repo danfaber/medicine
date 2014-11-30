@@ -3,7 +3,7 @@
 
     var app = angular.module("medicine");
 
-    app.controller("reportsController", function($scope, $filter, recordSearchService, reportService, $http, settingsRepository, fileService) {
+    app.controller("reportsController", function($scope, $filter, recordSearchService, reportService, $http, settingsRepository, fileService, earliestDate, $ionicPopup) {
 
         $scope.globalData.currentRecordDefinition = null;
 
@@ -27,29 +27,46 @@
 
         $scope.generateReport = function()
         {
-            var searchDefinition = new recordSearchService.SearchDefinition($scope.data.fromDate, $scope.data.toDate, false, []);
+            if (!$scope.data.fromDate)
+            {
+                $scope.data.fromDate = earliestDate;
+            }
 
-            var viewModel = reportService.generateReport(searchDefinition);
-
-            $http.get("templates/reportTemplate.html").success(function(template){
-
-                $http.get("templates/bootstrapAsText.txt").success(function(bootstrap){
-
-                    $http.get("templates/jqueryAsText.txt").success(function(jquery){
-
-                        var compiledTemplate = Handlebars.compile(template);
-
-                        var reportHtml = compiledTemplate(viewModel);
-
-                        var htmlWithStylesAndJavascript = bootstrap + reportHtml + jquery;
-
-                        var reportName = $scope.data.userName + " Log Book";
-
-                        fileService.generateFile(reportName, true, "html", htmlWithStylesAndJavascript, emailReport, onError);
-                    })
+            if (moment($scope.data.toDate).isBefore(moment($scope.data.fromDate)))
+            {
+                var popup = $ionicPopup.alert({
+                    title: 'Incorrect Date Range',
+                    template: 'Please make sure the <strong>To Date</strong> is after the <strong>To Date</strong>'
                 });
+                popup.then(function(res) {
+                });
+            }
+            else
+            {
+                var searchDefinition = new recordSearchService.SearchDefinition( $scope.data.fromDate, $scope.data.toDate, []);
 
-            });
+                var viewModel = reportService.generateReport(searchDefinition);
+
+                $http.get("templates/reportTemplate.html").success(function(template){
+
+                    $http.get("templates/bootstrapAsText.txt").success(function(bootstrap){
+
+                        $http.get("templates/jqueryAsText.txt").success(function(jquery){
+
+                            var compiledTemplate = Handlebars.compile(template);
+
+                            var reportHtml = compiledTemplate(viewModel);
+
+                            var htmlWithStylesAndJavascript = bootstrap + reportHtml + jquery;
+
+                            var reportName = $scope.data.userName + " Log Book";
+
+                            fileService.generateFile(reportName, true, "html", htmlWithStylesAndJavascript, emailReport, onError);
+                        })
+                    });
+
+                });
+            }
         };
 
         function emailReport(attachmentUrl)

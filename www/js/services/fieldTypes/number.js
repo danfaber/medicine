@@ -5,7 +5,10 @@
 
     function numberType(){
 
-        var defaultValue = null;
+        function defaultValue() {
+            return null;
+        }
+
         var name = "number";
 
         return {

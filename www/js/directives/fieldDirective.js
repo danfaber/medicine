@@ -25,7 +25,7 @@
 
             $scope.recordField.data.values = ($scope.recordField.data.isChecked)
                 ? [{
-                    value: $scope.recordField.fieldDefinition.fieldType.defaultValue,
+                    value: $scope.recordField.fieldDefinition.fieldType.defaultValue(),
                     index: 0
                     }]
                 : [];
@@ -42,7 +42,7 @@
 
             $scope.recordField.data.values.push(
                 {
-                    value: $scope.recordField.fieldDefinition.fieldType.defaultValue,
+                    value: $scope.recordField.fieldDefinition.fieldType.defaultValue(),
                     index: $scope.recordField.data.values.length
                 }
 

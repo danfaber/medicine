@@ -5,7 +5,10 @@
 
     function longTextType(){
 
-        var defaultValue = null;
+        function defaultValue()
+        {
+            return null;
+        }
         var name = "longText";
 
         return {

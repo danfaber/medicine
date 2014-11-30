@@ -5,9 +5,11 @@
 
     function shortTextType(){
 
-        var defaultValue = null;
+        function defaultValue()
+        {
+            return null;
+        }
         var name = "shortText";
-
 
         return {
             defaultValue: defaultValue,

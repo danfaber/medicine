@@ -5,7 +5,10 @@
 
     function pickListType(){
 
-        var defaultValue = null;
+        function defaultValue()
+        {
+            return null;
+        }
         var name = "pickList";
 
         return {

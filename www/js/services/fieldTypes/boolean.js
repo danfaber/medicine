@@ -5,8 +5,12 @@
 
     function booleanType(){
 
-        var defaultValue = false;
         var name = "boolean";
+
+        function defaultValue()
+        {
+            return false;
+        }
 
         return {
             defaultValue: defaultValue,
