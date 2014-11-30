@@ -23,24 +23,33 @@
 
         function save(record)
         {
+            // todo need to deal with changes to created datetime for index purposes
             var currentDateTime = new Date();
 
             if (!record.id)
             {
                 record.id = getRecordId(record.recordDefinitionId);
                 record.createdDateTime = currentDateTime;
-                indexRecordCreatedDate(record);
             } else
             {
                 record.modifiedDateTime = currentDateTime;
             }
 
+            indexRecordCreatedDate(record);
+
+
             delete record.recordDefinition;
             delete record.isDirty;
 
             _(record.recordFields).each(function(field){
-                delete field.fieldDefinition
+                delete field.fieldDefinition;
+
+                _(field.data.values).each(function(val){
+                   delete val.previousValue;
+                });
             });
+
+
 
             var recordJson = angular.toJson(record);
             var key = recordPrefix + indexKey(record.recordDefinitionId, record.id);
@@ -48,25 +57,81 @@
             $window.localStorage.setItem(key, recordJson);
         }
 
+
+
         function indexRecordCreatedDate(record)
         {
-            var createdDateText = recordDefinitions.getCreatedDate(record);
-            var storageKey = createdDatePrefix+createdDateText;
+            var createdDateField = recordDefinitions.getCreatedDate(record);
+            var createdDateText = createdDateField.value;
+            var previousCreatedDateText = createdDateField.previousValue;
+
+            if (previousCreatedDateText)
+            {
+                if (previousCreatedDateText !== createdDateText)
+                {
+                    indexRecord(record, createdDateText, createdDatePrefix, true);
+                    indexRecord(record, previousCreatedDateText, createdDatePrefix, false);
+                }
+            }
+            else
+            {
+                indexRecord(record, createdDateText, createdDatePrefix, true);
+            }
+        }
+
+/*        function indexRecordField(record, newValue, oldValue, indexPrefix)
+        {
+            if (oldValue)
+            {
+                if (oldValue !== newValue)
+                {
+                    indexRecord(record, newValue, indexPrefix, true);
+                    indexRecord(record, oldValue, indexPrefix, false);
+                }
+            }
+            else
+            {
+                indexRecord(record, newValue, indexPrefix, true);
+            }
+        }*/
+
+
+        function indexRecordFollowUpDate(record)
+        {
+            var followUpDateField = recordDefinitions.getFollowUpDate(record);
+
+            var dateValue = followUpDateField.values[0];
+
+         
+
+        }
+
+        function indexRecord(record, valueToIndex, indexPrefix, isAdded)
+        {
+            var storageKey = indexPrefix + valueToIndex;
             var existingRecordsJson = $window.localStorage.getItem(storageKey);
 
             var existingIds = existingRecordsJson ? JSON.parse(existingRecordsJson) : [];
             var recordKey = indexKey(record.recordDefinitionId, record.id);
-            existingIds.push(recordKey);
+
+            if (isAdded)
+            {
+                existingIds.push(recordKey);
+            }
+            else
+            {
+                utilitiesService.removeItemFromArray(existingIds, recordKey);
+            }
 
             var newRecordsJson = JSON.stringify(existingIds);
             $window.localStorage.setItem(storageKey, newRecordsJson);
         }
 
-
         function indexKey(recordDefinitionId, recordId)
         {
             return recordDefinitionId + "_" + recordId;
         }
+
 
         function getRecordId(recordDefinitionId)
         {
@@ -107,9 +172,20 @@
             _(record.recordFields).each(function(field) {
                 field.fieldDefinition = _(record.recordDefinition.fieldDefinitions)
                     .find(function(fieldDef) {return fieldDef.id == field.fieldDefinitionId;})
+
+                setPreviousValues(field);
             });
 
             return record;
+        }
+
+        function setPreviousValues(recordField)
+        {
+            _(recordField.data.values).each(function(val) {
+                var isReferenceType = _.isArray(val) || _.isObject(val);
+
+                val.previousValue = isReferenceType ? angular.copy(val.value) : val.value;
+            });
         }
 
 
@@ -164,7 +240,7 @@
         {
             return getRecordsBetweenDates(fromDateString, toDateString, followUpDatePrefix);
         }
-        
+
         function getRecordsBetweenDates(fromDateString, toDateString, indexPrefix)
         {
             var fromDate = (!fromDateString || moment(fromDateString).isBefore(earliestDate))

@@ -5,7 +5,7 @@
 
     app.factory("utilitiesService", function(){
 
-       var removeFromArray = function(array, predicate)
+       function removeFromArray(array, predicate)
        {
            for(var i = array.length - 1; i >= 0; i--)
            {
@@ -13,7 +13,14 @@
                    array.splice(i,1);
                }
            }
-       };
+       }
+
+        function removeItemFromArray(array, item)
+        {
+            removeFromArray(array, function(val) {
+                return val === item;
+            });
+        }
 
         function moveItemsInArray(array, from, to)
         {
@@ -35,21 +42,13 @@
         }
 
 
-/*        function parseYYYYmmDDdate(dateString)
-        {
-            var year = parseInt(dateString.substring(0,4));
-            var month = parseInt(dateString.substring(5,7));
-            var day = parseInt(dateString.substring(8,10));
-
-            return new Date(year, month - 1, day);
-        }*/
 
 
        return {
            removeFromArray: removeFromArray,
            moveItemsInArray: moveItemsInArray,
-        /*   parseYYYYmmDDdate: parseYYYYmmDDdate,*/
-           dateDiffInDays: dateDiffInDays
+           dateDiffInDays: dateDiffInDays,
+           removeItemFromArray: removeItemFromArray
        }
     });
 
