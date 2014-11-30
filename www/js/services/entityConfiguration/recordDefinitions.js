@@ -86,7 +86,7 @@
             }
 
             var createdField = _(record.recordFields).find(function(field) {return field.fieldDefinitionId === fieldDefinitionId;});
-            return createdField.data.values[0];
+            return createdField.data;
         }
 
         function getFollowUpDate(record)

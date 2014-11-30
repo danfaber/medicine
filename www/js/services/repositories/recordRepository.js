@@ -36,17 +36,18 @@
             }
 
             indexRecordCreatedDate(record);
-
+            indexRecordFollowUpDate(record);
 
             delete record.recordDefinition;
             delete record.isDirty;
 
             _(record.recordFields).each(function(field){
                 delete field.fieldDefinition;
+                delete field.data.previousValues;
 
-                _(field.data.values).each(function(val){
+/*                _(field.data.values).each(function(val){
                    delete val.previousValue;
-                });
+                });*/
             });
 
 
@@ -62,15 +63,20 @@
         function indexRecordCreatedDate(record)
         {
             var createdDateField = recordDefinitions.getCreatedDate(record);
-            var createdDateText = createdDateField.value;
-            var previousCreatedDateText = createdDateField.previousValue;
+            var createdDateText = createdDateField.values[0].value;
+
+            var previousCreatedDateText = createdDateField.previousValues ? createdDateField.previousValues[0].value : null;
 
             if (previousCreatedDateText)
             {
                 if (previousCreatedDateText !== createdDateText)
                 {
                     indexRecord(record, createdDateText, createdDatePrefix, true);
-                    indexRecord(record, previousCreatedDateText, createdDatePrefix, false);
+
+                    if (createdDateText)
+                    {
+                        indexRecord(record, previousCreatedDateText, createdDatePrefix, false);
+                    }
                 }
             }
             else
@@ -79,31 +85,33 @@
             }
         }
 
-/*        function indexRecordField(record, newValue, oldValue, indexPrefix)
-        {
-            if (oldValue)
-            {
-                if (oldValue !== newValue)
-                {
-                    indexRecord(record, newValue, indexPrefix, true);
-                    indexRecord(record, oldValue, indexPrefix, false);
-                }
-            }
-            else
-            {
-                indexRecord(record, newValue, indexPrefix, true);
-            }
-        }*/
-
-
         function indexRecordFollowUpDate(record)
         {
             var followUpDateField = recordDefinitions.getFollowUpDate(record);
 
-            var dateValue = followUpDateField.values[0];
+            var isChecked = followUpDateField.isChecked;
 
-         
+            var newValue = followUpDateField.values.length > 0 ? followUpDateField.values[0].value : null;
 
+            var isPreviousValue = followUpDateField.previousValues && followUpDateField.previousValues.length > 0;
+            var previousValue = isPreviousValue ? followUpDateField.previousValues[0].value : null;
+
+            if (isChecked)
+            {
+                if (newValue !== previousValue)
+                {
+                    indexRecord(record, newValue, followUpDatePrefix, true);
+
+                    if (previousValue)
+                    {
+                        indexRecord(record, previousValue, followUpDatePrefix, false);
+                    }
+                }
+            }
+            else
+            {
+                indexRecord(record, previousValue, followUpDatePrefix, false);
+            }
         }
 
         function indexRecord(record, valueToIndex, indexPrefix, isAdded)
@@ -173,20 +181,22 @@
                 field.fieldDefinition = _(record.recordDefinition.fieldDefinitions)
                     .find(function(fieldDef) {return fieldDef.id == field.fieldDefinitionId;})
 
-                setPreviousValues(field);
+                field.data.previousValues = angular.copy(field.data.values);
             });
 
             return record;
         }
-
+/*
         function setPreviousValues(recordField)
         {
+            recordField.data.previousValues = angular.copy(recordField.data.values);
+
             _(recordField.data.values).each(function(val) {
                 var isReferenceType = _.isArray(val) || _.isObject(val);
 
                 val.previousValue = isReferenceType ? angular.copy(val.value) : val.value;
             });
-        }
+        }*/
 
 
         function deleteCurrentRecord(recordDefinitionId)
